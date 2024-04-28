@@ -57,35 +57,4 @@ export const columns = [
             return <div>{formatted}</div>
         },
     },
-    {
-        header: "More Actions",
-        id: "actions",
-        cell: ({ row }) => {
-            const user = row.original;
-
-            return (
-                <div className="flex justify-center items-center">
-                    <DropdownMenu className="flex justify-center items-center">
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                <span className="sr-only">More Actions</span>
-                                <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <DropdownMenuItem
-                                onClick={() => navigator.clipboard.writeText(user.userId)}
-                            >
-                                Copy User ID
-                            </DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>View customer</DropdownMenuItem>
-                            <DropdownMenuItem>View payment details</DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </div>
-            )
-        },
-    }
 ]

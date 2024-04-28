@@ -23,6 +23,7 @@ import { useState, useTransition, useEffect } from "react";
 import { Mic } from 'lucide-react';
 import { MicOff } from 'lucide-react';
 import { Volume2 } from 'lucide-react';
+import { Copy } from 'lucide-react';
 
 // custom Hooks
 import useSpeechToText from "@/app/hooks/useSpeechToText";
@@ -32,6 +33,7 @@ import useTextToSpeech from "@/app/hooks/useTextToSpeech";
 import { Translate } from "@/app/action/translate";
 
 export default function TranslationForm() {
+    const [isCopied, setIsCopied] = useState(false);
     const [textInput, setTextInput] = useState('');
     const { isListening, transcript, startListening, stopListening } = useSpeechToText({ continuous: true, lang: 'fil-PH' });
 
@@ -274,14 +276,30 @@ export default function TranslationForm() {
                                                 </FormItem>
                                             )}
                                         />
-                                        <Button
-                                            className="flex justify-start py-4 mt-2"
-                                            type="button"
-                                            disabled={response.target !== "English" && response.target !== "Tagalog"}
-                                            variant="ghost"
-                                            onClick={() => { Speak({ translation: response.translation, lang: response.target }) }}>
-                                            <Volume2 className="h-6 w-6 mr-2 text-blue-500" /> Play Translation
-                                        </Button>
+                                        <div className="flex flex-row justify-start">
+                                            <Button
+                                                className="flex justify-start py-4 mt-2"
+                                                type="button"
+                                                disabled={response.target !== "English" && response.target !== "Tagalog"}
+                                                variant="ghost"
+                                                onClick={() => { Speak({ translation: response.translation, lang: response.target }) }}>
+                                                <Volume2 className="h-6 w-6 mr-2 text-blue-500" /> Play Translation
+                                            </Button>
+                                            <Button
+                                                className="flex justify-start py-4 mt-2"
+                                                disabled={!response.translation}
+                                                variant="ghost"
+                                                type="button"
+                                                onClick={() => {
+                                                    navigator.clipboard.writeText(response.translation)
+                                                    setIsCopied(true);
+                                                    setTimeout(() => setIsCopied(false), 3000);
+                                                }}
+                                            >
+                                                <Copy className="h-6 w-6 mr-2 text-blue-500" /> {isCopied ? <p>Text copied!</p> : <p>Copy Translation</p>}
+                                            </Button>
+                                        </div>
+
                                     </CardContent>
                                 </Card>
                             </div>

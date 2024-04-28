@@ -11,7 +11,7 @@ export default async function AdminPage() {
                 <Sidebar />
             </div>
             {/* Contents */}
-            <div className="w-full bg-mute rounded-l-[30px] p-[10px] bg-[#eeeeee]">
+            <div className="min-w-[75vw] bg-mute rounded-l-[30px] p-[10px] bg-[#ffffff]">
                 <Content />
             </div>
         </section>
