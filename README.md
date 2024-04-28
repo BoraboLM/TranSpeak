@@ -12,7 +12,12 @@ You might be asking why account with same email address dont linked automaticall
 
 - npx prisma db push: saving database models in the development 
 
+# FOR ENV AND API KEYS CONTENT MESSAGE ME: LAWRENCE BORABO
 
+# To Run this, Follow the steps.
+1. use this command 'git clone [and the url of this repo]'
+2. Install the dependencies in terminal using: 'npm install'
+3. run the development server: 'npm run dev'
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
