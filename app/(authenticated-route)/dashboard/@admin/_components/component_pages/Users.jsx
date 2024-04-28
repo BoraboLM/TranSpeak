@@ -15,8 +15,8 @@ export default async function Users() {
             <div className="grid px-4 py-6 gap-4">
 
                 <div className="w-full rounded-[15px] border-2 shadow-md">
-                    <span className="py-2 px-2 text-xl tracking-wider uppercase font-semibold text-indigo-400">Users Chart</span>
-                    <div className="h-[350px] grid-cols-1">
+                    <span className="py-4 px-4 text-xl tracking-wider uppercase font-semibold text-indigo-400">Users Chart</span>
+                    <div className="h-[350px] grid-cols-1 mt-4">
                         <Suspense fallback={<Skeleton />}>
                             <AreaChartComponent data={user_chart_data} />
                         </Suspense>

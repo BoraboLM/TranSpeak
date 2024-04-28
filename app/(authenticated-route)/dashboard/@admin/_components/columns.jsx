@@ -27,7 +27,7 @@ export const columns = [
     },
     {
         accessorKey: "information",
-        header: "Inforamtion",
+        header: "Details",
     },
     {
         accessorKey: "createdAt",
