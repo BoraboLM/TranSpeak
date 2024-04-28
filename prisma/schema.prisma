@@ -23,17 +23,20 @@ enum userRole {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   firstName     String?
   lastName      String?
   name          String?
-  email         String?   @unique
+  email         String?        @unique
   emailVerified DateTime?
   image         String?
   password      String?
-  role          userRole  @default(USER)
+  role          userRole       @default(USER)
   nationality   String?
   accounts      Account[]
+  location      Location?
+  activityLogs  ActivityLogs[]
+  Translation   Translation[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -76,4 +79,39 @@ model PasswordResetToken {
   expires DateTime
 
   @@unique([email, token])
+}
+
+model Location {
+  id        String  @id @default(cuid())
+  name      String?
+  userId    String  @unique
+  latitude  Float
+  longitude Float
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ActivityLogs {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  name        String
+  action      String
+  information String
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Translation {
+  id         String @id @default(cuid())
+  userId     String
+  input      String
+  output     String
+  inputLang  String
+  outputLang String
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 }

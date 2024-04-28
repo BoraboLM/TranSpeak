@@ -23,6 +23,7 @@ export const nationalities = [
    {value: "Central African", label: "Central African"},
    {value: "Chadian", label: "Chadian"},
    {value: "Chilean", label: "Chilean"},
+   {value: "Chinese", label: "Chinese"},
    {value: "Colombian", label: "Colombian"},
    {value: "Comoran", label: "Comoran"},
    {value: "Congolese", label: "Congolese"},

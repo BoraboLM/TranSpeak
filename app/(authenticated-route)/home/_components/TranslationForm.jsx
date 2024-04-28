@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { useForm } from "react-hook-form"
@@ -7,41 +8,53 @@ import { useForm } from "react-hook-form"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
-import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-} from "@/components/ui/command"
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 import { translateSchema } from './schema/translateSchema';
 import { Textarea } from '@/components/ui/textarea';
 import { languages } from "./data/languages";
-import { useState } from "react";
+import { useState, useTransition, useEffect } from "react";
+
+// Importing the icons
+import { Mic } from 'lucide-react';
+import { MicOff } from 'lucide-react';
+import { Volume2 } from 'lucide-react';
+
+// custom Hooks
+import useSpeechToText from "@/app/hooks/useSpeechToText";
+import useTextToSpeech from "@/app/hooks/useTextToSpeech";
+
+// Server Actions
+import { Translate } from "@/app/action/translate";
 
 export default function TranslationForm() {
+    const [textInput, setTextInput] = useState('');
+    const { isListening, transcript, startListening, stopListening } = useSpeechToText({ continuous: true, lang: 'fil-PH' });
+
+
+    const startStopListening = () => {
+        isListening ? stopVoiceInput() : startListening();
+    };
+
+    const stopVoiceInput = () => {
+        setTextInput(prevTextInput => {
+            const newText = transcript.length ? (prevTextInput ? ' ' : '') + transcript : '';
+            return prevTextInput + newText;
+        });
+        stopListening();
+    };
+
 
     const [sourceOpen, setSourceOpen] = useState(false)
     const [targetOpen, setTargetOpen] = useState(false)
     const [sourceValue, setSourceValue] = useState("")
     const [targetValue, setTargetValue] = useState("")
+    const [response, setResponse] = useState({ translation: "" })
+    const [isTranslating, startTransition] = useTransition();
     const form = useForm({
         resolver: zodResolver(translateSchema),
         defaultValues: {
@@ -51,8 +64,17 @@ export default function TranslationForm() {
         }
     })
 
-    function onSubmit(data) {
-        console.log(data)
+
+    const onSubmit = async (data) => {
+        startTransition(async () => {
+            const response = await Translate(data, textInput);
+            setResponse(response);
+        })
+    }
+
+    // text to speech function
+    const Speak = ({ translation, lang }) => {
+        useTextToSpeech(translation, lang);
     }
 
     return (
@@ -62,7 +84,7 @@ export default function TranslationForm() {
                     <form onSubmit={form.handleSubmit(onSubmit)} >
                         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-10">
                             <div>
-                                <Card className="w-full sm:w-[500px] shadow-lg">
+                                <Card className="w-[80vw] sm:w-[60vw] md:w-[60vw] lg:w-[35vw] xl:w-[30vw] 2xl:w-[30vw] shadow-xl">
                                     <div>
                                         <CardHeader>
                                             <FormField
@@ -83,7 +105,7 @@ export default function TranslationForm() {
                                                                         <span className="text-[16px]">
                                                                             {sourceValue
                                                                                 ? languages.find((language) => language.value === sourceValue)?.label
-                                                                                : "Select your Language..."}
+                                                                                : "Select source Language..."}
                                                                         </span>
 
                                                                     </FormControl>
@@ -128,6 +150,12 @@ export default function TranslationForm() {
                                             />
                                         </CardHeader>
                                     </div>
+
+
+                                    {/* 
+                                    STILL NEED TO FIX THE TEXTAREA TO IN ORDER TO VALIDATE THE INPUT
+                                    CURRENTLY IT IS NOT DETECTING THE INPUT VALUE BASED ON THE TEXTAREA ONLY EVEN THOUGH THE TEXTAREA HAS A VALUE
+                                    */}
                                     <CardContent>
                                         <FormField
                                             control={form.control}
@@ -139,18 +167,30 @@ export default function TranslationForm() {
                                                             placeholder="Enter text to translate..."
                                                             className="resize-none shadow-xl"
                                                             {...field}
+                                                            disabled={isListening}
+                                                            onChange={(e) => { setTextInput(e.target.value) }}
+                                                            value={isListening ? textInput + (transcript.length ? (textInput.length ? ' ' : '') + transcript : '') : textInput}
                                                         />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
                                         />
+
+                                        <Button
+                                            className="flex justify-start py-4 mt-2"
+                                            disabled={sourceValue !== "English" && sourceValue !== "Tagalog"}
+                                            type="button"
+                                            variant="ghost"
+                                            onClick={() => { startStopListening() }}>
+                                            {isListening ? <><MicOff className="h-6 w-6 mr-2 text-red-500" />Stop</> : <><Mic className="h-6 w-6 mr-2 text-blue-500" /> Open Microphone </>}
+                                        </Button>
                                     </CardContent>
                                 </Card>
                             </div>
 
                             <div>
-                                <Card className="w-full sm:w-[500px] shadow-lg">
+                                <Card className="w-[80vw] sm:w-[60vw] md:w-[60vw] lg:w-[35vw] xl:w-[30vw] 2xl:w-[30vw]  shadow-xl">
                                     <div>
                                         <CardHeader>
                                             <FormField
@@ -227,19 +267,30 @@ export default function TranslationForm() {
                                                             className="resize-none shadow-md"
                                                             {...field}
                                                             disabled
+                                                            value={response.translation}
                                                         />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
                                         />
+                                        <Button
+                                            className="flex justify-start py-4 mt-2"
+                                            type="button"
+                                            disabled={response.target !== "English" && response.target !== "Tagalog"}
+                                            variant="ghost"
+                                            onClick={() => { Speak({ translation: response.translation, lang: response.target }) }}>
+                                            <Volume2 className="h-6 w-6 mr-2 text-blue-500" /> Play Translation
+                                        </Button>
                                     </CardContent>
                                 </Card>
                             </div>
                         </div>
 
-                        <div className="flex gap-4 mt-4 w-full px-10  justify-center">
-                            <Button type="submit" className=" w-full border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out">Translate</Button>
+                        <div className="flex gap-4 mt-6 w-full px-10  justify-center">
+                            <Button type="submit" className=" w-[40vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw] xl:w-[30vw] 2xl:w-[30vw] border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out" disabled={isListening || isTranslating}>
+                                {isTranslating ? "Translating..." : "Translate"}
+                            </Button>
                         </div>
                     </form>
                 </Form>

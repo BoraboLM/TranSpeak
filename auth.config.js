@@ -4,6 +4,7 @@ import Google from "next-auth/providers/google";
 import { loginSchema } from "./components/Forms/schema/loginSchema";
 import { getUserEmail } from "./data/user";
 import bcrypt from "bcryptjs";
+import { db } from "./lib/db";
 
 const configuration = { 
     providers: [
@@ -25,7 +26,17 @@ const configuration = {
 
                     const passwordsMatch = await bcrypt.compare(password, user.password);
 
-                    if(passwordsMatch) return user;
+                    if(passwordsMatch){
+                        await db.ActivityLogs.create({
+                            data: {
+                                userId: user.id,
+                                action: "Login",
+                                name: user.firstName + " " + user.lastName,
+                                information: "User logged in",
+                            }
+                        })
+                        return user;
+                    }
                 }
 
                 return null;

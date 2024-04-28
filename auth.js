@@ -3,7 +3,6 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import configuration from "@/auth.config";
 import { db } from "@/lib/db";
-
 import { getUserId } from "@/data/user";
 
 export const {
@@ -24,6 +23,15 @@ export const {
             await db.user.update({
                 where: { id: user.id },
                 data: { emailVerified: new Date() }
+            })
+            // Create an activity log for the user
+            await db.ActivityLogs.create({
+                data:{
+                    userId: user.id,
+                    action: "Account Linked",
+                    name: user.name,
+                    information: "User Logged in using OAUTH Providers",
+                }
             })
         }
     },
@@ -55,7 +63,7 @@ export const {
 
             if(!existingUser) return null;
             token.role = existingUser.role;
-
+            
             return token;
         }
     },

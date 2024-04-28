@@ -24,7 +24,6 @@ export const Signin = async ( prevState, formData) =>{
 
     if(!existingUser.emailVerified){
         const verificationToken = await generateVerificationToken(existingUser.email);
-        console.log("login :",verificationToken.token);
         await sendVerificationEmail(existingUser.email, verificationToken.token);
 
         return {success: "Confirmation email sent! Please check your email to verify your account.✅✅"}

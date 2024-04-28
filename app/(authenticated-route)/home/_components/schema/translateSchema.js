@@ -7,7 +7,7 @@ export const translateSchema = z.object({
     target: z.string().min(1,{
         message: "Target Language is required!"
     }),
-    input: z.string().min(1,{
-        message: "Input is required!"
-    })
+    // input: z.string().min(1,{
+    //     message: "Input is required!"
+    // })
 })

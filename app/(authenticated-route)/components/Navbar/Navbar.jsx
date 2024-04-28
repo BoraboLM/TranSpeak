@@ -1,13 +1,15 @@
+"use client";
 import { dataLinks } from "./dataLinks/dataLinks"
 import Link from "next/link"
 import AvatarProfile from "./Avatar";
 import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger, } from "@/components/ui/sheet"
-
+import { useCurrentUser } from "@/app/hooks/use-current-user";
 
 export function Navbar() {
+    const user = useCurrentUser();
     return (
-        <nav className="w-full h-[8%] md:h-[8%] lg:h-[8%] flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 bg-white shadow-md z-50">
+        <nav className="w-full h-[8vh] md:h-[8vh] lg:h-[8vh] xl:h-[8vh] 2xl:h-[8vh] flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 bg-white shadow-md z-50">
             <div className="flex items-center space-x-2 sm:space-x-4 md:space-x-8">
                 <div className="sm:hidden">
                     <Sheet>

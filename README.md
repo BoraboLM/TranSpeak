@@ -1,6 +1,17 @@
 <!-- Account Linking -->
 You might be asking why account with same email address dont linked automatically. --> https://authjs.dev/concepts
 
+# DATABASE - NEON
+- DATABASE URL: [NEON](https://console.neon.tech/app/projects)
+- Email: borabolm.656.stud@cdd.edu.ph
+
+# Prisma commands
+- npx prisma generate: for generating the models
+
+- npx prisma migrate reset: resetting the data in database
+
+- npx prisma db push: saving database models in the development 
+
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).

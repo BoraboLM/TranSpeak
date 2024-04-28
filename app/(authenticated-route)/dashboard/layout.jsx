@@ -15,6 +15,9 @@ const checkUserRole = async () => {
 export default async function DashboardRoleLayout({ user, admin }) {
     const role = await checkUserRole()
     return <>
-        {role === 'ADMIN' ? admin : user}
+        <div className="min-w-[100%] bg-white">
+            {role === 'ADMIN' ? admin : user}
+        </div>
+
     </>
 }

@@ -14,9 +14,9 @@ export const newVerification = async (token) => {
     const tokenExpired = new Date(existingToken.expires) < new Date();
 
     if(tokenExpired){
-        // await db.verificationToken.delete({
-        //     where: { id: existingToken.id }
-        // })
+        await db.verificationToken.delete({
+            where: { id: existingToken.id }
+        })
         return { error: "Token has expired! Please Sign again to send a new verification email"};
     }
 
