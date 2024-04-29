@@ -9,20 +9,24 @@ import { db } from "@/lib/db";
 import { LocationProvider } from "./components/context/LocationProvide";
 import LocationModal from "./components/LocationModal";
 import { NationalityModal } from "./components/NationalityModal";
+import { Suspense } from "react";
+import { Loading } from "../Loading";
 
 export default async function AuthenticatedLayout({ children }) {
     const session = await auth();
 
     return (
-        <SessionProvider session={session}>
-            <main className={`${poppins.className}`}>
-                <LocationProvider>
-                    <Navbar />
-                    <LocationModal  />
-                    {children}
-                    <Footer />
-                </LocationProvider>
-            </main>
-        </SessionProvider>
+        <Suspense fallback={ <Loading /> }>
+            <SessionProvider session={session}>
+                <main className={`${poppins.className}`}>
+                    <LocationProvider>
+                        <Navbar />
+                        <LocationModal  />
+                        {children}
+                        <Footer />
+                    </LocationProvider>
+                </main>
+            </SessionProvider>
+        </Suspense>
     );
 }

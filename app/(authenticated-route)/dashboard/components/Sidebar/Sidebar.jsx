@@ -3,6 +3,7 @@
 import { data } from "@/app/(authenticated-route)/dashboard/data/data";
 import { useCurrentUser } from '@/app/hooks/use-current-user';
 import Link from "next/link";
+import { ActiveLink } from "./ActiveLink/Active";
 
 export default function Sidebar() {
     const session = useCurrentUser();
@@ -16,13 +17,10 @@ export default function Sidebar() {
             </div>
             <div className="flex-1 flex-col justify-center items-center">
                 {data.map((item, index) => (
-                    <Link key={index} href={item.path} className='flex items-center justify-start text-lg tracking-wider py-4 px-4 cursor-pointer font-[500] hover:bg-indigo-300 hover:fill-white'>
-                        {item.icon}
-                        <span className="">
-                            {item.name}
-                        </span>
-                    </Link>
+                    <ActiveLink key={index} item={item} />
                 ))}
+
+
             </div>
         </div>
     )

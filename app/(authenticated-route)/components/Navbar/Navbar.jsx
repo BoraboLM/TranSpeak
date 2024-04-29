@@ -7,7 +7,7 @@ import { Sheet, SheetContent, SheetTrigger, } from "@/components/ui/sheet"
 import { useCurrentUser } from "@/app/hooks/use-current-user";
 
 export function Navbar() {
-    const user = useCurrentUser();
+    const session = useCurrentUser();
     return (
         <nav className="w-full h-[8vh] md:h-[8vh] lg:h-[8vh] xl:h-[8vh] 2xl:h-[8vh] flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 bg-white shadow-md z-50">
             <div className="flex items-center space-x-2 sm:space-x-4 md:space-x-8">
@@ -23,6 +23,15 @@ export function Navbar() {
                                         <span className="text-2xl font-medium text-gray-600 hover:text-gray-900">{link.name}</span>
                                     </Link>
                                 ))}
+
+                                {session.role === "ADMIN" && (
+                                    <>
+                                        <Link href="/dashboard">
+                                            <span className="text-2xl font-medium text-gray-600 hover:text-gray-900">Dashboard</span>
+                                        </Link>
+                                    </>
+                                )}
+
                             </div>
                         </SheetContent>
                     </Sheet>
@@ -36,6 +45,15 @@ export function Navbar() {
                             <span className="text-sm sm:text-lg font-medium text-gray-600 hover:text-gray-900">{link.name}</span>
                         </Link>
                     ))}
+                    {session.role === "ADMIN" && (
+                        <>
+                            <div className="hidden sm:flex space-x-4">
+                                <Link href="/dashboard">
+                                    <span className="text-sm sm:text-lg font-medium text-gray-600 hover:text-gray-900">Dashboard</span>
+                                </Link>
+                            </div>
+                        </>
+                    )}
                 </div>
 
             </div>

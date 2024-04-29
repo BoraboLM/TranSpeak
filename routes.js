@@ -44,3 +44,14 @@ export const authenticatedRoutes = [
     "/learn",
     "/dashboard"
 ]
+
+/**
+ * Routes Starting from this url are for Admin only
+ * @type {String[]}
+ */
+export const AdminRoutes = [
+    "/dashboard",
+    "/dashboard/users",
+    "/dashboard/learn",
+    "/dashboard/system-logs",
+]

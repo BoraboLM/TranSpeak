@@ -11,8 +11,4 @@ export const dataLinks = [
         name: "Learn",
         path: "/learn",
     },
-    {
-        name: "Dasboard",
-        path: "/dashboard",
-    }
 ]
