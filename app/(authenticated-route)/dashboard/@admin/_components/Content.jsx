@@ -8,9 +8,9 @@ export default function Content() {
     return (
         <div className="rounded-l-[30px]">
             {/* <Dashboard /> */}
-            <Users />
+            {/* <Users /> */}
             {/* <Learn /> */}
-            {/* <SystemLogs /> */}
+            <SystemLogs />
         </div>
     )
 }
