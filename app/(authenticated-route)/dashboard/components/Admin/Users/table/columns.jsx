@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
+import EditUserModal from "../Modal/EditUserModal";
 
 export const columns = [
     {
@@ -56,8 +57,11 @@ export const columns = [
                             Copy User ID
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem className="cursor-pointer">Edit User</DropdownMenuItem>
-                        <DropdownMenuItem className="cursor-pointer">View Users Complete Detail</DropdownMenuItem>
+                        <DropdownMenuItem className="cursor-pointer" disabled={true}>
+                            {/* <EditUserModal user={user} /> */}
+                            Edit User Profile
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="cursor-pointer" disabled={true}>View Users Complete Detail</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )
