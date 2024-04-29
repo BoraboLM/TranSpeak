@@ -41,11 +41,11 @@ export const newVerification = async (token) => {
 
     await db.ActivityLogs.create({
         data: {
-            id: existingUser.id,
+            userId: existingUser.id,
             name: existingUser.name,
-            action: "Email Verified",
-            information: "User verified their email",
-            time: new Date()
+            action: "Password Reset",
+            information: "User updated Password",
+            createdAt: new Date(),
         }
     })
 
