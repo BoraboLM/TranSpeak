@@ -42,7 +42,10 @@ export const authenticatedRoutes = [
     "/home",
     "/places",
     "/learn",
-    "/dashboard"
+    "/dashboard",
+    "/dashboard/users",
+    "/dashboard/learn",
+    "/dashboard/system-logs",
 ]
 
 /**
