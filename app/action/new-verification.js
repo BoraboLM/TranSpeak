@@ -39,5 +39,15 @@ export const newVerification = async (token) => {
         where: { id: existingToken.id }
     });
 
+    await db.ActivityLogs.create({
+        data: {
+            id: existingUser.id,
+            name: existingUser.name,
+            action: "Email Verified",
+            information: "User verified their email",
+            time: new Date()
+        }
+    })
+
     return { success: "Email Verified" };
 }

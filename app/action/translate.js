@@ -1,4 +1,5 @@
 "use server";
+import { db } from "@/lib/db";
 
 export const Translate = async (data, textInput) => {
     const { source, target } = data;
@@ -12,6 +13,9 @@ export const Translate = async (data, textInput) => {
     //     target: target,
     //     input: input
     // }
+
+
+    // Mockup for Translation API
         return new Promise((resolve, reject) => {
         setTimeout(() => {
             if (!input) {
@@ -23,6 +27,9 @@ export const Translate = async (data, textInput) => {
                     target: target,
                     input: input
                 };
+
+                
+
                 resolve(translationObj);
             }
         }, 3000);

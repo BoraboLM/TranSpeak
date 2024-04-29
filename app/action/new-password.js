@@ -77,6 +77,16 @@ export const newPassword = async (data, token) => {
     await db.passwordResetToken.delete({
         where: { id: existingToken.id }
     });
+    
+    await db.ActivityLogs.create({
+        data: {
+            userId: existingUser.id,
+            name: existingUser.name,
+            action: "Password Reset",
+            information: "User updated Password",
+            createdAt: new Date(),
+        }
+    })
 
     return {
         data: [

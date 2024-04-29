@@ -4,6 +4,7 @@ import { resetSchema } from "@/components/Forms/schema/resetSchema";
 import { getUserEmail } from "@/data/user";
 import { sendPasswordResetEmail } from "@/lib/mail";
 import { generatePasswordResetToken } from "@/lib/tokens";
+import { db } from "@/lib/db";
 
 export const resetPassword = async (data) => {
     const validatedFields = resetSchema.safeParse(data);
@@ -38,6 +39,16 @@ export const resetPassword = async (data) => {
         passwordResetToken.email,
         passwordResetToken.token
     );
+
+    await db.ActivityLogs.create({
+        data: {
+            userId: existingUser.id,
+            name: existingUser.name,
+            action: "Password Reset Request",
+            information: `User requested a password reset link - ${existingUser.email}`,
+            createdAt: new Date(),
+        }
+    })
 
     return {
         data: [
