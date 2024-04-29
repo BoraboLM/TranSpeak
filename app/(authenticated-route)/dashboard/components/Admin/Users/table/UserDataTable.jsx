@@ -19,9 +19,8 @@ import {
 } from "@/components/ui/table"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
-import { DataTablePagination } from "../../../pagination"
-import { Button } from "@/components/ui/button"
-import { CreateUser } from "./CreateUserModal"
+import { CreateUser } from "../Modal/CreateUserModal"
+import { UserDataTablePagination } from "./UserPagination"
 
 export function UserDataTable({
     columns,
@@ -102,7 +101,7 @@ export function UserDataTable({
                 </TableBody>
             </Table>
             <div className="flex items-center justify-end space-x-2 py-4 px-10">
-                <DataTablePagination table={table} />
+                <UserDataTablePagination table={table} />
             </div>
         </div>
     )

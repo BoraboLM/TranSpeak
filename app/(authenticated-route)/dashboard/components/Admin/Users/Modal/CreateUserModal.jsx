@@ -6,11 +6,12 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
-import { CreateAccount } from "./Schema/CreateAccount";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createAccountAdmin } from "@/app/action/create-account-admin";
+import { CreateAccount } from "./Schema/CreateAccountSchema";
+
 
 export function CreateUser() {
     const [isPending, startTransition] = useTransition();

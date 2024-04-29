@@ -1,7 +1,8 @@
-"use client";
+"use client"
+
+import { data } from "@/app/(authenticated-route)/dashboard/data/data";
 import { useCurrentUser } from '@/app/hooks/use-current-user';
-import { LayoutDashboard } from 'lucide-react';
-import { data } from './data/data';
+import Link from "next/link";
 
 export default function Sidebar() {
     const session = useCurrentUser();
@@ -15,10 +16,12 @@ export default function Sidebar() {
             </div>
             <div className="flex-1 flex-col justify-center items-center">
                 {data.map((item, index) => (
-                    <span key={index} className='flex items-center justify-start text-lg tracking-wider py-4 px-4 cursor-pointer font-[500] hover:bg-indigo-300 hover:fill-white'>
+                    <Link key={index} href={item.path} className='flex items-center justify-start text-lg tracking-wider py-4 px-4 cursor-pointer font-[500] hover:bg-indigo-300 hover:fill-white'>
                         {item.icon}
-                        {item.name}
-                    </span>
+                        <span className="">
+                            {item.name}
+                        </span>
+                    </Link>
                 ))}
             </div>
         </div>

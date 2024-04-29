@@ -10,7 +10,7 @@ export const CreateAccount = z.object({
     email: z.string().email({
         message: "Please enter a valid email address."
     }),
-    nationality: z.string().min(1,{
+    nationality: z.string().min(1, {
         message: "Please enter a user's Nationality"
     })
 });

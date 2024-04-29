@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db";
 
-import { CreateAccount } from "../(authenticated-route)/dashboard/@admin/_components/component_pages/_components/users_components/Schema/CreateAccount";
+import { CreateAccount } from "../(authenticated-route)/dashboard/components/Admin/Users/Modal/Schema/CreateAccountSchema";
 import { getUserEmail } from "@/data/user";
 import bcrypt from 'bcryptjs';
 import { auth } from "@/auth";
