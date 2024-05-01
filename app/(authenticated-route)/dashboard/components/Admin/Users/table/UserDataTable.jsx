@@ -18,9 +18,10 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Input } from "@/components/ui/input"
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import { CreateUser } from "../Modal/CreateUserModal"
 import { UserDataTablePagination } from "./UserPagination"
+import Loading from "@/app/(authenticated-route)/dashboard/Loading"
 
 export function UserDataTable({
     columns,
@@ -84,11 +85,13 @@ export function UserDataTable({
                                 data-state={row.getIsSelected() && "selected"}
                                 className="hover:bg-indigo-200 hover:text-slate-950"
                             >
-                                {row.getVisibleCells().map((cell) => (
-                                    <TableCell key={cell.id}>
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </TableCell>
-                                ))}
+                                <Suspense fallback={<Loading />}>
+                                    {row.getVisibleCells().map((cell) => (
+                                        <TableCell key={cell.id}>
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </TableCell>
+                                    ))}
+                                </Suspense>
                             </TableRow>
                         ))
                     ) : (

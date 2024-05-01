@@ -59,6 +59,7 @@ export function CreateUser() {
                                 <FormField
                                     control={form.control}
                                     name="firstName"
+                                    autocomplete="off"
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>First Name</FormLabel>
@@ -73,6 +74,7 @@ export function CreateUser() {
                                 <FormField
                                     control={form.control}
                                     name="lastName"
+                                    autocomplete="off"
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Last Name</FormLabel>
@@ -89,6 +91,7 @@ export function CreateUser() {
                                 <FormField
                                     control={form.control}
                                     name="email"
+                                    autocomplete="off"
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Email</FormLabel>
@@ -103,6 +106,7 @@ export function CreateUser() {
                                 <FormField
                                     control={form.control}
                                     name="nationality"
+                                    autocomplete="off"
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Nationality</FormLabel>
@@ -118,7 +122,7 @@ export function CreateUser() {
                             <Button
                                 type="submit"
                                 disabled={isPending}
-                                className="flex items-center justify-center content-center w-[60%] mx-auto">{isPending ? "Registering User" : "Register User"}</Button>
+                                className="flex items-center justify-center content-center w-[60%] mx-auto border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out">{isPending ? "Registering User" : "Register User"}</Button>
                         </div>
                     </form>
                 </Form>

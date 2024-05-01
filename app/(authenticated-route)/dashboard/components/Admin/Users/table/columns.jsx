@@ -5,6 +5,8 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
 import EditUserModal from "../Modal/EditUserModal";
+import { useState } from "react";
+import DropdownAction from "./DropdownAction";
 
 export const columns = [
     {
@@ -40,30 +42,8 @@ export const columns = [
         header: "More Actions",
         cell: ({ row }) => {
             const user = row.original
-
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" >
-                        <DropdownMenuLabel>More Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            className="cursor-pointer"
-                            onClick={() => navigator.clipboard.writeText(user.id)}
-                        >
-                            Copy User ID
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem className="cursor-pointer" disabled={true}>
-                            {/* <EditUserModal user={user} /> */}
-                            Edit User Profile
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="cursor-pointer" disabled={true}>View Users Complete Detail</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <DropdownAction user={user} />
             )
         },
     },

@@ -43,8 +43,8 @@ export const newVerification = async (token) => {
         data: {
             userId: existingUser.id,
             name: existingUser.name,
-            action: "Password Reset",
-            information: "User updated Password",
+            action: "Account Verified",
+            information: "User Account Verified Successfully!",
             createdAt: new Date(),
         }
     })
