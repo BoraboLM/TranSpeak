@@ -5,6 +5,8 @@ export const UsersData = async () => {
         const UsersData = await db.user.findMany({
             select: {
                 id: true,
+                firstName: true,
+                lastName: true,
                 name: true,
                 email: true,
                 nationality: true,

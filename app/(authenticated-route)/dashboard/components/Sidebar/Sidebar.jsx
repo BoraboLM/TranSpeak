@@ -19,8 +19,6 @@ export default function Sidebar() {
                 {data.map((item, index) => (
                     <ActiveLink key={index} item={item} />
                 ))}
-
-
             </div>
         </div>
     )

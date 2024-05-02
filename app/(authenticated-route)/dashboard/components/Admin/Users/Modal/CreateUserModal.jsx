@@ -1,11 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -49,8 +48,15 @@ export function CreateUser() {
                     </DialogDescription>
                 </DialogHeader>
                 <div className="w-full">
-                    {message && message.error && <div className="bg-red-500 text-white p-4 text-center text-wrap">{message.error}</div>}
-                    {message && message.success && <div className="bg-green-400 text-white p-4 flex flex-col text-center text-wrap"><span className="text-2xl font-[500] tracking-wide">{message.success}</span><span>{message.message}</span></div>}
+                    {message && message.error && <div className="bg-red-500 text-white p-4 text-center text-wrap">
+                        {message.error}
+                    </div>}
+
+                    {message && message.success && <div className="bg-green-400 text-white p-4 flex flex-col text-center text-wrap">
+                        <span className="text-sm font-[500] tracking-wide">
+                            {message.success}
+                        </span>
+                    </div>}
                 </div>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>

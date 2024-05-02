@@ -22,6 +22,11 @@ export const Signin = async ( prevState, formData) =>{
         return {error: "Invalid Credentials! 😱😱"}
     }
 
+    // Uncomment the following code if the status field is added to the user model
+    // if(existingUser.status === 'DSIABLED'){
+    //     return {error: "Account is disabled! Contact support for more information.🚫🚫"}
+    // }
+
     if(!existingUser.emailVerified){
         const verificationToken = await generateVerificationToken(existingUser.email);
         await sendVerificationEmail(existingUser.email, verificationToken.token);
