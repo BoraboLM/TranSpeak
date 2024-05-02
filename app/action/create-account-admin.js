@@ -6,6 +6,7 @@ import { CreateAccount } from "../(authenticated-route)/dashboard/components/Adm
 import { getUserEmail } from "@/data/user";
 import bcrypt from 'bcryptjs';
 import { auth } from "@/auth";
+import { revalidatePath } from "next/cache";
 
 export const createAccountAdmin = async (data) => {
     const session = await auth();
@@ -48,6 +49,8 @@ export const createAccountAdmin = async (data) => {
             information: `Admin ${session.user.name} created an account for ${firstName}.`,
         }
     })
+
+    revalidatePath('/dashboard/users')
 
     return { success: "Account created!", message: `Account default password is: ${defaultPassword}` }
 }
