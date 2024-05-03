@@ -10,4 +10,7 @@ export const EditProfileSchema = z.object({
     role: z.string().min(1, {
         message: "Please select user's ROLE"
     }),
+    nationality: z.string().min(1, {
+        message: "Please Enter User's Nationality"
+    })
 });

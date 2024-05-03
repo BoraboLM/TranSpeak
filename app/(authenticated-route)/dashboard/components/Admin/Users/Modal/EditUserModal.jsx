@@ -21,6 +21,7 @@ export default function EditUserModal({ user, onClose }) {
         defaultValues: {
             firstName: user.firstName,
             lastName: user.lastName,
+            nationality: user.nationality,
             role: user.role,
         }
     })
@@ -51,6 +52,7 @@ export default function EditUserModal({ user, onClose }) {
             id: user.id,
             firstName: user.firstName,
             lastName: user.lastName,
+            nationality: user.nationality,
             role: user.role,
         }
 
@@ -60,10 +62,9 @@ export default function EditUserModal({ user, onClose }) {
         })
     }
 
-    console.log(message);
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-slate-950 bg-opacity-80 backdrop-blur-[2px] z-10 overflow-hidden ">
-            <div className="h-[65%] w-[500px] sm:w-[500px] md:w-[500px] lg:w-[500px] xl:w-[500px] 2xl:w-[500px] ">
+            <div className="h-[700px] w-[500px] sm:w-[500px] md:w-[500px] lg:w-[500px] xl:w-[500px] 2xl:w-[500px] ">
                 <div className="w-full h-full bg-indigo-100 rounded-lg  p-4">
 
                     {/* Close Button of the modal */}
@@ -110,7 +111,7 @@ export default function EditUserModal({ user, onClose }) {
                                                 <FormItem>
                                                     <FormLabel className="text-[18px] tracking-wide">First Name:</FormLabel>
                                                     <FormControl>
-                                                        <Input placeholder="First Name" {...field} />
+                                                        <Input placeholder="First Name" {...field} disabled={isPending} />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
@@ -124,7 +125,21 @@ export default function EditUserModal({ user, onClose }) {
                                                 <FormItem>
                                                     <FormLabel className="text-[18px] tracking-wide">Last Name:</FormLabel>
                                                     <FormControl>
-                                                        <Input placeholder="Last Name" {...field} />
+                                                        <Input placeholder="Last Name" {...field} disabled={isPending} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        <FormField
+                                            control={form.control}
+                                            name="nationality"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel className="text-[18px] tracking-wide">Nationality:</FormLabel>
+                                                    <FormControl>
+                                                        <Input placeholder="Nationality" {...field} disabled={isPending} />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
@@ -140,7 +155,7 @@ export default function EditUserModal({ user, onClose }) {
                                                     <Select onValueChange={field.onChange} defaultValue={user.role} >
                                                         <FormControl>
                                                             <SelectTrigger>
-                                                                <SelectValue placeholder={user.role} />
+                                                                <SelectValue placeholder={user.role} disabled={isPending} />
                                                             </SelectTrigger>
                                                         </FormControl>
                                                         <SelectContent>
@@ -185,9 +200,10 @@ export default function EditUserModal({ user, onClose }) {
                                                 </Button>
 
                                                 <Button
+                                                    disabled={isPending}
                                                     type="submit"
                                                     className="w-[60%] h-10 bg-blue-500 hover:bg-blue-400 text-sm text-[#ffffff]  tracking-wider">
-                                                    Update Profile
+                                                    {isPending ? "Updating..." : "Update User"}
                                                 </Button>
                                             </div>
                                         </div>
