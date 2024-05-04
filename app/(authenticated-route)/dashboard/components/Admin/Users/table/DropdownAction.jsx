@@ -22,7 +22,7 @@ export default function DropdownAction({ user }) {
                     <DropdownMenuLabel>More Actions</DropdownMenuLabel>
                     <DropdownMenuItem
                         className="cursor-pointer"
-                        onClick={() => navigator.clipboard.writeText(user.id)}
+                        onClick={() => navigator.clipboard.writeText(user.id || admin.id)}
                     >
                         Copy User ID
                     </DropdownMenuItem>

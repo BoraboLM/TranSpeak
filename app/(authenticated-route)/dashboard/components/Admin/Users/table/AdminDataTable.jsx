@@ -23,9 +23,9 @@ import { CreateUser } from "../Modal/CreateUserModal"
 import { UserDataTablePagination } from "./UserPagination"
 import Loading from "@/app/(authenticated-route)/dashboard/Loading"
 
-export function UserDataTable({
-    columns,
+export function AdminDataTable({
     data,
+    columns,
 }) {
     const [columnFilters, setColumnFilters] = useState([]) //used for filtering
 
@@ -45,8 +45,8 @@ export function UserDataTable({
     return (
         <div className="rounded-md border">
             <div className="flex justify-between items-center px-8">
-                <h1 className="text-2xl font-[700] tracking-wide py-4 px-4">Users List</h1>
-                {/* <CreateUser /> */}
+                <h1 className="text-2xl font-[700] tracking-wide py-4 px-4">Admin List</h1>
+                <CreateUser />
             </div>
 
             <Input

@@ -1,10 +1,10 @@
 import { db } from "@/lib/db";
 
-export const UsersData = async () => {
+export const AdminData = async () => {
     try {
         const UsersData = await db.user.findMany({
             where:{
-                role: "USER"
+                role: "ADMIN"
             },
             select: {
                 id: true,

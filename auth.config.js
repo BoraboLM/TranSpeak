@@ -5,6 +5,7 @@ import { loginSchema } from "./components/Forms/schema/loginSchema";
 import { getUserEmail } from "./data/user";
 import bcrypt from "bcryptjs";
 import { db } from "./lib/db";
+import { revalidatePath } from "next/cache";
 
 const configuration = { 
     providers: [
@@ -35,6 +36,8 @@ const configuration = {
                                 information: "User logged in",
                             }
                         })
+
+                        revalidatePath("/dashboard/system-log");
                         return user;
                     }
                 }

@@ -12,17 +12,29 @@ export default async function  UpdateUser(_data, origData) {
         const cooldownMinutes = 10;
 
         if(!user){
-            return {error: "User not found!"}
+            return {
+                data: [
+                    {message: `User not found!`},
+                    {type: 'Error! '},
+                    {variant: 'destructive'}
+                ]
+            }
         }
-
         // Check if the user is updating the same data and if the cooldown is still active
         const now = new Date();
         const updatedAt = new Date(user.updatedAt);
+        // From milliseconds to seconds to minutes
         const diffInMinutes = (now - updatedAt) / 1000 / 60;
         if (diffInMinutes < cooldownMinutes) {
-            return {error: `You can update ${firstName} again in ${cooldownMinutes - Math.floor(diffInMinutes)} minutes`};
+                return {
+                data: [
+                    {message: `You can update ${firstName} again in ${cooldownMinutes - Math.floor(diffInMinutes)} minutes`},
+                    {type: 'Failed'},
+                    {variant: 'destructive'}
+                ]
+            }
         }
-
+        
         await db.user.update({
             where: {
                 id: id
@@ -49,8 +61,19 @@ export default async function  UpdateUser(_data, origData) {
 
     revalidatePath("/dashboard/users")
     }catch(error){
-        return {error: "Something went wrong, please try again..."}
+        return {
+            data: [
+                {message: 'Oops! Something went wrong! Please try again.'},
+                {type: 'Error! 🧐'},
+                {variant: 'destructive'}
+            ]
+        }
     }
-
-        return {success: "User updated successfully!"}
+        return {
+        data: [
+            {message: 'User Updated Successfully!'},
+            {type: 'Success! 🧐'},
+            {variant: ''}
+        ]
+    }
 }

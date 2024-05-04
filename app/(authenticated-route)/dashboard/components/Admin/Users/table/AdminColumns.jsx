@@ -2,9 +2,8 @@
 
 import DropdownAction from "./DropdownAction";
 
-export const columns = [
+export const AdminColumns = [
     {
-        // accessorKey: "id",
         header: "No.",
         cell: ({ row }) => {
             const index = row.index + 1;

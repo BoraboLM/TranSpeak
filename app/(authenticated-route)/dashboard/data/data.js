@@ -16,7 +16,7 @@ export const data = [
     },
     { 
         name: 'System Logs',
-        path: '/dashboard/systems-logs',
+        path: '/dashboard/system-log',
         icon: <FolderClock  size={32} className="mr-2"/>,
     },
 ];

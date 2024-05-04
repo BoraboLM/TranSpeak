@@ -2,6 +2,7 @@
 
 import { Input } from '@/components/ui/input';
 import { CircleX } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { EditProfileSchema } from './Schema/EditUserProfileSchema';
 import { useForm } from "react-hook-form";
@@ -13,7 +14,7 @@ import UpdateUser from '@/app/action/UpdateUser';
 import { toast } from '@/components/ui/use-toast';
 
 
-export default function EditUserModal({ user, onClose }) {
+export default function UpdateAdminModal({ user, onClose }) {
     const [message, setMessage] = useState(null);
     const [isPending, startTransition] = useTransition();
     const form = useForm({
@@ -58,21 +59,13 @@ export default function EditUserModal({ user, onClose }) {
 
         startTransition(async () => {
             const response = await UpdateUser(_data, origData);
-            setMessage(response.data)
+            setMessage(response)
+
+            form.reset();
         })
+
     }
 
-    useEffect(() => {
-        if (message) {
-            toast({
-                variant: message[2].variant,
-                title: message[1].type,
-                description: message[0].message,
-                duration: 4000
-            });
-            onClose();
-        }
-    }, [message, onClose]);
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-slate-950 bg-opacity-80 backdrop-blur-[2px] z-10 overflow-hidden ">
@@ -90,6 +83,23 @@ export default function EditUserModal({ user, onClose }) {
 
                     <div className='w-full h-[40px] mb-4 rounded-lg'>
                         <span className='flex justify-center items-center text-xl font-semibold tracking-wider text-center '>Edit {`${user.name}'s`} Profile</span>
+                    </div>
+
+                    {/* Error message */}
+                    <div className="w-full mb-2">
+                        {message && message.error &&
+                            <div className="bg-red-500  text-white p-2 text-center text-wrap rounded-md">
+                                <span className='text-lg'>
+                                    {message.error}
+                                </span>
+                            </div>}
+
+                        {message && message.success &&
+                            <div className="bg-green-400 text-white p-2 flex flex-col text-center text-wrap rounded-md">
+                                <span className="text-lg font-[500] tracking-wide">
+                                    {message.success}
+                                </span>
+                            </div>}
                     </div>
 
                     {/* User Information */}
