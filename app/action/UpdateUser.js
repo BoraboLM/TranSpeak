@@ -5,9 +5,9 @@ import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
 export default async function  UpdateUser(_data, origData) {
-    const { id, firstName, lastName,nationality, role } = _data;
-    const user = await CheckTime({id})
-
+    const { id, firstName, lastName,nationality, status, role } = _data;
+    const user = await CheckTime({id});
+    
     try{
         const cooldownMinutes = 10;
 
@@ -43,6 +43,7 @@ export default async function  UpdateUser(_data, origData) {
                 firstName: firstName,
                 lastName: lastName,
                 name: `${firstName} ${lastName}`,
+                status: status,
                 nationality: nationality,
                 role: role
             }

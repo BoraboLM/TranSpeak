@@ -52,11 +52,16 @@ export function CreateUser() {
                         {message.error}
                     </div>}
 
-                    {message && message.success && <div className="bg-green-400 text-white p-4 flex flex-col text-center text-wrap">
-                        <span className="text-sm font-[500] tracking-wide">
-                            {message.success}
-                        </span>
-                    </div>}
+                    {message && message.success &&
+                        <div className="bg-green-400 text-white p-4 flex flex-col text-center text-wrap ">
+                            <span className="text-xl font-[500] tracking-wide">
+                                {message.success}
+                            </span>
+                            <span className="text-xl text-white">
+                                {message.message}
+                                <strong className="text-xl text-indigo-600 font-[700] tracking-widest">{message.defaultPass}</strong>
+                            </span>
+                        </div>}
                 </div>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>

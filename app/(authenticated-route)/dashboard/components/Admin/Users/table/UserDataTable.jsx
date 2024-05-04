@@ -26,6 +26,7 @@ import Loading from "@/app/(authenticated-route)/dashboard/Loading"
 export function UserDataTable({
     columns,
     data,
+    title
 }) {
     const [columnFilters, setColumnFilters] = useState([]) //used for filtering
 
@@ -44,9 +45,8 @@ export function UserDataTable({
 
     return (
         <div className="rounded-md border">
-            <div className="flex justify-between items-center px-8">
-                <h1 className="text-2xl font-[700] tracking-wide py-4 px-4">Users List</h1>
-                {/* <CreateUser /> */}
+            <div className="flex justify-between items-center">
+                <h1 className="text-2xl font-[700] tracking-wide py-4 px-4">{title}</h1>
             </div>
 
             <Input
@@ -83,11 +83,11 @@ export function UserDataTable({
                             <TableRow
                                 key={row.id}
                                 data-state={row.getIsSelected() && "selected"}
-                                className="hover:bg-indigo-200 hover:text-slate-950"
+                                className={`hover:bg-indigo-200 hover:text-slate-950`}
                             >
                                 <Suspense fallback={<Loading />}>
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell key={cell.id} className={cell.row.original.status === 'DISABLED' ? 'bg-red-300' : ''}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}

@@ -26,6 +26,7 @@ import Loading from "@/app/(authenticated-route)/dashboard/Loading"
 export function AdminDataTable({
     data,
     columns,
+    title
 }) {
     const [columnFilters, setColumnFilters] = useState([]) //used for filtering
 
@@ -44,8 +45,8 @@ export function AdminDataTable({
 
     return (
         <div className="rounded-md border">
-            <div className="flex justify-between items-center px-8">
-                <h1 className="text-2xl font-[700] tracking-wide py-4 px-4">Admin List</h1>
+            <div className="flex justify-between items-center">
+                <h1 className="text-2xl font-[700] tracking-wide py-4 px-4">{title}</h1>
                 <CreateUser />
             </div>
 

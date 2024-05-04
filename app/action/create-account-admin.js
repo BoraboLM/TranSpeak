@@ -7,6 +7,7 @@ import { getUserEmail } from "@/data/user";
 import bcrypt from 'bcryptjs';
 import { auth } from "@/auth";
 import { revalidatePath } from "next/cache";
+import { AdminAccount } from "@/lib/mail";
 
 export const createAccountAdmin = async (data) => {
     const session = await auth();
@@ -41,6 +42,8 @@ export const createAccountAdmin = async (data) => {
         }
     })
 
+    await AdminAccount({email, firstName, adminName:session.user.name, defaultPassword})
+
     await db.ActivityLogs.create({
         data: {
             userId: session.user.id,
@@ -52,5 +55,5 @@ export const createAccountAdmin = async (data) => {
 
     revalidatePath('/dashboard/users')
 
-    return { success: "Account created!", message: `Account default password is: ${defaultPassword}` }
+    return { success: "Account created!", message: `Account default password is: `, defaultPass: `${defaultPassword}`}
 }

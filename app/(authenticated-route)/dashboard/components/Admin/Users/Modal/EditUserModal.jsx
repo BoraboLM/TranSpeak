@@ -22,6 +22,7 @@ export default function EditUserModal({ user, onClose }) {
             firstName: user.firstName,
             lastName: user.lastName,
             nationality: user.nationality,
+            status: user.status,
             role: user.role,
         }
     })
@@ -53,9 +54,9 @@ export default function EditUserModal({ user, onClose }) {
             firstName: user.firstName,
             lastName: user.lastName,
             nationality: user.nationality,
+            status: user.status,
             role: user.role,
         }
-
         startTransition(async () => {
             const response = await UpdateUser(_data, origData);
             setMessage(response.data)
@@ -169,11 +170,10 @@ export default function EditUserModal({ user, onClose }) {
                                             render={({ field }) => (
                                                 <FormItem>
                                                     <FormLabel className="text-[18px] tracking-wide">Account Status:</FormLabel>
-                                                    <FormDescription className="text-sm text-red-500">Note: Will be added sooner or later 😂</FormDescription>
-                                                    <Select onValueChange={field.onChange} defaultValue="ACTIVE" disabled={true}>
+                                                    <Select onValueChange={field.onChange} defaultValue={user.status} >
                                                         <FormControl>
                                                             <SelectTrigger>
-                                                                <SelectValue placeholder="ACTIVE" />
+                                                                <SelectValue placeholder={user.status} disabled={isPending} />
                                                             </SelectTrigger>
                                                         </FormControl>
                                                         <SelectContent>
@@ -181,7 +181,6 @@ export default function EditUserModal({ user, onClose }) {
                                                             <SelectItem value="DISABLED">DISABLED</SelectItem>
                                                         </SelectContent>
                                                     </Select>
-
                                                     <FormMessage />
                                                 </FormItem>
                                             )}

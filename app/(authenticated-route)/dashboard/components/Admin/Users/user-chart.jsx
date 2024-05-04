@@ -9,12 +9,12 @@ import { columns } from "./table/columns";
 import { AdminDataTable } from "./table/AdminDataTable";
 import { AdminColumns } from "./table/AdminColumns";
 
-import { UsersData } from "@/data/users-table-data";
-import { AdminData } from "@/data/admin-table-data";
+import { AdminData, DisabledData, UsersData } from "@/data/users-table-data";
 
 export default async function Users() {
     const users = await UsersData();
     const admin = await AdminData();
+    const disabled = await DisabledData()
     const user_chart_data = await UserAccountChart();
     return (
         <div className="w-full grid grid-cols-1 gap-2 px-4 ">
@@ -30,13 +30,6 @@ export default async function Users() {
                 </div >
             </div>
 
-            {/* Original */}
-            {/* <div className="w-full rounded-l-[30px] p-4">
-                <div className="w-full rounded-[15px] border-2 shadow-md ">
-                    <UserDataTable columns={columns} data={users} />
-                </div>
-            </div> */}
-
             <div className="w-full rounded-l-[30px] p-4">
                 <div className="w-full rounded-[15px] border-2 shadow-md ">
                     <Tabs defaultValue="users" className="w-full p-2 gap-2">
@@ -44,16 +37,39 @@ export default async function Users() {
                             <TabsTrigger value="users">
                                 <span className="text-lg text-gray-600 font-[600] tracking-widest">Users</span>
                             </TabsTrigger>
+
+                            <TabsTrigger value="disabled">
+                                <span className="text-lg text-gray-600 font-[600] tracking-widest">Disabled Accounts</span>
+                            </TabsTrigger>
+
                             <TabsTrigger value="admin">
                                 <span className="text-lg text-gray-600 font-[600] tracking-widest">Admin</span>
                             </TabsTrigger>
                         </TabsList>
+
+                        {/* Tabs(USERS - DISABLED ACCOUNTS - ADMIN) */}
                         <TabsContent value="users" className="w-full">
-                            <UserDataTable columns={columns} data={users} />
+                            <UserDataTable
+                                columns={columns}
+                                data={users}
+                                title="Users List"
+                            />
+                        </TabsContent>
+
+                        <TabsContent value="disabled">
+                            <UserDataTable
+                                columns={columns}
+                                data={disabled}
+                                title="Disabled Accounts List"
+                            />
                         </TabsContent>
 
                         <TabsContent value="admin">
-                            <AdminDataTable columns={AdminColumns} data={admin} />
+                            <AdminDataTable
+                                columns={AdminColumns}
+                                data={admin}
+                                title="Admin List"
+                            />
                         </TabsContent>
                     </Tabs>
                 </div>
