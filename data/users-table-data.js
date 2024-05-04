@@ -35,6 +35,7 @@ export const AdminData = async () => {
     try {
         const UsersData = await db.user.findMany({
             where:{
+                status: "ACTIVE",
                 role: "ADMIN"
             },
             select: {
