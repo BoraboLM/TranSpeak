@@ -37,7 +37,7 @@ export function Navbar() {
                     </Sheet>
                 </div>
                 <Link href="/home">
-                    <span className="text-xl sm:text-2xl font-bold text-gray-900">Trans-Speak LOGO</span>
+                    <span className="text-xl sm:text-2xl font-bold text-gray-900">TranSpeak</span>
                 </Link>
                 <div className="hidden sm:flex space-x-4">
                     {dataLinks.map((link, index) => (

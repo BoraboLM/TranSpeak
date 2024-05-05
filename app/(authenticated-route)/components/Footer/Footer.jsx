@@ -17,10 +17,10 @@ export function Footer() {
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger>
-                                <p className="text-2xl font-[900] cursor-pointer tracking-wider">Trans-Speak</p>
+                                <p className="text-2xl font-[900] cursor-pointer tracking-wider">TranSpeak</p>
                             </TooltipTrigger>
                             <TooltipContent>
-                                <p className="text-xl font-400 tracking-wider">Trans-Speak</p>
+                                <p className="text-xl font-400 tracking-wider">TranSpeak</p>
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>

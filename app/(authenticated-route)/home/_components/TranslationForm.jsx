@@ -180,7 +180,7 @@ export default function TranslationForm() {
 
                                         <Button
                                             className="flex justify-start py-4 mt-2"
-                                            disabled={sourceValue !== "English" && sourceValue !== "Tagalog"}
+                                            disabled={sourceValue !== "English" && sourceValue !== "Filipino"}
                                             type="button"
                                             variant="ghost"
                                             onClick={() => { startStopListening() }}>
