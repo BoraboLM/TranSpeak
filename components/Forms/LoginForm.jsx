@@ -40,7 +40,7 @@ export default function LoginForm() {
             <Card >
                 <CardHeader>
                     <CardTitle className="text-2xl font-semibold text-wrap md:text-4xl text-center">
-                        <span>Sign in to Trans-Speak</span>
+                        <span>Sign in to TranSpeak</span>
                     </CardTitle>
                     <CardDescription className="text-lg text-center">
                         {state && state?.twoFactor ? "Enter the OTP code sent to your email" : "Enter your Credentials to continue"}
