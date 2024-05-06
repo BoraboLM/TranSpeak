@@ -2,19 +2,21 @@
 
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
+import { Form } from "@/components/ui/form"
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createAccountAdmin } from "@/app/action/create-account-admin";
 import { CreateAccount } from "./Schema/CreateAccountSchema";
-
+import { SelectInput } from "@/components/Reusable/SelectInput";
+import ButtonHover from "@/components/Reusable/ButtonHover";
+import FormInput from "@/components/Reusable/FormInput";
 
 export function CreateUser() {
     const [isPending, startTransition] = useTransition();
     const [message, setMessage] = useState(null);
+
     const form = useForm({
         resolver: zodResolver(CreateAccount),
         defaultValues: {
@@ -67,73 +69,37 @@ export function CreateUser() {
                     <form onSubmit={form.handleSubmit(onSubmit)}>
                         <div className="grid w-full px-4">
                             <div className="grid grid-cols-2 gap-4 p-4">
-                                <FormField
+                                <FormInput
                                     control={form.control}
-                                    name="firstName"
-                                    autocomplete="off"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>First Name</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="First Name" {...field} className="w-full" />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
+                                    name={"firstName"}
+                                    label={"First Name"}
+                                    type={"text"}
                                 />
 
-                                <FormField
+                                <FormInput
                                     control={form.control}
-                                    name="lastName"
-                                    autocomplete="off"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Last Name</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="Last Name" {...field} className="w-full" />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
+                                    name={"lastName"}
+                                    label={"Last Name"}
+                                    type={"text"}
                                 />
                             </div>
 
                             <div className="grid grid-cols-2 gap-4 p-4">
-                                <FormField
+                                <FormInput
                                     control={form.control}
-                                    name="email"
-                                    autocomplete="off"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Email</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="Email" {...field} className="w-full" />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
+                                    name={"email"}
+                                    label={"Email"}
+                                    type={"email"}
                                 />
 
-                                <FormField
+                                <SelectInput
                                     control={form.control}
                                     name="nationality"
-                                    autocomplete="off"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Nationality</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="Nationality" {...field} className="w-full" />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
+                                    isPending={isPending}
                                 />
                             </div>
 
-                            <Button
-                                type="submit"
-                                disabled={isPending}
-                                className="flex items-center justify-center content-center w-[60%] mx-auto border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out">{isPending ? "Registering User" : "Register User"}</Button>
+                            <ButtonHover isPending={isPending} initial={"Registering User"} current={"Register User"} />
                         </div>
                     </form>
                 </Form>

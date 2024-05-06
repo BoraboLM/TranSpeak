@@ -1,9 +1,8 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Form } from "../ui/form";
 import { useEffect, useState } from "react";
 import { ChevronLeft } from "lucide-react"
 import Link from "next/link"
@@ -16,6 +15,7 @@ import { useTransition } from "react";
 import { newPasswordSchema } from "./schema/NewPasswordSchema";
 import { useSearchParams } from "next/navigation";
 import { newPassword } from "@/app/action/new-password";
+import FormInput from "../Reusable/FormInput";
 
 export default function NewPasswordForm() {
     const token = useSearchParams().get("token");
@@ -65,9 +65,6 @@ export default function NewPasswordForm() {
                         </Button>
                         <span className="text-4xl text-center font-semibold text-wrap">Enter a new Password</span>
                     </CardTitle>
-                    {/* <CardDescription>
-                        <span className="text-md text-wrap">Enter your new password</span>
-                    </CardDescription> */}
                 </CardHeader>
                 <div className="flex items-center justify-center text-xs uppercase mb-4">
                     <hr className="flex-grow border-indigo-400 border-b-2 mx-2 rounded-md" />
@@ -75,35 +72,22 @@ export default function NewPasswordForm() {
                 <CardContent className="pt-4">
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                            <FormField
+                            <FormInput
                                 control={form.control}
-                                name="password"
-                                disabled={isPending}
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-xl font-medium">Password:</FormLabel>
-                                        <FormControl>
-                                            <Input type="password" placeholder="Enter Password" {...field} />
-                                        </FormControl>
-                                        <FormMessage className="text-wrap text-md" />
-                                    </FormItem>
-                                )}
+                                isPending={isPending}
+                                name={"password"}
+                                label={"Password"}
+                                type={"password"}
                             />
 
-                            <FormField
+                            <FormInput
                                 control={form.control}
-                                name="confirmPassword"
-                                disabled={isPending}
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-xl font-medium">Confirm Password:</FormLabel>
-                                        <FormControl>
-                                            <Input type="password" placeholder="Confirm Password" {...field} />
-                                        </FormControl>
-                                        <FormMessage className="text-wrap text-md" />
-                                    </FormItem>
-                                )}
+                                isPending={isPending}
+                                name={"confirmPassword"}
+                                label={"Confirm Password"}
+                                type={"password"}
                             />
+
                             <Button type="submit" disabled={isPending} className={`border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out w-full `}>{isPending ? "Updating password" : "Reset Password"}</Button>
                         </form>
                     </Form>

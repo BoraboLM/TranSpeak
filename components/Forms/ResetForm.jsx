@@ -16,6 +16,7 @@ import { redirect } from "next/navigation";
 import { resetSchema } from "./schema/resetSchema";
 import { useTransition } from "react";
 import { resetPassword } from "@/app/action/reset";
+import FormInput from "../Reusable/FormInput";
 
 export default function ResetPassword() {
     const [isPending, startTransition] = useTransition();
@@ -70,19 +71,12 @@ export default function ResetPassword() {
                 <CardContent className="pt-4">
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                            <FormField
+                            <FormInput
                                 control={form.control}
-                                name="email"
-                                disabled={isPending}
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-xl font-medium">Email</FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="Enter Email" {...field} />
-                                        </FormControl>
-                                        <FormMessage className="text-wrap text-md" />
-                                    </FormItem>
-                                )}
+                                isPending={isPending}
+                                name={"email"}
+                                label={"Email"}
+                                type={"email"}
                             />
                             <Button type="submit" disabled={isPending} className={`border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out w-full `}>{isPending ? "Sending reset email link..." : "Send reset email"}</Button>
                         </form>
