@@ -1,3 +1,4 @@
+import Header from "@/components/Reusable/Header";
 import Users from "../components/Admin/Users/user-chart";
 
 export const metadata = {
@@ -7,7 +8,8 @@ export const metadata = {
 
 export default function UsersPage() {
     return (
-        <div className="w-full rounded-l-[30px]">
+        <div className="w-full rounded-l-[30px] p-2">
+            <Header title={"Users"} description={"View Users Data."} />
             <Users />
         </div>
     )

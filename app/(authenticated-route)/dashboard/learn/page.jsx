@@ -1,4 +1,6 @@
+import Header from "@/components/Reusable/Header"
 import AlertMessage from "../../components/AlertMessage"
+import CardList from "../components/Admin/Learn/CardList"
 
 export const metadata = {
     title: "Learn | Admin Dashboard ",
@@ -7,12 +9,10 @@ export const metadata = {
 
 export default function LearnPage() {
     return (
-        <div className="w-full rounded-l-[30px]">
-            <div className="flex justify-center items-center text-xl font-[500]">
-                <AlertMessage
-                    title="Learn for Admin 😄"
-                    message="Learn for Admin feature Will be added soon!"
-                />
+        <div className="w-full rounded-l-[30px] p-2">
+            <Header title={"Learn"} description={"Create a Learning Module."} />
+            <div className="flex justify-center items-center">
+                <CardList />
             </div>
         </div>
     )

@@ -27,6 +27,17 @@ enum Status {
   DISABLED
 }
 
+enum Level {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum Language {
+  PANGASINAN
+  ILOCANO
+}
+
 model User {
   id            String         @id @default(cuid())
   firstName     String?
@@ -46,6 +57,8 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Answer    Answer[]
+  Score     Score[]
 }
 
 model Account {
@@ -120,4 +133,52 @@ model Translation {
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
+}
+
+model Learn {
+  id          String     @id @default(cuid())
+  language    Language
+  title       String
+  description String
+  topic       String
+  status      Status     @default(ACTIVE)
+  Answer      Answer[]
+  Score       Score[]
+  Question    Question[]
+}
+
+model Question {
+  id            String   @id @default(cuid())
+  learnId       String
+  question_text String
+  hint          String
+  level         Level
+  createdAt     DateTime @default(now())
+  answers       Answer[]
+  learn         Learn    @relation(fields: [learnId], references: [id], onDelete: Cascade)
+}
+
+model Answer {
+  id         String   @id @default(cuid())
+  questionId String
+  learnId    String
+  userId     String
+  answer     String
+  isCorrect  Boolean
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  Learn    Learn    @relation(fields: [learnId], references: [id])
+}
+
+model Score {
+  id        String   @id @default(cuid())
+  userId    String
+  learnId   String
+  score     Int
+  createdAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  learn Learn @relation(fields: [learnId], references: [id], onDelete: Cascade)
 }
