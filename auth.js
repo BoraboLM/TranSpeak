@@ -57,8 +57,6 @@ export const {
         },
         async jwt({token}){
             if(!token.sub) return null;
-
-            // assigning custom token properties from the database schema
             const existingUser = await getUserId(token.sub);
 
             if(!existingUser) return null;

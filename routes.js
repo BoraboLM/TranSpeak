@@ -45,8 +45,9 @@ export const authenticatedRoutes = [
     "/dashboard",
     "/dashboard/users",
     "/dashboard/learn",
+    "/dashboard/learn/phrasebook",
     "/dashboard/places",
-    "/dashboard/system-logs",
+    "/dashboard/system-log",
 ]
 
 /**
@@ -58,5 +59,5 @@ export const AdminRoutes = [
     "/dashboard/users",
     "/dashboard/learn",
     "/dashboard/places",
-    "/dashboard/system-logs",
+    "/dashboard/system-log",
 ]
