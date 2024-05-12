@@ -1,9 +1,12 @@
 "use server";
 import { db } from "@/lib/db";
+import { auth } from "@/auth";
+import { revalidatePath } from "next/cache";
 
 export const Translate = async (data, textInput) => {
     const { source, target } = data;
     const input = textInput;
+    const session = await auth();
 
     // if(!input) return null;
 
@@ -14,6 +17,27 @@ export const Translate = async (data, textInput) => {
     //     input: input
     // }
 
+        await db.translation.create({
+            data: {
+                userId: session.user.id,
+                input: input,
+                output: input + ' ' + target,
+                inputLang: source,
+                outputLang: target,
+            }
+        })
+
+        await db.ActivityLogs.create({
+            data: {
+                userId: session.user.id,
+                name: session.user.name,
+                action: 'Translation',
+                information: `Translation from ${source} to ${target}`,
+                createdAt: new Date()
+            }
+        })
+
+        revalidatePath('/settings');
 
     // Mockup for Translation API
         return new Promise((resolve, reject) => {
@@ -27,8 +51,6 @@ export const Translate = async (data, textInput) => {
                     target: target,
                     input: input
                 };
-
-                
 
                 resolve(translationObj);
             }
