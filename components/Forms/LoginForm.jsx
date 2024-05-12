@@ -12,12 +12,20 @@ import { DEFAULT_LOGIN_REDIRECT } from "@/routes"
 import { useSearchParams } from "next/navigation"
 
 import Link from "next/link"
+import { ReloadIcon } from "@radix-ui/react-icons"
 
 function Submit() {
     const { pending } = useFormStatus();
     return (
         <Button type="submit" className="w-full border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out" disabled={pending}>
-            {pending ? "Signing in..." : "Sign in"}
+            {pending ? (
+                <>
+                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin inline" />
+                    Signing in...
+                </>
+            ) : (
+                "Sign in"
+            )}
         </Button>
     )
 }

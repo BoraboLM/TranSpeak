@@ -16,6 +16,7 @@ import { newPasswordSchema } from "./schema/NewPasswordSchema";
 import { useSearchParams } from "next/navigation";
 import { newPassword } from "@/app/action/new-password";
 import FormInput from "../Reusable/FormInput";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 export default function NewPasswordForm() {
     const token = useSearchParams().get("token");
@@ -88,7 +89,16 @@ export default function NewPasswordForm() {
                                 type={"password"}
                             />
 
-                            <Button type="submit" disabled={isPending} className={`border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out w-full `}>{isPending ? "Updating password" : "Reset Password"}</Button>
+                            <Button type="submit" disabled={isPending} className={`border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out w-full `}>
+                                {isPending ? (
+                                    <>
+                                        <ReloadIcon className="mr-2 h-4 w-4 animate-spin inline" />
+                                        Updating password...
+                                    </>
+                                ) : (
+                                    "Send reset email"
+                                )}
+                            </Button>
                         </form>
                     </Form>
                 </CardContent>

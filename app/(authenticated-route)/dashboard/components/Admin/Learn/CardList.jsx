@@ -11,13 +11,13 @@ export default function CardList({ title, description, buttonName, data, link })
                 button={buttonName}
                 link={link}
             >
-                <div className="w-full flex ">
-                    <div className=" gap-4 p-2">
+                <div className=" overflow-hidden">
+                    <div className="h-full w-full gap-2 p-2">
                         {data.length === 0 ? (
-                            <div className="text-xl font-[500] tracking-normal text-slate-500/60">No current module</div>
+                            <div className="text-xl font-[500] tracking-normal text-slate-500/60 ">No current module</div>
                         ) : (
-                            data.slice(0, 5).map((item, index) => (
-                                <div key={index} className="flex flex-col">
+                            data.slice(0, 7).map((item, index) => (
+                                <div key={index} className="flex flex-col min-w-full ">
                                     <Link href={`learn/${url}/${item.id}`}>
                                         <h1 className="text-xl font-[700] tracking-wide py-2 hover:text-indigo-400 ease-in-out">
                                             {item.title} :

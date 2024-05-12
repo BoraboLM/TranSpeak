@@ -1,5 +1,3 @@
-import Header from "@/components/Reusable/Header"
-import AlertMessage from "../../components/AlertMessage"
 import CardList from "../components/Admin/Learn/CardList"
 import { revalidatePath } from "next/cache";
 export const metadata = {
@@ -26,7 +24,6 @@ export default async function LearnPage() {
 
     return (
         <div className="w-full rounded-l-[30px] p-2">
-            <Header title={"Learn"} description={"Create a Learning Module."} />
             <div className="flex justify-center flex-col items-center">
                 <CardList
                     title={"Phrasebook"}
@@ -44,13 +41,13 @@ export default async function LearnPage() {
                     data={pangasinanData}
                 />
 
-                {/* <CardList
+                <CardList
                     title={"Ilocano"}
                     description={"Create a Learning module for Ilocano"}
                     buttonName={"Create Learning"}
                     link={"learn/ilocano"}
-                    data={data}
-                /> */}
+                    data={pangasinanData}
+                />
             </div>
         </div>
     )

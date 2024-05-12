@@ -4,6 +4,8 @@ import { data } from "@/app/(authenticated-route)/dashboard/data/data";
 import { useCurrentUser } from '@/app/hooks/use-current-user';
 import Link from "next/link";
 import { ActiveLink } from "./ActiveLink/Active";
+import { Suspense } from "react";
+import Loading from "../../Loading";
 
 export default function Sidebar() {
     const session = useCurrentUser();
@@ -16,9 +18,11 @@ export default function Sidebar() {
                 <span className='font-semibold text-[14px] whitespace-nowrap text-white'>Hi, {session.name}!</span>
             </div>
             <div className="flex-1 flex-col justify-center items-center">
-                {data.map((item, index) => (
-                    <ActiveLink key={index} item={item} />
-                ))}
+                <Suspense fallback={<Loading />}>
+                    {data.map((item, index) => (
+                        <ActiveLink key={index} item={item} />
+                    ))}
+                </Suspense>
             </div>
         </div>
     )

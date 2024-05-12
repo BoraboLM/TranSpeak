@@ -17,6 +17,7 @@ import { resetSchema } from "./schema/resetSchema";
 import { useTransition } from "react";
 import { resetPassword } from "@/app/action/reset";
 import FormInput from "../Reusable/FormInput";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 export default function ResetPassword() {
     const [isPending, startTransition] = useTransition();
@@ -78,7 +79,16 @@ export default function ResetPassword() {
                                 label={"Email"}
                                 type={"email"}
                             />
-                            <Button type="submit" disabled={isPending} className={`border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out w-full `}>{isPending ? "Sending reset email link..." : "Send reset email"}</Button>
+                            <Button type="submit" disabled={isPending} className={`border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out w-full `}>
+                                {isPending ? (
+                                    <>
+                                        <ReloadIcon className="mr-2 h-4 w-4 animate-spin inline" />
+                                        Sending reset email link...
+                                    </>
+                                ) : (
+                                    "Send reset email"
+                                )}
+                            </Button>
                         </form>
                     </Form>
                 </CardContent>

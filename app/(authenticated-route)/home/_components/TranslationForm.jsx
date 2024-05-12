@@ -52,7 +52,7 @@ export default function TranslationForm() {
 
     const [sourceOpen, setSourceOpen] = useState(false)
     const [targetOpen, setTargetOpen] = useState(false)
-    const [sourceValue, setSourceValue] = useState("")
+    const [source_value, setSourceValue] = useState("")
     const [targetValue, setTargetValue] = useState("")
     const [response, setResponse] = useState({ translation: "" })
     const [isTranslating, startTransition] = useTransition();
@@ -104,8 +104,8 @@ export default function TranslationForm() {
                                                                 >
                                                                     <FormControl  >
                                                                         <span className="text-[16px]">
-                                                                            {sourceValue
-                                                                                ? languages.find((language) => language.value === sourceValue)?.label
+                                                                            {source_value
+                                                                                ? languages.find((language) => language.value === source_value)?.label
                                                                                 : "Select source Language..."}
                                                                         </span>
 
@@ -123,17 +123,17 @@ export default function TranslationForm() {
                                                                             {languages.map((language, key) => (
                                                                                 <CommandItem
                                                                                     key={key}
-                                                                                    sourceValue={language.value}
+                                                                                    source_value={language.value}
                                                                                     onSelect={(currentValue) => {
-                                                                                        setSourceValue(currentValue === sourceValue ? "" : currentValue)
+                                                                                        setSourceValue(currentValue === source_value ? "" : currentValue)
                                                                                         setSourceOpen(false)
-                                                                                        field.onChange(currentValue === sourceValue ? "" : currentValue);
+                                                                                        field.onChange(currentValue === source_value ? "" : currentValue);
                                                                                     }}
                                                                                 >
                                                                                     <Check
                                                                                         className={cn(
                                                                                             "mr-2 h-4 w-4",
-                                                                                            sourceValue === language.value ? "opacity-100" : "opacity-0"
+                                                                                            source_value === language.value ? "opacity-100" : "opacity-0"
                                                                                         )}
                                                                                     />
                                                                                     {language.label}
@@ -169,6 +169,7 @@ export default function TranslationForm() {
                                                             className="resize-none shadow-xl"
                                                             {...field}
                                                             disabled={isListening}
+                                                            spellCheck="false"
                                                             onChange={(e) => { setTextInput(e.target.value) }}
                                                             value={isListening ? textInput + (transcript.length ? (textInput.length ? ' ' : '') + transcript : '') : textInput}
                                                         />
@@ -180,7 +181,7 @@ export default function TranslationForm() {
 
                                         <Button
                                             className="flex justify-start py-4 mt-2"
-                                            disabled={sourceValue !== "English" && sourceValue !== "Filipino"}
+                                            disabled={source_value !== "English" && source_value !== "Filipino"}
                                             type="button"
                                             variant="ghost"
                                             onClick={() => { startStopListening() }}>
@@ -229,7 +230,7 @@ export default function TranslationForm() {
                                                                             {languages.map((language, key) => (
                                                                                 <CommandItem
                                                                                     key={key}
-                                                                                    sourceValue={language.value}
+                                                                                    source_value={language.value}
                                                                                     onSelect={(currentValue) => {
                                                                                         setTargetValue(currentValue === targetValue ? "" : currentValue)
                                                                                         setTargetOpen(false)
@@ -268,6 +269,7 @@ export default function TranslationForm() {
                                                             className="resize-none shadow-md"
                                                             {...field}
                                                             disabled
+                                                            spellCheck="false"
                                                             value={response.translation}
                                                         />
                                                     </FormControl>

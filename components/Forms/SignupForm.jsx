@@ -12,9 +12,11 @@ import Link from "next/link"
 // Zod schema
 import { formSchema } from "./schema/signupSchema";
 import { zodResolver } from "@hookform/resolvers/zod"
+
 import { useForm } from "react-hook-form"
 import { Signup } from "@/app/action/sign-up";
 import { toast } from "../ui/use-toast";
+import { ReloadIcon } from "@radix-ui/react-icons"
 import { useTransition } from "react";
 import { SelectInput } from "../Reusable/SelectInput";
 import FormInput from "../Reusable/FormInput";
@@ -139,7 +141,16 @@ export default function SignupForm() {
                                 </div>
 
                                 <div className="grid grid-cols-1 gap-4 mt-4">
-                                    <Button type="submit" disabled={isPending} className="w-full border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out">{isPending ? "Signing up..." : "Sign up"}</Button>
+                                    {isPending ? (
+                                        <Button className="w-full" disabled>
+                                            <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                                            Signing up...
+                                        </Button>
+                                    ) : (
+                                        <Button type="submit" className="w-full border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out">
+                                            Sign up
+                                        </Button>
+                                    )}
                                 </div>
                             </div>
                         </form>
