@@ -1,12 +1,5 @@
 "use client";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { CircleUser } from 'lucide-react';
 import { useSession } from "next-auth/react";
@@ -18,10 +11,10 @@ export default function AvatarProfile() {
     const session = useSession();
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger>
+            <DropdownMenuTrigger >
                 <Avatar className="mt-2">
                     {session && session.data?.user.image ? (
-                        <AvatarImage src={session.data.user.image} />
+                        <AvatarImage src={session.data.user.image || <CircleUser color="white" />} />
                     ) : (
                         <AvatarFallback className="bg-blue-400">
                             <CircleUser color="white" />
@@ -30,7 +23,7 @@ export default function AvatarProfile() {
                 </Avatar>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="mr-2">
+            <DropdownMenuContent className="mr-2" >
                 <DropdownMenuLabel className="text-[16px]">{session.data.user.name}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
@@ -41,6 +34,5 @@ export default function AvatarProfile() {
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
-
     )
 }

@@ -1,10 +1,10 @@
 "use client";
 
 import { useCurrentLocation } from "@/app/hooks/useCurrentLocation";
+import { useSession } from "next-auth/react"
 
 export default function LocationCity() {
     const coordinates = useCurrentLocation();
-
     return (
         <div className="flex items-center flex-col">
             {coordinates ? (

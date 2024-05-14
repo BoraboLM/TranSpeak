@@ -132,3 +132,13 @@ export const TotalAccounts = async () => {
         return error
     }
 }
+
+export const TotalTranslationCount = async () => {
+    try {
+        const TranslationData = await db.Translation.findMany();
+        
+        return TranslationData;
+    } catch (error) {
+        return error
+    }
+}

@@ -3,7 +3,7 @@ import { dataLinks } from "./dataLinks/dataLinks"
 import Link from "next/link"
 import AvatarProfile from "./Avatar";
 import { Menu } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger, } from "@/components/ui/sheet"
+import { Sheet, SheetClose, SheetContent, SheetTrigger, } from "@/components/ui/sheet"
 import { useCurrentUser } from "@/app/hooks/use-current-user";
 
 export function Navbar() {
@@ -18,16 +18,22 @@ export function Navbar() {
                         </SheetTrigger>
                         <SheetContent side="left" className="w-[60%]">
                             <div className="mt-12 flex flex-col gap-4">
-                                {dataLinks.map((link, index) => (
-                                    <Link key={index} href={link.path}>
-                                        <span className="text-2xl font-medium text-gray-600 hover:text-gray-900">{link.name}</span>
-                                    </Link>
-                                ))}
 
+                                {dataLinks.map((link, index) => (
+
+                                    <Link key={index} href={link.path}>
+                                        <SheetClose asChild>
+                                            <span className="text-2xl font-medium text-gray-600 hover:text-gray-900">{link.name}</span>
+                                        </SheetClose>
+                                    </Link>
+
+                                ))}
                                 {session.role === "ADMIN" && (
                                     <>
                                         <Link href="/dashboard">
-                                            <span className="text-2xl font-medium text-gray-600 hover:text-gray-900">Dashboard</span>
+                                            <SheetClose asChild>
+                                                <span className="text-2xl font-medium text-gray-600 hover:text-gray-900">Dashboard</span>
+                                            </SheetClose>
                                         </Link>
                                     </>
                                 )}

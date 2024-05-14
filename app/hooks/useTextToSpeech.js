@@ -6,7 +6,7 @@ export default function useTextToSpeech  (translation, lang) {
      * @type {Array}
      */
     let voice = []
-    const language = lang === 'Tagalog' ? 'fil-PH' : 'en-US';
+    const language = lang === 'Filipino' ? 'fil-PH' : 'en-US';
 
     const voices = window.speechSynthesis.getVoices();
     if(Array.isArray(voices) && voices.length > 0){

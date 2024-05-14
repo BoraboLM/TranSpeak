@@ -1,3 +1,4 @@
+import { IlocanoModules, PangasinanModules, PhrasebookModules } from "@/data/phrasebook-modules";
 import CardList from "../components/Admin/Learn/CardList"
 import { revalidatePath } from "next/cache";
 export const metadata = {
@@ -6,25 +7,14 @@ export const metadata = {
 }
 
 export default async function LearnPage() {
-    // The data that needs to be fetched in the db for cards will be;
-    // title, description, topic, and dateCreated 
-    const pangasinanData = [
-        {
-            id: 1,
-            title: "Module 1",
-            description: "Basic Greetings in Pangasinan",
-            topic: "Greetings",
-            dateCreated: "2021-10-20"
-        },
-    ]
-
-    // For now, we will use dummy data from mockapi
-    const phrasebookResponse = await fetch('https://6628925e54afcabd07362c21.mockapi.io/learn', revalidatePath('learn'));
-    const phrasebookData = await phrasebookResponse.json();
-
+    const [phrasebookData, pangasinanData, ilocanoData] = await Promise.all([
+        PhrasebookModules(),
+        PangasinanModules(),
+        IlocanoModules()
+    ]);
     return (
         <div className="w-full rounded-l-[30px] p-2">
-            <div className="flex justify-center flex-col items-center">
+            <div className="flex justify-center flex-col items-center h-full">
                 <CardList
                     title={"Phrasebook"}
                     description={"Easy to use phrases."}
@@ -33,7 +23,7 @@ export default async function LearnPage() {
                     data={phrasebookData}
                 />
 
-                <CardList
+                {/* <CardList
                     title={"Pangasinan"}
                     description={"Create a Learning module for Pangasinan"}
                     buttonName={"Create Learning"}
@@ -46,8 +36,8 @@ export default async function LearnPage() {
                     description={"Create a Learning module for Ilocano"}
                     buttonName={"Create Learning"}
                     link={"learn/ilocano"}
-                    data={pangasinanData}
-                />
+                    data={ilocanoData}
+                /> */}
             </div>
         </div>
     )

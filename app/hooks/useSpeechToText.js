@@ -7,7 +7,6 @@ export default function useSpeechToText(options) {
     const [isListening, setIsListening] = useState(false);
     const [transcript, setTranscript] = useState("");
     const recognitionRef = useRef(null);
-
     useEffect(() => {
         if (!('webkitSpeechRecognition' in window)) {
             toast({
@@ -22,7 +21,7 @@ export default function useSpeechToText(options) {
         const recognition = recognitionRef.current;
         recognition.interimResults = options.interimResults || true;
         // en-US
-        recognition.language = options.lang || "fil-PH";
+        recognition.language = options.lang || "en-US";
         recognition.continuous = options.continuous || false;
 
         if ("webkitSpeechGrammarList" in window) {

@@ -34,8 +34,7 @@ import { Translate } from "@/app/action/translate";
 export default function TranslationForm() {
     const [isCopied, setIsCopied] = useState(false);
     const [textInput, setTextInput] = useState('');
-    const { isListening, transcript, startListening, stopListening } = useSpeechToText({ continuous: true, lang: 'fil-PH' });
-
+    const { isListening, transcript, startListening, stopListening } = useSpeechToText({ continuous: true, lang: 'en-US' });
 
     const startStopListening = () => {
         isListening ? stopVoiceInput() : startListening();
@@ -52,7 +51,7 @@ export default function TranslationForm() {
 
     const [sourceOpen, setSourceOpen] = useState(false)
     const [targetOpen, setTargetOpen] = useState(false)
-    const [source_value, setSourceValue] = useState("")
+    const [source_value, setSourceValue] = useState('')
     const [targetValue, setTargetValue] = useState("")
     const [response, setResponse] = useState({ translation: "" })
     const [isTranslating, startTransition] = useTransition();
@@ -152,11 +151,6 @@ export default function TranslationForm() {
                                         </CardHeader>
                                     </div>
 
-
-                                    {/* 
-                                    STILL NEED TO FIX THE TEXTAREA TO IN ORDER TO VALIDATE THE INPUT
-                                    CURRENTLY IT IS NOT DETECTING THE INPUT VALUE BASED ON THE TEXTAREA ONLY EVEN THOUGH THE TEXTAREA HAS A VALUE
-                                    */}
                                     <CardContent>
                                         <FormField
                                             control={form.control}
@@ -281,7 +275,7 @@ export default function TranslationForm() {
                                             <Button
                                                 className="flex justify-start py-4 mt-2"
                                                 type="button"
-                                                disabled={response.target !== "English" && response.target !== "Tagalog"}
+                                                disabled={response.target !== "English" && response.target !== "Filipino"}
                                                 variant="ghost"
                                                 onClick={() => { Speak({ translation: response.translation, lang: response.target }) }}>
                                                 <Volume2 className="h-6 w-6 mr-2 text-blue-500" /> Play Translation

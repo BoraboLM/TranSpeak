@@ -28,14 +28,9 @@ enum Status {
 }
 
 enum Language {
+  ENGLISH
   PANGASINAN
   ILOCANO
-}
-
-enum Difficulty {
-  BASIC
-  INTERMEDIATE
-  ADVANCED
 }
 
 model User {
@@ -54,7 +49,6 @@ model User {
   location      Location?
   activityLogs  ActivityLogs[]
   Translation   Translation[]
-  Learn         Learn[]
   Phrasebook    Phrasebook[]
 
   createdAt DateTime @default(now())
@@ -135,30 +129,18 @@ model Translation {
   createdAt DateTime @default(now())
 }
 
-model Learn {
-  id          String   @id @default(cuid())
-  userId      String
-  language    Language
-  title       String
-  description String
-  topic       String
-  status      Status   @default(ACTIVE)
-  createdAt   DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 model Phrasebook {
-  id             String     @id @default(cuid())
+  id             String   @id @default(cuid())
   userId         String
-  language       Language
-  difficulty     Difficulty
-  english_word   String
-  target_word    String
-  pronounciation String
-  description    String
-  status         Status     @default(ACTIVE)
-  createdAt      DateTime   @default(now())
+  sourceLanguage Language //English
+  targetLanguage Language //Pangasinan
+  language       Language //Pangasinan
+  title          String //Basic Numbers
+  english_word   String //One
+  target_word    String //Sakey 
+  pronounciation String //Sa-ke-y
+  status         Status   @default(ACTIVE)
+  createdAt      DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
