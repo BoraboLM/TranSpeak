@@ -24,10 +24,10 @@ export default async function LearnLayout({ children }) {
             </div>
 
             <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row 2xl:flex-row bg-gray-300/40">
-                <div className="w-full md:w-[300px] min-h-full bg-indigo-500/50 p-2 mt-2 mb-2 md:rounded-r-2xl lg:rounded-r-2xl xl:rounded-r-2xl 2xl:rounded-r-2xl ">
+                <div className="w-full md:w-[450px] min-h-full bg-indigo-500/50 p-2 mt-2 mb-2 md:rounded-r-2xl lg:rounded-r-2xl xl:rounded-r-2xl 2xl:rounded-r-2xl ">
                     <LearnSidebar data={data}/>
                 </div>
-                <div className="w-full h-full p-4">
+                <div className="w-full h-full px-6 py-4">
                     {children}
                 </div>
             </div>

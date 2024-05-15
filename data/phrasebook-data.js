@@ -43,3 +43,38 @@ export const IlocanoData = async () => {
         console.error(error);
     }
 }
+
+
+export const pangasinanPhraseBook = async ({ title, language}) => {
+    try{
+        const pangasinanPhraseBook = await db.Phrasebook.findMany({
+            where: {
+                title: title,
+                language: language,
+                status: "ACTIVE"
+            }
+        });
+
+        revalidatePath("learn");
+        return pangasinanPhraseBook;
+    }catch(error){
+        console.error(error);
+    }
+}
+
+export const ilocanoPhrasebook = async ({ title, language}) => {
+    try{
+        const ilocanoPhrasebook = await db.Phrasebook.findMany({
+            where: {
+                title: title,
+                language: language,
+                status: "ACTIVE"
+            }
+        });
+
+        revalidatePath("learn");
+        return ilocanoPhrasebook;
+    }catch(error){
+        console.error(error);
+    }
+}

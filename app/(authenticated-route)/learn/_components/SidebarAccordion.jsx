@@ -26,11 +26,14 @@ export default async function SidebarData() {
                     <AccordionTrigger className="text-white font-[900] text-2xl uppercase">Pangasinan</AccordionTrigger>
                     <AccordionContent className="text-white flex flex-col gap-4 font-[600] px-2 text-nowrap">
                         {pangData.length > 0 ? (
-                            uniquePangData.map((item, index) => (
-                                <Link key={index} href={`/learn/pangasinan/${item.title.replace(' ', '-').toLowerCase()}`} className="hover:text-slate-800/80 ease-in-out duration-200" replace>
-                                    - {item.title}
-                                </Link>
-                            ))
+                            uniquePangData.map((item, index) => {
+                                const specificTitleData = pangData.filter(data => data.title === item.title);
+                                return (
+                                    <Link key={index} href={`/learn/pangasinan/${item.title.replace(' ', '-').toLowerCase()}`} className="hover:text-slate-800/80 ease-in-out duration-200" replace>
+                                        - {item.title} - <span className="text-xl text-white font-[600]">{specificTitleData.length}</span>
+                                    </Link>
+                                )
+                            })
                         ) : (
                             <span className="text-muted cursor-default">No Phrasebook Available</span>
                         )}
@@ -41,11 +44,14 @@ export default async function SidebarData() {
                     <AccordionTrigger className="text-white font-[900] text-2xl uppercase">Ilocano</AccordionTrigger>
                     <AccordionContent className="text-white flex flex-col gap-4 font-[600] px-2 text-nowrap">
                         {iloData.length > 0 ? (
-                            uniqueIloData.map((item, index) => (
-                                <Link key={index} href={`/learn/ilocano/${item.title.replace(' ', '-').toLowerCase()}`} className="hover:text-slate-800/80 ease-in-out duration-200" replace>
-                                    - {item.title}
-                                </Link>
-                            ))
+                            uniqueIloData.map((item, index) => {
+                                const specificTitleData = iloData.filter(data => data.title === item.title);
+                                return (
+                                    <Link key={index} href={`/learn/ilocano/${item.title.replace(' ', '-').toLowerCase()}`} className="hover:text-slate-800/80 ease-in-out duration-200" replace>
+                                        - {item.title} - <span className="text-xl text-white font-[600]">{specificTitleData.length}</span>
+                                    </Link>
+                                )
+                            })
                         ) : (
                             <span className="text-muted cursor-default">No Phrasebook Available</span>
                         )}
