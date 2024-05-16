@@ -1,20 +1,16 @@
 "use client";
 
 import { useState } from "react";
-
-import { Check, ChevronsUpDown } from "lucide-react";
-import { Button } from "../ui/button";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Button } from "../ui/button";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command";
 import { cn } from "@/lib/utils";
 
-import { nationalities } from "@/app/(auth)/auth/data/nationalities";
-
-export const SelectInput = ({ control, name, isPending }) => {
+export const SelectCategoryInput = ({ control, name, isPending, data }) => {
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("");
-    console.log(nationalities)
+    const [dataValue, setDataValue] = useState("");
     return (
         <FormField
             control={control}
@@ -22,20 +18,20 @@ export const SelectInput = ({ control, name, isPending }) => {
             disabled={isPending}
             render={({ field }) => (
                 <FormItem>
-                    <FormLabel>Nationality: </FormLabel>
+                    <FormLabel className="text-lg">Category: </FormLabel>
                     <Popover open={open} onOpenChange={setOpen}>
                         <PopoverTrigger asChild>
                             <Button
                                 {...field}
-                                className="border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out w-full justify-between"
+                                className="border-b-[6px] border-transparent hover:border-indigo-500 duration-300 ease-in-out w-full justify-between"
                                 variant="secondary"
                                 aria-expanded={open}
                             >
                                 <FormControl  >
-                                    <span className="text-[16px]">
-                                        {value
-                                            ? nationalities.find((nationality) => nationality.value === value)?.label
-                                            : "Select your Nationality..."}
+                                    <span className="text-sm font-normal">
+                                        {dataValue
+                                            ? data.find((category) => category.value === dataValue)?.label
+                                            : "Select Existing Category..."}
                                     </span>
                                 </FormControl>
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -43,27 +39,27 @@ export const SelectInput = ({ control, name, isPending }) => {
                         </PopoverTrigger>
                         <PopoverContent className="w-full p-0">
                             <Command>
-                                <CommandInput placeholder="Search Nationality..." />
+                                <CommandInput placeholder="Search Category..." />
                                 <CommandList>
-                                    <CommandEmpty>No Nationality found.</CommandEmpty>
+                                    <CommandEmpty>No Category found. Try Creating New</CommandEmpty>
                                     <CommandGroup>
-                                        {nationalities.map((nationality, key) => (
+                                        {data.map((category, key) => (
                                             <CommandItem
                                                 key={key}
-                                                value={nationality.value}
+                                                value={category.value}
                                                 onSelect={(currentValue) => {
-                                                    setValue(currentValue === value ? "" : currentValue)
+                                                    setDataValue(currentValue === dataValue ? "" : currentValue)
                                                     setOpen(false)
-                                                    field.onChange(currentValue === value ? "" : currentValue);
+                                                    field.onChange(currentValue === dataValue ? "" : currentValue);
                                                 }}
                                             >
                                                 <Check
                                                     className={cn(
                                                         "mr-2 h-4 w-4",
-                                                        value === nationality.value ? "opacity-100" : "opacity-0"
+                                                        dataValue === category.value ? "opacity-100" : "opacity-0"
                                                     )}
                                                 />
-                                                {nationality.label}
+                                                {category.label}
                                             </CommandItem>
                                         ))}
                                     </CommandGroup>

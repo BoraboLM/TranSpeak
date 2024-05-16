@@ -34,22 +34,23 @@ enum Language {
 }
 
 model User {
-  id            String         @id @default(cuid())
-  firstName     String?
-  lastName      String?
-  name          String?
-  email         String?        @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  role          userRole       @default(USER)
-  status        Status         @default(ACTIVE)
-  nationality   String?
-  accounts      Account[]
-  location      Location?
-  activityLogs  ActivityLogs[]
-  Translation   Translation[]
-  Phrasebook    Phrasebook[]
+  id              String            @id @default(cuid())
+  firstName       String?
+  lastName        String?
+  name            String?
+  email           String?           @unique
+  emailVerified   DateTime?
+  image           String?
+  password        String?
+  role            userRole          @default(USER)
+  status          Status            @default(ACTIVE)
+  nationality     String?
+  accounts        Account[]
+  location        Location?
+  activityLogs    ActivityLogs[]
+  Translation     Translation[]
+  Phrasebook      Phrasebook[]
+  SavedPhrasebook SavedPhrasebook[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -130,17 +131,27 @@ model Translation {
 }
 
 model Phrasebook {
-  id             String   @id @default(cuid())
-  userId         String
-  sourceLanguage Language //English
-  targetLanguage Language //Pangasinan
-  language       Language //Pangasinan
-  title          String //Basic Numbers
-  english_word   String //One
-  target_word    String //Sakey 
-  pronounciation String //Sa-ke-y
-  status         Status   @default(ACTIVE)
-  createdAt      DateTime @default(now())
+  id              String            @id @default(cuid())
+  userId          String
+  sourceLanguage  Language //English
+  targetLanguage  Language //Pangasinan
+  language        Language //Pangasinan
+  title           String //Basic Numbers
+  english_word    String //One
+  target_word     String //Sakey 
+  pronounciation  String //Sa-ke-y
+  status          Status            @default(ACTIVE)
+  createdAt       DateTime          @default(now())
+  savedPhrasebook SavedPhrasebook[]
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+model SavedPhrasebook {
+  id           String @id @default(cuid())
+  userId       String
+  phrasebookId String
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  phrasebook Phrasebook @relation(fields: [phrasebookId], references: [id], onDelete: Cascade)
+  createdAt  DateTime   @default(now())
 }

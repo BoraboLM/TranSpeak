@@ -3,15 +3,30 @@
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Bookmark } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState, useTransition } from "react";
+import { useSession } from "next-auth/react";
+import { CheckBookmarkStatus } from "@/data/check-saved";
+import { BookmarkPhrasebook } from "@/app/action/SavePhrasebook/bookmark-phrase";
 
-export default function SaveButton({ id }) {
+export default function SaveButton({ id, data }) {
+    const session = useSession();
+    const [isPending, startTransition] = useTransition();
     const [isSaved, setIsSaved] = useState(false);
-    const handleSave = () => {
-        setIsSaved(!isSaved);
-        // alert(`You Saved ${id}`);
+    const [message, setMessage] = useState(null);
+
+
+    const userId = session.data?.user.id;
+    const phraseId = id;
+
+    const handleSave = async () => {
+        startTransition(async () => {
+            const response = await BookmarkPhrasebook(userId, phraseId);
+            setMessage(response);
+        });
     };
 
+    console.log('user', userId)
+    console.log('phrase', phraseId)
     return (
         <TooltipProvider>
             <Tooltip>

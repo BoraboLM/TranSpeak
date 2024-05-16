@@ -29,7 +29,7 @@ export default async function SidebarData() {
                             uniquePangData.map((item, index) => {
                                 const specificTitleData = pangData.filter(data => data.title === item.title);
                                 return (
-                                    <Link key={index} href={`/learn/pangasinan/${item.title.replace(' ', '-').toLowerCase()}`} className="hover:text-slate-800/80 ease-in-out duration-200" replace>
+                                    <Link key={index} href={`/learn/pangasinan/${item.title.replace(/ /g, '-').toLowerCase()}`} className="hover:text-slate-800/80 ease-in-out duration-200" replace>
                                         - {item.title} - <span className="text-xl text-white font-[600]">{specificTitleData.length}</span>
                                     </Link>
                                 )

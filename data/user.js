@@ -22,3 +22,24 @@ export const getUserId = async (id) => {
         return null
     }
 }
+
+export const userAdmin = async (id) => {
+    try {
+        const user = await db.user.findUnique({
+            where: {
+                id: id,
+                role: 'ADMIN'
+            }
+        })
+
+        return user;
+    } catch (error) {
+        return {
+            data: [
+                {message: 'This user does not exist!'},
+                {type: 'Error'},
+                {variant: 'destructive'}
+            ]
+        }
+    }
+}

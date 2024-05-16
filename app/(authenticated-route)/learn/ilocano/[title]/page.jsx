@@ -2,6 +2,8 @@ import { ilocanoPhrasebook } from "@/data/phrasebook-data";
 import SaveButton from "./components/SaveButton";
 import { Suspense } from "react";
 import Loading from "../../loading";
+import { auth } from "@/auth";
+import { CheckBookmarkStatus } from "@/data/check-saved";
 
 export async function generateMetadata({ params }) {
     const title = params.title.split('-')
@@ -14,6 +16,9 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function IlocanoPhrases({ params }) {
+    const session = await auth();
+    const bookmarkedPhrases = await CheckBookmarkStatus({ userId: session.user?.id })
+
     const words = params.title.split('-');
     const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
     const originalTitle = capitalizedWords.join(' ');
@@ -38,8 +43,8 @@ export default async function IlocanoPhrases({ params }) {
                             {data.map((item, index) => (
                                 <tr key={index} className="rounded-xl bg-white border-b-2 border-separate">
                                     <td className="px-2 py-4 whitespace-nowrap flex flex-row items-center gap-2">
-                                        <SaveButton id={item.id} className="w-8 h-8" />
-                                        <div className="text-sm sm:text-sm md:text-lg lg:text-lg xl:text-lg 2xl:text-lg text-gray-900">{item.english_word}</div>
+                                        <SaveButton id={item.id} data={bookmarkedPhrases} className="w-8 h-8" />
+                                        <div className="text-sm sm:text-sm md:text-lg lg:text-lg xl:text-lg 2xl:text-lg text-gray-900">{item.english_word} {item.id}</div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm sm:text-sm md:text-lg lg:text-lg xl:text-lg 2xl:text-lg text-gray-900 text-wrap">{item.target_word}</div>
