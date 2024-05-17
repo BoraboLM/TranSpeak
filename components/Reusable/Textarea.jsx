@@ -16,6 +16,7 @@ export default function PhrasebookTextarea({ control, name, label, isPending }) 
                             disabled={isPending}
                             placeholder="SAH-LAH-MAT POH!"
                             className="resize-none h-[75px]"
+                            height="130px"
                             {...field}
                         />
                     </FormControl>

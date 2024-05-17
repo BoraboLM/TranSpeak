@@ -8,6 +8,7 @@ import { auth } from "@/auth";
 import { LocationProvider } from "./components/context/LocationProvide";
 import LocationModal from "./components/LocationModal";
 import { Suspense } from "react";
+import ScrollToTop from "@/components/Reusable/ScrollToTop";
 
 export default async function AuthenticatedLayout({ children }) {
     const session = await auth();
@@ -19,6 +20,7 @@ export default async function AuthenticatedLayout({ children }) {
                             <Navbar />
                             <LocationModal  />
                                 {children}
+                                <ScrollToTop />
                             <Footer />
                         </LocationProvider>
                     </main>

@@ -33,6 +33,7 @@ export default function SelectOption({ formControl, categoryData, isPending }) {
                         name={"title"}
                         data={categoryData}
                         isPending={isPending}
+                        label={"Select Category"}
                     />
 
                     <Button type="button" className="text-wrap text-sm border-b-[6px] border-transparent hover:border-indigo-500 duration-300 ease-in-out" onClick={() => handleOptionChange('new')}>

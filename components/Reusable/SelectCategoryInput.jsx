@@ -8,7 +8,7 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command";
 import { cn } from "@/lib/utils";
 
-export const SelectCategoryInput = ({ control, name, isPending, data }) => {
+export const SelectCategoryInput = ({ control, name, isPending, data, label }) => {
     const [open, setOpen] = useState(false);
     const [dataValue, setDataValue] = useState("");
     return (
@@ -18,7 +18,7 @@ export const SelectCategoryInput = ({ control, name, isPending, data }) => {
             disabled={isPending}
             render={({ field }) => (
                 <FormItem>
-                    <FormLabel className="text-lg">Category: </FormLabel>
+                    <FormLabel className="text-lg">{label}: </FormLabel>
                     <Popover open={open} onOpenChange={setOpen}>
                         <PopoverTrigger asChild>
                             <Button

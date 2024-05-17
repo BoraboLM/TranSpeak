@@ -163,6 +163,7 @@ export default function TranslationForm() {
                                                             className="resize-none shadow-xl"
                                                             {...field}
                                                             disabled={isListening}
+                                                            height="300px"
                                                             spellCheck="false"
                                                             onChange={(e) => { setTextInput(e.target.value) }}
                                                             value={isListening ? textInput + (transcript.length ? (textInput.length ? ' ' : '') + transcript : '') : textInput}
@@ -262,6 +263,7 @@ export default function TranslationForm() {
                                                             placeholder="Translated text will appear here..."
                                                             className="resize-none shadow-md"
                                                             {...field}
+                                                            height="300px"
                                                             disabled
                                                             spellCheck="false"
                                                             value={response.translation}
