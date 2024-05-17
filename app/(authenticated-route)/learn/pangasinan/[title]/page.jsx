@@ -38,11 +38,11 @@ export default async function PangasinanPhrases({ params }) {
                         <tbody className="border-2">
                             {data.map((item, index) => (
                                 <tr key={index} className="rounded-xl bg-white border-b-2">
-                                    <td className="px-2 py-4 whitespace-nowrap flex flex-row items-center gap-2">
+                                    <td className="px-2 py-4 text-wrap flex flex-row items-center gap-2">
                                         <SaveButton id={item.id} className="w-8 h-8" />
                                         <div className="text-sm sm:text-sm md:text-lg lg:text-lg xl:text-lg 2xl:text-lg text-gray-900">{item.english_word}</div>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className="px-6 py-4 text-wrap">
                                         <div className="text-sm sm:text-sm md:text-lg lg:text-lg xl:text-lg 2xl:text-lg text-gray-900">{item.target_word}</div>
                                         <div className="text-sm italic text-gray-500">{item.pronounciation}</div>
                                     </td>

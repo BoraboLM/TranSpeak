@@ -10,6 +10,7 @@ import {
     apiAuthPrefix,
     DEFAULT_LOGIN_REDIRECT,
     authenticatedRoutes,
+    dynamicRoutes,
 } from "@/routes";
 
 export default auth((req) => {
@@ -20,6 +21,7 @@ export default auth((req) => {
     const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
     const isAuthenticatedRoute = authenticatedRoutes.includes(nextUrl.pathname);
+    const isDynamicRoute = dynamicRoutes.some((route) => nextUrl.pathname.includes(route));
 
     // Allow access to public routes
     if(isApiAuthRoute){
@@ -39,9 +41,7 @@ export default auth((req) => {
         return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     }
 
-    // If the route is an authenticated route and the user is not logged-in, redirect to the sign-in page
-    if (isAuthenticatedRoute && !isLoggedIn) {
-
+    if (!isLoggedIn && (isAuthenticatedRoute || isDynamicRoute)) {
         return Response.redirect(new URL("/auth/sign-in", nextUrl));
     }
 

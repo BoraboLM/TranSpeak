@@ -28,7 +28,7 @@ export const SelectCategoryInput = ({ control, name, isPending, data }) => {
                                 aria-expanded={open}
                             >
                                 <FormControl  >
-                                    <span className="text-sm font-normal">
+                                    <span className="text-sm font-normal truncate">
                                         {dataValue
                                             ? data.find((category) => category.value === dataValue)?.label
                                             : "Select Existing Category..."}

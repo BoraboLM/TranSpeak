@@ -25,8 +25,12 @@ export default function SaveButton({ id, data }) {
         });
     };
 
-    console.log('user', userId)
-    console.log('phrase', phraseId)
+    useEffect(() => {
+        if (data) {
+            console.log('data', data.map((item) => item.phrasebook.name)), ': ', data.map((item) => item.phrasebook.id === phraseId);
+        }
+    }, [data, phraseId])
+
     return (
         <TooltipProvider>
             <Tooltip>

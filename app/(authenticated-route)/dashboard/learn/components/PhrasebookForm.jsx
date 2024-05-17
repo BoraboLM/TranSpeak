@@ -173,20 +173,20 @@ export default function PhrasebookForm({ data, user }) {
                     <>
                         <h1 className="text-2xl font-bold mb-4">Phrasebook Preview</h1>
                         <span className="text-xl tracking-wide text-gray-600 p-2 font-[600]">Category - {data.title}</span>
-                        <table className="w-full">
+                        <table className=" sm:w-full md:w-full lg:w-full xl:w-full 2xl:w-full justify-center items-center">
                             <thead>
                                 <tr className="bg-gray-300 justify-between items-center">
-                                    <th className="px-8 py-4 text-left text-lg font-[700] text-gray-500 uppercase tracking-wider">{data.sourceLanguage}</th>
-                                    <th className="px-6 py-4 text-left text-lg font-[700] text-gray-500 uppercase tracking-wider">{data.targetLanguage}</th>
+                                    <th className="py-4 text-left text-lg font-[700] text-gray-500 uppercase tracking-wider w-[50%]">{data.sourceLanguage}</th>
+                                    <th className="py-4 text-left text-lg font-[700] text-gray-500 uppercase tracking-wider w-[50%]">{data.targetLanguage}</th>
                                 </tr>
                             </thead>
                             <tbody className="border-2">
-                                <tr className="rounded-xl bg-white border-b-2 border-separate">
-                                    <td className="px-2 py-4 whitespace-nowrap flex flex-row items-center gap-2">
-                                        <div className="text-sm sm:text-sm md:text-lg lg:text-lg xl:text-lg 2xl:text-lg text-gray-900">{data.english_word}</div>
+                                <tr className="rounded-xl bg-white border-b-2 border-separate gap-2">
+                                    <td className="px-4 py-4 text-wrap">
+                                        <div className="text-sm sm:text-sm md:text-lg lg:text-lg xl:text-lg 2xl:text-lg text-gray-900 w-[50%]">{data.english_word}</div>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm sm:text-sm md:text-lg lg:text-lg xl:text-lg 2xl:text-lg text-gray-900 text-wrap">{data.target_word}</div>
+                                    <td className="px-4 py-4 text-wrap">
+                                        <div className="text-sm sm:text-sm md:text-lg lg:text-lg xl:text-lg 2xl:text-lg text-gray-900 text-wrap w-[50%]">{data.target_word}</div>
                                         <div className="text-sm italic text-gray-500 text-wrap">{data.pronounciation}</div>
                                     </td>
                                 </tr>
@@ -195,23 +195,24 @@ export default function PhrasebookForm({ data, user }) {
                         <div className="mt-2 w-full gap-2 flex flex-row items-center justify-center">
                             <Button
                                 onClick={handleCloseModal}
-                                className="w-[50%] bg-red-500 hover:bg-red-700 ease-in-out duration-300"
+                                className="w-[50%] truncate bg-red-500 hover:bg-red-700 ease-in-out duration-300"
                                 disabled={isPending}
                             >
-                                Close to Edit
+                                Close
                             </Button>
 
                             <Button
-                                onClick={() => onSubmit(data)}
-                                className="w-[50%] text-white font-[600] bg-indigo-400 hover:bg-indigo-600 ease-in-out duration-300"
+                                // form.handleSubmit(previewData)
+                                onClick={() => form.handleSubmit(onSubmit(data))}
+                                className="w-[50%] truncate text-white font-[600] bg-indigo-400 hover:bg-indigo-600 ease-in-out duration-300"
                                 disabled={isPending}
                             >
                                 {isPending ?
                                     <>
                                         <ReloadIcon className="mr-2 h-4 w-4 animate-spin inline" />
-                                        Saving Phrasebook
+                                        Saving...
                                     </>
-                                    : 'Save Phrasebook'
+                                    : 'Save'
                                 }
                             </Button>
                         </div>
