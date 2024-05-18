@@ -19,8 +19,8 @@ export default function HistoryRecords({ data, historyRecord }) {
                                 <div key={index} className="flex flex-col gap-4 px-4 py-3 border-b-2 border-muted max-h-[600px]">
                                     <span
                                         onClick={() => historyRecord(item)}
-                                        className="text-md font-[500] text-wrap cursor-pointer hover:text-indigo-500 hover:font-[600] ease-in-out duration-200">
-                                        {item.user.name} - {formattedTime} - {formattedDate}
+                                        className="text-md font-[400] text-wrap cursor-pointer hover:text-indigo-500 hover:font-[600] ease-in-out duration-200">
+                                        {item.language} - {formattedTime} - {formattedDate}
                                     </span>
                                 </div>
                             )

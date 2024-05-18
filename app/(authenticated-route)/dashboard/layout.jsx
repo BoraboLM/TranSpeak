@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import { redirect } from 'next/navigation'
 import { Suspense } from "react";
 import Loading from "./Loading";
+import { AdminRoute } from "@/lib/Error-message/admin-route";
 
 export const metadata = {
     title: "Dashboard"
@@ -12,7 +13,7 @@ export const metadata = {
 export default async function DashboardLayout({ children }) {
     const session = await auth();
 
-    if (session.user.role !== 'ADMIN') redirect('/home');
+    if (session.user.role !== 'ADMIN') throw new AdminRoute();
 
     return (
         <Suspense fallback={<Loading />} >

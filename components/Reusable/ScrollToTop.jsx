@@ -27,7 +27,7 @@ export default function ScrollToTop() {
         <div className="w-full rounded-l-[30px] px-2 py-2">
             <div className="flex flex-col gap-4">
                 <button
-                    className={`fixed bottom-12 right-14 p-4 rounded-full bg-indigo-500 text-white transition-all duration-500 ease-in-out ${showScroll ? 'opacity-100 transform translate-y-0' : 'opacity-0 -translate-y-2'}`}
+                    className={`fixed bottom-6 right-8 p-4 rounded-full bg-indigo-500 text-white transition-all duration-500 ease-in-out ${showScroll ? 'opacity-100 transform translate-y-0' : 'opacity-0 -translate-y-2'}`}
                     onClick={scrollTop}
                 >
                     Scroll to top

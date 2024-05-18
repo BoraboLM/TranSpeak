@@ -293,7 +293,7 @@ export default function TranslationForm() {
                                                     setTimeout(() => setIsCopied(false), 3000);
                                                 }}
                                             >
-                                                <Copy className="h-6 w-6 mr-2 text-blue-500" /> {isCopied ? <p>Text copied!</p> : <p>Copy Translation</p>}
+                                                <Copy className="h-6 w-6 mr-2 text-blue-500" /> {isCopied ? <p>Text copied!</p> : <p className="text-wrap">Copy Translation</p>}
                                             </Button>
                                         </div>
 

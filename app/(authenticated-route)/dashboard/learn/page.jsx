@@ -19,7 +19,7 @@ export default async function LearnPage() {
             <div className="flex flex-col gap-4">
                 <LearnCard data={phrasebookData} />
                 <PhrasebookForm data={phrasebookData} historyData={historyData} user={session.user.id} />
-                <FooterPhrasebook />
+                <FooterPhrasebook data={phrasebookData} />
             </div>
         </div>
     )
