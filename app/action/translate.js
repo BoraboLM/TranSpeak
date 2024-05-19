@@ -61,7 +61,6 @@ export const Translate = async (data, textInput) => {
         source: sourceLang,
         target: targetLang
     }).then(function (response) {
-        console.log(response.data.translation_text);
         translatedText = response.data.translation_text;
     })
     .catch(function (err) {
@@ -92,6 +91,7 @@ export const Translate = async (data, textInput) => {
     return {
         translation: {
             // translatedText
+            user_input: input,
             translation_text: translatedText,
         }
     }

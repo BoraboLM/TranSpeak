@@ -3,7 +3,6 @@ import LearnCard from "./components/Card";
 import PhrasebookForm from "./components/PhrasebookForm";
 import { auth } from "@/auth";
 import { HistoryRecords } from "@/data/phrasebook-records";
-import FooterPhrasebook from "./components/FooterPhrasebook";
 
 export const metadata = {
     title: "Learn | Admin Dashboard ",
@@ -19,7 +18,6 @@ export default async function LearnPage() {
             <div className="flex flex-col gap-4">
                 <LearnCard data={phrasebookData} />
                 <PhrasebookForm data={phrasebookData} historyData={historyData} user={session.user.id} />
-                <FooterPhrasebook data={phrasebookData} />
             </div>
         </div>
     )

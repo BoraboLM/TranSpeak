@@ -14,6 +14,8 @@ import { toast } from "@/components/ui/use-toast";
 import HistoryRecords from "./HistoryRecords";
 import PhrasebookPreviewModal from "./PhrasebookPreviewModal";
 import HistoryRecordsModal from "./HistoryRecordsModal";
+import FooterPhrasebook from "./FooterPhrasebook";
+import PhrasebookFooterModal from "./FooterPhrasebookModal";
 
 export default function PhrasebookForm({ data, user, historyData }) {
     const categoryData = data.reduce((unique, item) => {
@@ -26,10 +28,12 @@ export default function PhrasebookForm({ data, user, historyData }) {
     // Modal State
     const [isOpen, setIsOpen] = useState(false);
     const [historyOpen, setHistoryOpen] = useState(false);
+    const [footerPhraseOpen, setFooterPhraseOpen] = useState(false);
 
     // Modal Data
     const [formData, setFormData] = useState({});
     const [historyFormData, setHistoryFormData] = useState({});
+    const [footerPhraseData, setFooterPhraseData] = useState({});
 
 
     useEffect(() => {
@@ -37,6 +41,7 @@ export default function PhrasebookForm({ data, user, historyData }) {
             if (e.key === "Escape") {
                 setIsOpen(false);
                 setHistoryOpen(false);
+                setFooterPhraseOpen(false);
             }
         }
 
@@ -45,7 +50,7 @@ export default function PhrasebookForm({ data, user, historyData }) {
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         }
-    }, [setIsOpen, setHistoryOpen])
+    }, [setIsOpen, setHistoryOpen, setFooterPhraseOpen])
 
     const form = useForm({
         resolver: zodResolver(PhrasebookFormSchema),
@@ -60,8 +65,15 @@ export default function PhrasebookForm({ data, user, historyData }) {
         }
     })
 
-    const handleCloseModal = () => {
-        setIsOpen(false);
+    // Data and open Modal Handlers
+    const previewData = async (data) => {
+        setFormData(data);
+        setIsOpen(true);
+    }
+
+    const handleOpenPreviewModal = (data) => {
+        setFooterPhraseData(data);
+        setFooterPhraseOpen(true);
     }
 
     const handleOpenHistoryModal = (data) => {
@@ -69,15 +81,20 @@ export default function PhrasebookForm({ data, user, historyData }) {
         setHistoryOpen(true);
     }
 
+    // Close Modal Handlers
+    const handleCloseModal = () => {
+        setIsOpen(false);
+    }
+
     const handleCloseHistoryModal = () => {
         setHistoryOpen(false);
     }
 
-    const previewData = async (data) => {
-        setFormData(data);
-        setIsOpen(true);
+    const handleCloseFooterModal = () => {
+        setFooterPhraseOpen(false);
     }
 
+    // Form Submit Handler
     const onSubmit = async (data) => {
         startTransition(async () => {
             const response = await SavePhrasebook(data, user);
@@ -97,115 +114,128 @@ export default function PhrasebookForm({ data, user, historyData }) {
         setIsOpen(false);
 
     }, [message, setIsOpen]);
-
     return (
-        <div className="flex flex-col md:flex-row h-full w-full gap-4 px-4">
-            <div className="flex flex-col gap-4 p-4 flex-1 md:flex-[2.5] bg-gray-200 rounded-lg sm:w-full md:w-full">
-                <h1 className="w-full text-2xl tracking-wider font-[700]">Create a Phrasebook Data</h1>
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(previewData)} className="gap-4 px-4">
-                        <div className="grid grid-cols-2 gap-4 py-4">
-                            <SelectLanguage
-                                control={form.control}
-                                name={"language"}
-                                label={"Language"}
-                                options={[
-                                    { value: "ILOCANO", label: "Ilocano" },
-                                    { value: "PANGASINAN", label: "Pangasinan" },
-                                ]} isPending={isPending}
-                            />
+        <div className="gap-2">
+            <div className="flex flex-col md:flex-row h-full w-full gap-4 px-4">
+                <div className="flex flex-col gap-4 p-4 flex-1 md:flex-[2.5] bg-gray-200 rounded-lg sm:w-full md:w-full">
+                    <h1 className="w-full text-2xl tracking-wider font-[700]">Create a Phrasebook Data</h1>
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(previewData)} className="gap-4 px-4">
+                            <div className="grid grid-cols-2 gap-4 py-4">
+                                <SelectLanguage
+                                    control={form.control}
+                                    name={"language"}
+                                    label={"Language"}
+                                    options={[
+                                        { value: "ILOCANO", label: "Ilocano" },
+                                        { value: "PANGASINAN", label: "Pangasinan" },
+                                    ]} isPending={isPending}
+                                />
 
-                            <SelectOption
-                                categoryData={categoryData}
-                                formControl={form.control}
-                                isPending={isPending}
-                                form={form}
-                            />
-                        </div>
+                                <SelectOption
+                                    categoryData={categoryData}
+                                    formControl={form.control}
+                                    isPending={isPending}
+                                    form={form}
+                                />
+                            </div>
 
-                        <div className="grid grid-cols-2 gap-4 py-4">
-                            <SelectLanguage
-                                control={form.control}
-                                name={"sourceLanguage"}
-                                label={"English"}
-                                options={[
-                                    { value: "ENGLISH", label: "ENGLISH" },
-                                ]}
-                                isPending={isPending}
-                            />
+                            <div className="grid grid-cols-2 gap-4 py-4">
+                                <SelectLanguage
+                                    control={form.control}
+                                    name={"sourceLanguage"}
+                                    label={"English"}
+                                    options={[
+                                        { value: "ENGLISH", label: "ENGLISH" },
+                                    ]}
+                                    isPending={isPending}
+                                />
 
-                            <FormInput
-                                control={form.control}
-                                isPending={isPending}
-                                name={"english_word"}
-                                label={"English Word"}
-                                type={"text"}
-                            />
-                        </div>
+                                <FormInput
+                                    control={form.control}
+                                    isPending={isPending}
+                                    name={"english_word"}
+                                    label={"English Word"}
+                                    type={"text"}
+                                />
+                            </div>
 
-                        <div className="grid grid-cols-2 gap-4 py-4">
-                            <SelectLanguage
-                                control={form.control}
-                                name={"targetLanguage"}
-                                label={"Target Language"}
-                                options={[
-                                    { value: "PANGASINAN", label: "PANGASINAN" },
-                                    { value: "ILOCANO", label: "ILOCANO" }
-                                ]}
-                                isPending={isPending}
-                            />
+                            <div className="grid grid-cols-2 gap-4 py-4">
+                                <SelectLanguage
+                                    control={form.control}
+                                    name={"targetLanguage"}
+                                    label={"Target Language"}
+                                    options={[
+                                        { value: "PANGASINAN", label: "PANGASINAN" },
+                                        { value: "ILOCANO", label: "ILOCANO" }
+                                    ]}
+                                    isPending={isPending}
+                                />
 
-                            <FormInput
-                                control={form.control}
-                                isPending={isPending}
-                                name={"target_word"}
-                                label={"Target Word"}
-                                type={"text"}
-                            />
-                        </div>
+                                <FormInput
+                                    control={form.control}
+                                    isPending={isPending}
+                                    name={"target_word"}
+                                    label={"Target Word"}
+                                    type={"text"}
+                                />
+                            </div>
 
-                        <div className="w-full gap-2 p-2">
-                            <PhrasebookTextarea
-                                control={form.control}
-                                name={"pronounciation"}
-                                label={"Pronounciation"}
-                                isPending={isPending}
-                            />
-                        </div>
+                            <div className="w-full gap-2 p-2">
+                                <PhrasebookTextarea
+                                    control={form.control}
+                                    name={"pronounciation"}
+                                    label={"Pronounciation"}
+                                    isPending={isPending}
+                                />
+                            </div>
 
-                        <div className="p-2 mt-2">
-                            <Button
-                                className="border-b-[6px] border-transparent hover:border-indigo-500 duration-300 ease-in-out"
-                            >
-                                Create Phrasebook Data.
-                            </Button>
-                        </div>
-                    </form>
-                </Form>
+                            <div className="p-2 mt-2">
+                                <Button
+                                    className="border-b-[6px] border-transparent hover:border-indigo-500 duration-300 ease-in-out"
+                                >
+                                    Create Phrasebook Data.
+                                </Button>
+                            </div>
+                        </form>
+                    </Form>
+                </div>
+
+                {/* History Component */}
+                <HistoryRecords
+                    data={historyData}
+                    historyRecord={handleOpenHistoryModal}
+                />
+
+                {/* Modals */}
+                <PhrasebookPreviewModal
+                    isOpen={isOpen}
+                    formData={formData}
+                    form={form}
+                    onSubmit={onSubmit}
+                    isPending={isPending}
+                    handleCloseModal={handleCloseModal}
+                />
+
+                <HistoryRecordsModal
+                    isOpen={historyOpen}
+                    formData={historyFormData}
+                    handleCloseModal={handleCloseHistoryModal}
+                />
+
+                <PhrasebookFooterModal
+                    isOpen={footerPhraseOpen}
+                    formData={footerPhraseData}
+                    handleCloseFooterModal={handleCloseFooterModal}
+                />
             </div>
 
-            {/* History Component */}
-            <HistoryRecords
-                data={historyData}
-                historyRecord={handleOpenHistoryModal}
-            />
-
-            <PhrasebookPreviewModal
-                isOpen={isOpen}
-                formData={formData}
-                form={form}
-                onSubmit={onSubmit}
-                isPending={isPending}
-                handleCloseModal={handleCloseModal}
-            />
-
-            <HistoryRecordsModal
-                isOpen={historyOpen}
-                formData={historyFormData}
-                isPending={isPending}
-                handleCloseModal={handleCloseHistoryModal}
-            />
-
+            <div className="mt-4">
+                <FooterPhrasebook
+                    data={data}
+                    footerData={handleOpenPreviewModal}
+                />
+            </div>
         </div>
     )
 }
