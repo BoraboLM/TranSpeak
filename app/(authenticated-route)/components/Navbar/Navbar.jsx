@@ -5,9 +5,12 @@ import AvatarProfile from "./Avatar";
 import { Menu } from 'lucide-react';
 import { Sheet, SheetClose, SheetContent, SheetTrigger, } from "@/components/ui/sheet"
 import { useCurrentUser } from "@/app/hooks/use-current-user";
+import { SessionRole } from "@/lib/Error-message/admin-route";
 
 export function Navbar() {
     const session = useCurrentUser();
+
+    if (!session) throw new SessionRole();
     return (
         <nav className="w-full h-[8vh] md:h-[8vh] lg:h-[8vh] xl:h-[8vh] 2xl:h-[8vh] flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 bg-white shadow-lg z-50">
             <div className="flex items-center space-x-2 sm:space-x-4 md:space-x-8">
