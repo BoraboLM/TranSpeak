@@ -1,74 +1,74 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { languages } from "./data/languages";
+
+import { cn } from "@/lib/utils";
 import { useState } from "react";
 
-import { Check, ChevronsUpDown } from "lucide-react";
-import { Button } from "../ui/button";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command";
-import { cn } from "@/lib/utils";
-
-import { nationalities } from "@/app/(auth)/auth/data/nationalities";
-
-export const SelectInput = ({ control, name, isPending }) => {
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("");
+export default function LanguageSelect({ name, control, source_value, setSourceValue }) {
+    const [sourceOpen, setSourceOpen] = useState(false)
     return (
         <FormField
             control={control}
             name={name}
-            disabled={isPending}
             render={({ field }) => (
                 <FormItem>
-                    <FormLabel>Nationality: </FormLabel>
-                    <Popover open={open} onOpenChange={setOpen}>
+                    <Popover open={sourceOpen} onOpenChange={setSourceOpen}>
                         <PopoverTrigger asChild>
+
                             <Button
                                 {...field}
                                 className="border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out w-full justify-between"
                                 variant="secondary"
-                                aria-expanded={open}
+                                aria-expanded={sourceOpen}
                             >
                                 <FormControl  >
                                     <span className="text-[16px]">
-                                        {value
-                                            ? nationalities.find((nationality) => nationality.value === value)?.label
-                                            : "Select your Nationality..."}
+                                        {source_value
+                                            ? languages.find((language) => language.value === source_value)?.label
+                                            : "Select source Language..."}
                                     </span>
+
                                 </FormControl>
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                         </PopoverTrigger>
+
                         <PopoverContent className="w-full p-0">
                             <Command>
-                                <CommandInput placeholder="Search Nationality..." />
+                                <CommandInput placeholder="Search Lanugae..." />
                                 <CommandList>
-                                    <CommandEmpty>No Nationality found.</CommandEmpty>
+                                    <CommandEmpty>No Language found.</CommandEmpty>
                                     <CommandGroup>
-                                        {nationalities.map((nationality, key) => (
+                                        {languages.map((language, key) => (
                                             <CommandItem
                                                 key={key}
-                                                value={nationality.value}
+                                                source_value={language.value}
                                                 onSelect={(currentValue) => {
-                                                    setValue(currentValue === value ? "" : currentValue)
-                                                    setOpen(false)
-                                                    field.onChange(currentValue === value ? "" : currentValue);
+                                                    setSourceValue(currentValue === source_value ? "" : currentValue)
+                                                    setSourceOpen(false)
+                                                    field.onChange(currentValue === source_value ? "" : currentValue);
                                                 }}
                                             >
                                                 <Check
                                                     className={cn(
                                                         "mr-2 h-4 w-4",
-                                                        value === nationality.value ? "opacity-100" : "opacity-0"
+                                                        source_value === language.value ? "opacity-100" : "opacity-0"
                                                     )}
                                                 />
-                                                {nationality.label}
+                                                {language.label}
                                             </CommandItem>
                                         ))}
                                     </CommandGroup>
                                 </CommandList>
                             </Command>
                         </PopoverContent>
+
                     </Popover>
                     <FormMessage />
                 </FormItem>

@@ -79,7 +79,6 @@
   border-radius: 12px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   transition: ease-in-out;
   animation-duration: 300ms;

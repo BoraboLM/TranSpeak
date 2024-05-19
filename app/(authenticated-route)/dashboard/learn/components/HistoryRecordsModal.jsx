@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import Modal from "./Modal";
-import { ReloadIcon } from "@radix-ui/react-icons";
 
 export default function HistoryRecordsModal({ isOpen, formData, handleCloseModal }) {
     return (
