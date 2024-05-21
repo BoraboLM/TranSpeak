@@ -5,7 +5,7 @@ export const PhrasebookData = async () => {
     try{
         const phrasebookData = await db.Phrasebook.findMany({});
 
-        revalidatePath("learn");
+        revalidatePath("/dashboard/learn");
         return phrasebookData;
     }catch(error){
         console.error(error);
