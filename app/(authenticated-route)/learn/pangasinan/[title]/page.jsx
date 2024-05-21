@@ -21,7 +21,6 @@ export default async function PangasinanPhrases({ params }) {
     const data = await pangasinanPhraseBook({ title: originalTitle, language: "PANGASINAN" });
     // if (!data[0].title) throw new LearnItemRoute();
     const title = data.map(item => item.title);
-    console.log(title)
     return (
         <div className="w-full sm:w-[90%] md:w-[90%] lg:w-[95%] xl:w-[95%] 2xl:w-[95%] mx-auto min-h-[90vh] md:h-1/2 lg:h-[85%]">
             <div className="flex w-full p-4">
