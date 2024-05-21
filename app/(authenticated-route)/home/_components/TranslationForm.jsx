@@ -1,21 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Check, ChevronsUpDown } from "lucide-react"
 import { useForm } from "react-hook-form"
-
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 import { translateSchema } from './schema/translateSchema';
 import { Textarea } from '@/components/ui/textarea';
-import { languages } from "./data/languages";
 import { useState, useTransition, useEffect } from "react";
 
 // Importing the icons
@@ -30,6 +22,8 @@ import useTextToSpeech from "@/app/hooks/useTextToSpeech";
 
 // Server Actions
 import { Translate } from "@/app/action/translate";
+import LanguageSelect from "./LanguageSelect";
+import AnimatedText from "./AnimatedResponse";
 
 export default function TranslationForm() {
     const [isCopied, setIsCopied] = useState(false);
@@ -48,13 +42,11 @@ export default function TranslationForm() {
         stopListening();
     };
 
-
-    const [sourceOpen, setSourceOpen] = useState(false)
-    const [targetOpen, setTargetOpen] = useState(false)
     const [source_value, setSourceValue] = useState('')
     const [targetValue, setTargetValue] = useState("")
     const [response, setResponse] = useState({ translation: "" })
     const [isTranslating, startTransition] = useTransition();
+
     const form = useForm({
         resolver: zodResolver(translateSchema),
         defaultValues: {
@@ -63,7 +55,6 @@ export default function TranslationForm() {
             input: '',
         }
     })
-
 
     const onSubmit = async (data) => {
         startTransition(async () => {
@@ -87,66 +78,11 @@ export default function TranslationForm() {
                                 <Card className="w-[80vw] sm:w-[60vw] md:w-[60vw] lg:w-[35vw] xl:w-[30vw] 2xl:w-[30vw] shadow-xl">
                                     <div>
                                         <CardHeader>
-                                            <FormField
+                                            <LanguageSelect
+                                                name={"source"}
                                                 control={form.control}
-                                                name="source"
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <Popover open={sourceOpen} onOpenChange={setSourceOpen}>
-                                                            <PopoverTrigger asChild>
-
-                                                                <Button
-                                                                    {...field}
-                                                                    className="border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out w-full justify-between"
-                                                                    variant="secondary"
-                                                                    aria-expanded={sourceOpen}
-                                                                >
-                                                                    <FormControl  >
-                                                                        <span className="text-[16px]">
-                                                                            {source_value
-                                                                                ? languages.find((language) => language.value === source_value)?.label
-                                                                                : "Select source Language..."}
-                                                                        </span>
-
-                                                                    </FormControl>
-                                                                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                                                </Button>
-                                                            </PopoverTrigger>
-
-                                                            <PopoverContent className="w-full p-0">
-                                                                <Command>
-                                                                    <CommandInput placeholder="Search Lanugae..." />
-                                                                    <CommandList>
-                                                                        <CommandEmpty>No Language found.</CommandEmpty>
-                                                                        <CommandGroup>
-                                                                            {languages.map((language, key) => (
-                                                                                <CommandItem
-                                                                                    key={key}
-                                                                                    source_value={language.value}
-                                                                                    onSelect={(currentValue) => {
-                                                                                        setSourceValue(currentValue === source_value ? "" : currentValue)
-                                                                                        setSourceOpen(false)
-                                                                                        field.onChange(currentValue === source_value ? "" : currentValue);
-                                                                                    }}
-                                                                                >
-                                                                                    <Check
-                                                                                        className={cn(
-                                                                                            "mr-2 h-4 w-4",
-                                                                                            source_value === language.value ? "opacity-100" : "opacity-0"
-                                                                                        )}
-                                                                                    />
-                                                                                    {language.label}
-                                                                                </CommandItem>
-                                                                            ))}
-                                                                        </CommandGroup>
-                                                                    </CommandList>
-                                                                </Command>
-                                                            </PopoverContent>
-
-                                                        </Popover>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
+                                                source_value={source_value}
+                                                setSourceValue={setSourceValue}
                                             />
                                         </CardHeader>
                                     </div>
@@ -163,6 +99,7 @@ export default function TranslationForm() {
                                                             className="resize-none shadow-xl"
                                                             {...field}
                                                             disabled={isListening}
+                                                            height="300px"
                                                             spellCheck="false"
                                                             onChange={(e) => { setTextInput(e.target.value) }}
                                                             value={isListening ? textInput + (transcript.length ? (textInput.length ? ' ' : '') + transcript : '') : textInput}
@@ -189,88 +126,23 @@ export default function TranslationForm() {
                                 <Card className="w-[80vw] sm:w-[60vw] md:w-[60vw] lg:w-[35vw] xl:w-[30vw] 2xl:w-[30vw]  shadow-xl">
                                     <div>
                                         <CardHeader>
-                                            <FormField
+                                            <LanguageSelect
+                                                name={"target"}
                                                 control={form.control}
-                                                name="target"
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <Popover open={targetOpen} onOpenChange={setTargetOpen}>
-                                                            <PopoverTrigger asChild>
-
-                                                                <Button
-                                                                    {...field}
-                                                                    className="border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out w-full justify-between"
-                                                                    variant="secondary"
-                                                                    aria-expanded={targetOpen}
-                                                                >
-                                                                    <FormControl  >
-                                                                        <span className="text-[16px]">
-                                                                            {targetValue
-                                                                                ? languages.find((language) => language.value === targetValue)?.label
-                                                                                : "Select target Language..."}
-                                                                        </span>
-
-                                                                    </FormControl>
-                                                                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                                                </Button>
-                                                            </PopoverTrigger>
-
-                                                            <PopoverContent className="w-full p-0">
-                                                                <Command>
-                                                                    <CommandInput placeholder="Search Lanugae..." />
-                                                                    <CommandList>
-                                                                        <CommandEmpty>No Language found.</CommandEmpty>
-                                                                        <CommandGroup>
-                                                                            {languages.map((language, key) => (
-                                                                                <CommandItem
-                                                                                    key={key}
-                                                                                    source_value={language.value}
-                                                                                    onSelect={(currentValue) => {
-                                                                                        setTargetValue(currentValue === targetValue ? "" : currentValue)
-                                                                                        setTargetOpen(false)
-                                                                                        field.onChange(currentValue === targetValue ? "" : currentValue);
-                                                                                    }}
-                                                                                >
-                                                                                    <Check
-                                                                                        className={cn(
-                                                                                            "mr-2 h-4 w-4",
-                                                                                            targetValue === language.value ? "opacity-100" : "opacity-0"
-                                                                                        )}
-                                                                                    />
-                                                                                    {language.label}
-                                                                                </CommandItem>
-                                                                            ))}
-                                                                        </CommandGroup>
-                                                                    </CommandList>
-                                                                </Command>
-                                                            </PopoverContent>
-                                                        </Popover>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
+                                                source_value={targetValue}
+                                                setSourceValue={setTargetValue}
                                             />
                                         </CardHeader>
                                     </div>
                                     <CardContent>
-                                        <FormField
-                                            control={form.control}
-                                            name="output"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormControl>
-                                                        <Textarea
-                                                            placeholder="Translated text will appear here..."
-                                                            className="resize-none shadow-md"
-                                                            {...field}
-                                                            disabled
-                                                            spellCheck="false"
-                                                            value={response.translation}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
+                                        {/* Translated Output but in Different component because i added something like gpt response animation */}
+                                        <AnimatedText
+                                            response={response.translation.translation_text}
+                                            name={"output"}
+                                            form={form.control}
+                                            input={response.translation.user_input}
                                         />
+
                                         <div className="flex flex-row justify-start">
                                             <Button
                                                 className="flex justify-start py-4 mt-2"
@@ -286,12 +158,12 @@ export default function TranslationForm() {
                                                 variant="ghost"
                                                 type="button"
                                                 onClick={() => {
-                                                    navigator.clipboard.writeText(response.translation)
+                                                    navigator.clipboard.writeText(response.translation.translation_text)
                                                     setIsCopied(true);
                                                     setTimeout(() => setIsCopied(false), 3000);
                                                 }}
                                             >
-                                                <Copy className="h-6 w-6 mr-2 text-blue-500" /> {isCopied ? <p>Text copied!</p> : <p>Copy Translation</p>}
+                                                <Copy className="h-6 w-6 mr-2 text-blue-500" /> {isCopied ? <p>Text copied!</p> : <p className="text-wrap">Copy Translation</p>}
                                             </Button>
                                         </div>
 
@@ -301,13 +173,15 @@ export default function TranslationForm() {
                         </div>
 
                         <div className="flex gap-4 mt-6 w-full px-10  justify-center">
-                            <Button type="submit" className=" w-[40vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw] xl:w-[30vw] 2xl:w-[30vw] border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out" disabled={isListening || isTranslating}>
+                            <Button type="submit" className=" w-[40vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw] xl:w-[30vw] 2xl:w-[30vw] border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out" disabled={true}>
                                 {isTranslating ? "Translating..." : "Translate"}
                             </Button>
+                            {/* disabled={isListening || isTranslating}>
+                                {isTranslating ? "Translating..." : "Translate"} */}
                         </div>
                     </form>
                 </Form>
-            </div>
+            </div >
         </>
     )
 }

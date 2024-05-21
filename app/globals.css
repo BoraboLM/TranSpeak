@@ -66,10 +66,30 @@
   }
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #999696;
+  border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  transition: ease-in-out;
+  animation-duration: 300ms;
+  background: #615f5f;
+}
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

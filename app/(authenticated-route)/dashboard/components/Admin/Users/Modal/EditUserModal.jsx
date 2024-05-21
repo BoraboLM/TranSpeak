@@ -1,8 +1,7 @@
 "use client";
 
-import { Input } from '@/components/ui/input';
 import { CircleX } from 'lucide-react';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { EditProfileSchema } from './Schema/EditUserProfileSchema';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "
 import { Button } from '@/components/ui/button';
 import UpdateUser from '@/app/action/UpdateUser';
 import { toast } from '@/components/ui/use-toast';
+import FormInput from '@/components/Reusable/FormInput';
 
 
 export default function EditUserModal({ user, onClose }) {
@@ -100,46 +100,28 @@ export default function EditUserModal({ user, onClose }) {
                                 <form onSubmit={form.handleSubmit(onSubmit)}>
                                     <div className='grid grid-2 gap-4'>
 
-                                        <FormField
+                                        <FormInput
                                             control={form.control}
-                                            name="firstName"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="text-[18px] tracking-wide">First Name:</FormLabel>
-                                                    <FormControl>
-                                                        <Input placeholder="First Name" {...field} disabled={isPending} />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
+                                            name={'firstName'}
+                                            label={'First Name'}
+                                            type={'text'}
+                                            isPending={isPending}
                                         />
 
-                                        <FormField
+                                        <FormInput
                                             control={form.control}
-                                            name="lastName"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="text-[18px] tracking-wide">Last Name:</FormLabel>
-                                                    <FormControl>
-                                                        <Input placeholder="Last Name" {...field} disabled={isPending} />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
+                                            name={'lastName'}
+                                            label={'Last Name'}
+                                            type={'text'}
+                                            isPending={isPending}
                                         />
 
-                                        <FormField
+                                        <FormInput
                                             control={form.control}
-                                            name="nationality"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="text-[18px] tracking-wide">Nationality:</FormLabel>
-                                                    <FormControl>
-                                                        <Input placeholder="Nationality" {...field} disabled={isPending} />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
+                                            name={'nationality'}
+                                            label={'Nationality'}
+                                            type={'text'}
+                                            isPending={isPending}
                                         />
 
                                         <FormField

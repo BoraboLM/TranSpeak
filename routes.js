@@ -56,6 +56,11 @@ export const authenticatedRoutes = [
     "/dashboard/system-log",
 ]
 
+export const dynamicRoutes = [
+    '/learn/pangasinan',
+    '/learn/ilocano',
+]
+
 /**
  * Routes Starting from this url are for Admin only
  * @type {String[]}
