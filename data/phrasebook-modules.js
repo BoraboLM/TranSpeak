@@ -7,6 +7,13 @@ export const PhrasebookModules = async () => {
             orderBy: {
                 createdAt: "desc"
             },
+            include: {
+                user: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
         })
 
         revalidatePath("dashboard/learn");

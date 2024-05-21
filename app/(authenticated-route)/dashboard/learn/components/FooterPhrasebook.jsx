@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function FooterPhrasebook({ data, footerData }) {
     const phrasebookData = data.slice(0, 6);
     return (
@@ -31,7 +33,9 @@ export default function FooterPhrasebook({ data, footerData }) {
                     ))}
                 </div>
                 <div className="flex w-full h-full justify-center items-center py-4">
-                    <h1 className="text-muted-foreground font-[600] tracking-wide">Click here to see all Phrasebook Data</h1>
+                    <Link href={'/dashboard/learn/phrasebook'} replace className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110" target={'_blank'}>
+                        <h1 className="text-muted-foreground font-[600] tracking-wide">Click here to see all Phrasebook Data</h1>
+                    </Link>
                 </div>
             </div>
         </div>

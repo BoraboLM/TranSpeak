@@ -55,7 +55,7 @@ export const pangasinanPhraseBook = async ({ title, language}) => {
             }
         });
 
-        revalidatePath("learn");
+        revalidatePath("/learn");
         return pangasinanPhraseBook;
     }catch(error){
         console.error(error);

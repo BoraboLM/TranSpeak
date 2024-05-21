@@ -173,7 +173,7 @@ export default function TranslationForm() {
                         </div>
 
                         <div className="flex gap-4 mt-6 w-full px-10  justify-center">
-                            <Button type="submit" className=" w-[40vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw] xl:w-[30vw] 2xl:w-[30vw] border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out" disabled={isListening || isTranslating}>
+                            <Button type="submit" className=" w-[40vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw] xl:w-[30vw] 2xl:w-[30vw] border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out" disabled={true}>
                                 {isTranslating ? "Translating..." : "Translate"}
                             </Button>
                             {/* disabled={isListening || isTranslating}>

@@ -1,5 +1,4 @@
 import { pangasinanPhraseBook } from "@/data/phrasebook-data";
-import SaveButton from "./component/SaveButton";
 import { Suspense } from "react";
 import Loading from "../../loading";
 import { LearnItemRoute } from "@/lib/Error-message/admin-route";
@@ -14,14 +13,15 @@ export async function generateMetadata({ params }) {
     };
 }
 export default async function PangasinanPhrases({ params }) {
+    console.log(params)
     const words = params.title.split('-');
     const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
     const originalTitle = capitalizedWords.join(' ');
 
     const data = await pangasinanPhraseBook({ title: originalTitle, language: "PANGASINAN" });
-
-    if (!data[0].title) throw new LearnItemRoute();
-
+    // if (!data[0].title) throw new LearnItemRoute();
+    const title = data.map(item => item.title);
+    console.log(title)
     return (
         <div className="w-full sm:w-[90%] md:w-[90%] lg:w-[95%] xl:w-[95%] 2xl:w-[95%] mx-auto min-h-[90vh] md:h-1/2 lg:h-[85%]">
             <div className="flex w-full p-4">
