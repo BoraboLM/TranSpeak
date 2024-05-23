@@ -21,7 +21,7 @@ export default async function Users() {
             <div className="w-full sm:w-full md:w-full lg:w-full xl:full 2xl:full grid px-4 py-6 gap-4">
 
                 <div className="w-full rounded-[15px] border-2 shadow-md">
-                    <span className="py-4 px-4 text-xl tracking-wider uppercase font-semibold text-indigo-400">Users Chart</span>
+                    <span className="p-4 text-xl tracking-wider uppercase font-semibold text-indigo-400">Users Chart</span>
                     <div className="w-full h-[350px] grid-cols-1 mt-4">
                         <Suspense fallback={<Loading />}>
                             <AreaChartComponent data={user_chart_data} />

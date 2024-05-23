@@ -3,9 +3,9 @@ import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { getUserId } from "@/data/user";
 
-export const UpdatePhrasebook = async (_data, userId, userName) => {
+export const UpdatePhrasebook = async (_data, userId) => {
     const { id, language, title, sourceLanguage, english_word, targetLanguage, target_word, pronounciation, status } = _data;
-
+    
     try {
         const user = await getUserId(userId);
 
@@ -43,10 +43,10 @@ export const UpdatePhrasebook = async (_data, userId, userName) => {
 
         await db.ActivityLogs.create({
         data: {
-            userId: userId,
+            userId: user.id,
             action: `Updated Phrasebook with id ${id}.`,
-            name: userName,
-            information: `Admin ${userName} updated a Phrasebook.`,
+            name: `${user.name}`,
+            information: `Admin ${user.name} updated a Phrasebook.`,
         }
     })
 

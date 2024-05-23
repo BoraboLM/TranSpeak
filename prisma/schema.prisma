@@ -140,7 +140,7 @@ model Phrasebook {
   english_word    String //One
   target_word     String //Sakey 
   pronounciation  String //Sa-ke-y
-  status          Status            @default(ACTIVE)
+  status          Status            @default(DISABLED)
   createdAt       DateTime          @default(now())
   savedPhrasebook SavedPhrasebook[]
   user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)

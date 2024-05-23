@@ -55,7 +55,7 @@ export const SavePhrasebook = async (data, user) => {
 
     return {
         data: [
-            {message: `Phrasebook saved successfully!`},
+            {message: `Phrasebook saved successfully! Enable to view the data in the list.`},
             {type: 'Success'},
             {variant: ''}
         ]

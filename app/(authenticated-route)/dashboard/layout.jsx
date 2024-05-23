@@ -23,7 +23,7 @@ export default async function DashboardLayout({ children }) {
                         <Sidebar />
                     </Suspense>
                 </div>
-                <section className="w-full md:w-[100%] lg:w-[100%] min-h-[95vh] flex flex-1 bg-[#FFFF] mb-4 mt-4 gap-2">
+                <section className="w-full md:w-full lg:w-full min-h-[95vh] flex flex-1 bg-[#FFFF] mb-4 mt-4 gap-2">
                     <Suspense fallback={<Loading />}>
                         {children}
                     </Suspense>
