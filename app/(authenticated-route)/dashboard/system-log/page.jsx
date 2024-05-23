@@ -10,8 +10,10 @@ export const metadata = {
 export default async function SystemLogs() {
     const data = await ActivityLogs();
     return (
-        <div className="w-full rounded-l-[30px] p-2">
-            <DataTable columns={columns} data={data} />
+        <div className="w-full rounded-l-[30px] px-2 py-2">
+            <div className="w-full flex flex-col gap-4">
+                <DataTable columns={columns} data={data} />
+            </div>
         </div>
     )
 }

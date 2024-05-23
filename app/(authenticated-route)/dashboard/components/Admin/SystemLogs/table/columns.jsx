@@ -13,10 +13,10 @@ export const columns = [
             return <div>{index}</div>
         }
     },
-    {
-        accessorKey: "userId",
-        header: "User ID",
-    },
+    // {
+    //     accessorKey: "userId",
+    //     header: "User ID",
+    // },
     {
         accessorKey: "name",
         header: "Name",

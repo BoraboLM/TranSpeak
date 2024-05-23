@@ -1,31 +1,13 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
 
-import {
-    flexRender,
-    getCoreRowModel,
-    getPaginationRowModel,
-    useReactTable,
-    SortingState, //used for sorting
-    getSortedRowModel, //used for sorting
-    ColumnFiltersState, //used for filtering
-    getFilteredRowModel, //used for filtering
-} from "@tanstack/react-table"
+import { flexRender, getCoreRowModel, getPaginationRowModel, useReactTable, SortingState, getSortedRowModel, ColumnFiltersState, getFilteredRowModel, } from "@tanstack/react-table"
 
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 import Image from "next/image"
 import { DataTablePagination } from "./pagination"
-
 
 export function DataTable({
     columns,
@@ -51,7 +33,7 @@ export function DataTable({
 
     return (
         <div>
-            <div className="rounded-[30px] px-6 py-2">
+            <div className="rounded-[30px] px-0 lg:px-4 xl:px-6 2xl:px-6 py-2">
                 {/* Table  */}
                 <h1 className="text-2xl font-[700] tracking-wide py-4">Users Activity Logs</h1>
                 <Input
@@ -62,7 +44,7 @@ export function DataTable({
                     }
                     className="max-w-sm ring-offset-indigo-500 ring-indigo-500 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none focus-visible:ring-indigo-500 ease-in-out duration-100 font-[500] mb-4"
                 />
-                <Table >
+                <Table className="w-[600px] md:w-[600px] lg:w-full xl:2-full 2xl:w-full">
                     <TableHeader >
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
