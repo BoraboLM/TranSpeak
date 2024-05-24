@@ -14,10 +14,11 @@ export default function Places() {
                     <LocationCity />
                 </div>
 
-                {/* Google Map */}
+                {/* Mapbox */}
                 <div className="w-full flex justify-center items-center px-4 py-2">
                     <TranSpeakMap />
                 </div>
+
             </div>
         </section>
     )
