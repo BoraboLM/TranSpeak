@@ -8,8 +8,7 @@ import { MapDataContext } from '../context/MapProvider';
 import MapLoader from './Loader/MapLoader';
 
 const MapCanvas = () => {
-    const { location, setLocation, setSteps } = useContext(MapDataContext);
-
+    const { location, setLocation, setSteps, end, mode, setKilometers, setEstimatedTime } = useContext(MapDataContext);
     const coordinates = useCurrentLocation();
     const mapBoxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN_KEY;
     const [viewState, setViewState] = useState({
@@ -18,7 +17,6 @@ const MapCanvas = () => {
         zoom: 16.5
     });
     const [start, setStart] = useState([0, 0]);
-    const [end, setEnd] = useState([120.59492399120484, 18.173641544211037]);
     const [coords, setCoords] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -40,22 +38,27 @@ const MapCanvas = () => {
     }, [coordinates, setLocation]);
 
     useEffect(() => {
-        if (start[0] !== 0 && start[1] !== 0) {
-            getRoute();
-            GeolocateControlRef.current?.trigger();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [end, GeolocateControlRef, start]);
+        if (start[0] !== 0 && start[1] !== 0 && end[0] !== 0 && end[1] !== 0 && mode !== '') {
+            const fetchRoute = async () => {
+                try {
+                    const response = await axios.get(`https://api.mapbox.com/directions/v5/mapbox/${mode}/${start[0]},${start[1]};${end[0]},${end[1]}?alternatives=true&geometries=geojson&language=en&overview=full&steps=true&access_token=${mapBoxToken}`);
+                    const data = response.data;
+                    const steps = data.routes[0].legs[0].steps;
+                    setCoords(data.routes[0].geometry.coordinates);
+                    setSteps(steps);
+                    setKilometers((data.routes[0].distance / 1000).toFixed(1));
+                    const durationInMinutes = data.routes[0].duration / 60;
+                    const hours = Math.floor(durationInMinutes / 60);
+                    const minutes = Math.round(durationInMinutes % 60);
+                    setEstimatedTime(hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`);
+                } catch (error) {
+                    console.error("Failed to fetch route", error);
+                }
+            };
 
-    const getRoute = async () => {
-        if (coordinates) {
-            const response = await axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}?alternatives=true&geometries=geojson&language=en&overview=full&steps=true&access_token=${mapBoxToken}`);
-            const data = response.data;
-            const steps = data.routes[0].legs[0].steps;
-            setCoords(data.routes[0].geometry.coordinates);
-            setSteps(steps);
+            fetchRoute();
         }
-    };
+    }, [start, end, mapBoxToken, setSteps, mode, setKilometers, setEstimatedTime]);
 
     const geojson = {
         'type': 'FeatureCollection',
@@ -115,7 +118,6 @@ const MapCanvas = () => {
                         style={{ width: '80vw', height: '70vh' }}
                         mapStyle="mapbox://styles/mapbox/streets-v12"
                         attributionControl={false}
-                        lazy={true}
                     >
                         <Suspense fallback={<p>Loading feed...</p>}>
                             <Source id='routeSource' type='geojson' data={geojson}>
