@@ -15,6 +15,7 @@ import { Mic } from 'lucide-react';
 import { MicOff } from 'lucide-react';
 import { Volume2 } from 'lucide-react';
 import { Copy } from 'lucide-react';
+import { input, target } from "./data/input";
 
 // custom Hooks
 import useSpeechToText from "@/app/hooks/useSpeechToText";
@@ -83,6 +84,7 @@ export default function TranslationForm() {
                                                 control={form.control}
                                                 source_value={source_value}
                                                 setSourceValue={setSourceValue}
+                                                lang={input}
                                             />
                                         </CardHeader>
                                     </div>
@@ -131,6 +133,7 @@ export default function TranslationForm() {
                                                 control={form.control}
                                                 source_value={targetValue}
                                                 setSourceValue={setTargetValue}
+                                                lang={target}
                                             />
                                         </CardHeader>
                                     </div>

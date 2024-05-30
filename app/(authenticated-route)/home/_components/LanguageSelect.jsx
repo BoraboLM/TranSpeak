@@ -10,8 +10,8 @@ import { languages } from "./data/languages";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
-export default function LanguageSelect({ name, control, source_value, setSourceValue }) {
-    const [sourceOpen, setSourceOpen] = useState(false)
+export default function LanguageSelect({ name, control, source_value, setSourceValue, lang }) {
+    const [sourceOpen, setSourceOpen] = useState(false);
     return (
         <FormField
             control={control}
@@ -30,7 +30,7 @@ export default function LanguageSelect({ name, control, source_value, setSourceV
                                 <FormControl  >
                                     <span className="text-[16px]">
                                         {source_value
-                                            ? languages.find((language) => language.value === source_value)?.label
+                                            ? lang.find((language) => language.value === source_value)?.label
                                             : "Select source Language..."}
                                     </span>
 
@@ -45,7 +45,7 @@ export default function LanguageSelect({ name, control, source_value, setSourceV
                                 <CommandList>
                                     <CommandEmpty>No Language found.</CommandEmpty>
                                     <CommandGroup>
-                                        {languages.map((language, key) => (
+                                        {lang.map((language, key) => (
                                             <CommandItem
                                                 key={key}
                                                 source_value={language.value}

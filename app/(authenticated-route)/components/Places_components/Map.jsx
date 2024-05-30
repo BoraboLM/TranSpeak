@@ -4,6 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import MapCanvas from './MapCanvas';
 import { MapDataProvider } from '../context/MapProvider';
 import MapHeader from './MapHeader';
+import LocationCity from './Location';
 
 export default function TranSpeakMap() {
 
