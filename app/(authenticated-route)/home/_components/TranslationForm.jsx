@@ -15,6 +15,7 @@ import { Mic } from 'lucide-react';
 import { MicOff } from 'lucide-react';
 import { Volume2 } from 'lucide-react';
 import { Copy } from 'lucide-react';
+import { input, target } from "./data/input";
 
 // custom Hooks
 import useSpeechToText from "@/app/hooks/useSpeechToText";
@@ -83,6 +84,7 @@ export default function TranslationForm() {
                                                 control={form.control}
                                                 source_value={source_value}
                                                 setSourceValue={setSourceValue}
+                                                lang={input}
                                             />
                                         </CardHeader>
                                     </div>
@@ -131,6 +133,7 @@ export default function TranslationForm() {
                                                 control={form.control}
                                                 source_value={targetValue}
                                                 setSourceValue={setTargetValue}
+                                                lang={target}
                                             />
                                         </CardHeader>
                                     </div>
@@ -173,7 +176,7 @@ export default function TranslationForm() {
                         </div>
 
                         <div className="flex gap-4 mt-6 w-full px-10  justify-center">
-                            <Button type="submit" className=" w-[40vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw] xl:w-[30vw] 2xl:w-[30vw] border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out" disabled={true}>
+                            <Button type="submit" className=" w-[40vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw] xl:w-[30vw] 2xl:w-[30vw] border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out" disabled={isListening || isTranslating}>
                                 {isTranslating ? "Translating..." : "Translate"}
                             </Button>
                             {/* disabled={isListening || isTranslating}>

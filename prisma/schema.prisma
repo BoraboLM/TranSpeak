@@ -46,7 +46,7 @@ model User {
   status          Status            @default(ACTIVE)
   nationality     String?
   accounts        Account[]
-  location        Location?
+  location        Location[]
   activityLogs    ActivityLogs[]
   Translation     Translation[]
   Phrasebook      Phrasebook[]
@@ -96,9 +96,10 @@ model PasswordResetToken {
 }
 
 model Location {
-  id        String  @id @default(cuid())
-  name      String?
-  userId    String  @unique
+  id        String @id @default(cuid())
+  city      String
+  location  String
+  userId    String
   latitude  Float
   longitude Float
 
