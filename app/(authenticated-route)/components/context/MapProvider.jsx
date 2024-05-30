@@ -11,8 +11,9 @@ export function MapDataProvider({ children }) {
     const [mode, setMode] = useState('');
     const [kilometers, setKilometers] = useState(0);
     const [estimatedTime, setEstimatedTime] = useState(0);
+    const [currentCity, setCurrentCity] = useState('');
     return (
-        <MapDataContext.Provider value={{ location, setLocation, steps, setSteps, end, setEnd, mode, setMode, kilometers, setKilometers, estimatedTime, setEstimatedTime }}>
+        <MapDataContext.Provider value={{ location, setLocation, steps, setSteps, end, setEnd, mode, setMode, kilometers, setKilometers, estimatedTime, setEstimatedTime, currentCity, setCurrentCity }}>
             {children}
         </MapDataContext.Provider>
     );

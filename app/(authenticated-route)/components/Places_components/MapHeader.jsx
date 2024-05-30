@@ -10,18 +10,26 @@ import { MapDataContext } from "../context/MapProvider";
 import MapHeaderLoader from "./Loader/MapHeaderLoader";
 import PinNotAvailable from "@/app/assets/image/not-available-pin.png";
 import Image from "next/image";
+import axios from "axios";
 
 export default function MapHeader() {
-    const { location, setEnd, setMode, mode, steps, kilometers, estimatedTime } = useContext(MapDataContext);
+    const { location, setEnd, setMode, mode, steps, kilometers, estimatedTime, currentCity } = useContext(MapDataContext);
     const [loading, setLoading] = useState(true);
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
     const [selectedLocation, setSelectedLocation] = useState('');
+    const [options, setOptions] = useState([]);
 
     useEffect(() => {
-        if (location.length > 0) {
-            setLoading(false);
-        }
-    }, [location]);
+        const fetchData = async () => {
+            if (location.length > 0 && currentCity !== '') {
+                const res = await axios.get(`api/v1/places`, { params: { city: currentCity } });
+                setOptions(res.data.data);
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, [location, currentCity]);
+
 
     // Mounting the component if location is not available
     if (location.length === 0) {
@@ -33,13 +41,12 @@ export default function MapHeader() {
     }
 
     const handleLocationChange = (e) => {
-        const selectedOption = e.target.value;
-        const locations = {
-            option1: [120.34683, 16.083308],
-            option2: [120.340873, 16.050781],
-        };
-        setSelectedLocation(selectedOption);
-        setEnd(locations[selectedOption]);
+        const selectedId = e.target.value;
+        const selectedLocationData = options.find(location => location.id === selectedId);
+        if (selectedLocationData) {
+            setSelectedLocation(selectedLocationData.id);
+            setEnd([selectedLocationData.longitude, selectedLocationData.latitude]);
+        }
     };
 
     const handleModeChange = (e) => {
@@ -50,9 +57,23 @@ export default function MapHeader() {
     const toggleSidebar = () => {
         setIsSidebarVisible(!isSidebarVisible);
     };
+
+    const data = [
+        {
+            id: 1,
+            name: 'Tondaligan Beach',
+            location: [120.34683, 16.083308]
+        },
+        {
+            id: 2,
+            name: 'Universidad de Dagupan',
+            location: [120.340873, 16.050781]
+        }
+    ];
+
     return (
         <>
-            <div className="flex flex-col sm:flex-row gap-2 px-4 sm:px-10 py-2 bg-white shadow-md rounded-lg">
+            <div className="flex flex-col sm:flex-row gap-4 px-4 sm:px-10 py-2 bg-slate-200 shadow-md rounded-lg">
                 <div className="flex flex-1 flex-col items-center sm:flex-row gap-4 justify-center sm:justify-start">
                     <h3 className="text-lg font-semibold text-center sm:text-left">Target Location:</h3>
                     <select
@@ -61,8 +82,9 @@ export default function MapHeader() {
                         className="mt-2 sm:mt-0 border rounded-md p-2"
                     >
                         <option disabled value=''>Select a location</option>
-                        <option value="option1">Tondaligan Beach</option>
-                        <option value="option2">Universidad de Dagupan</option>
+                        {options.map(location => (
+                            <option key={location.id} value={location.id}>{location.location}</option>
+                        ))}
                     </select>
                 </div>
                 <div className="flex flex-1 flex-col sm:flex-row gap-4 items-center justify-center sm:justify-start">

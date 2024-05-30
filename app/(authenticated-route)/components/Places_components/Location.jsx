@@ -2,7 +2,8 @@
 
 import { useCurrentLocation } from "@/app/hooks/useCurrentLocation";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MapDataContext } from "../context/MapProvider";
 
 export default function LocationCity() {
     const [cityData, setCityData] = useState([]);
@@ -12,7 +13,7 @@ export default function LocationCity() {
     const [loading, setLoading] = useState(true);
     const coordinates = useCurrentLocation();
     const accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN_KEY;
-
+    const { setCurrentCity } = useContext(MapDataContext);
     useEffect(() => {
         if (coordinates) {
             axios.get(`https://api.mapbox.com/search/geocode/v6/reverse?longitude=${coordinates.longitude}&latitude=${coordinates.latitude}&access_token=${accessToken}`)
@@ -21,6 +22,7 @@ export default function LocationCity() {
                     setBarangay(response.data.features[2].properties.name);
                     setCity(response.data.features[3].properties.full_address);
                     setStreet(response.data.features[0].properties.full_address);
+                    setCurrentCity(response.data.features[3].properties.name)
                     setLoading(false);
                 })
                 .catch(error => {
