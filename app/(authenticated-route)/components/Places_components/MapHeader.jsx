@@ -58,19 +58,6 @@ export default function MapHeader() {
         setIsSidebarVisible(!isSidebarVisible);
     };
 
-    const data = [
-        {
-            id: 1,
-            name: 'Tondaligan Beach',
-            location: [120.34683, 16.083308]
-        },
-        {
-            id: 2,
-            name: 'Universidad de Dagupan',
-            location: [120.340873, 16.050781]
-        }
-    ];
-
     return (
         <>
             <div className="flex flex-col sm:flex-row gap-4 px-4 sm:px-10 py-2 bg-slate-200 shadow-md rounded-lg">
