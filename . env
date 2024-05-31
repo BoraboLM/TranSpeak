@@ -1,0 +1,34 @@
+# Environment variables declared in this file are automatically made available to Prisma.
+# See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
+
+# Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
+# See the documentation for all the connection string options: https://pris.ly/d/connection-strings
+
+
+# DATANASE_URLs
+DATABASE_URL="postgresql://Trans-speak_owner:z4QGjvs0bdcZ@ep-misty-voice-a19c9kcf-pooler.ap-southeast-1.aws.neon.tech/Trans-speak?sslmode=require"
+DATABASE_URL_UNPOOLED="postgresql://Trans-speak_owner:z4QGjvs0bdcZ@ep-misty-voice-a19c9kcf.ap-southeast-1.aws.neon.tech/Trans-speak?sslmode=require"
+
+# AUTH SECRET
+# 42abNAV0tF3avRixrBGiSB6eCQKYX5eeE7HVoqfVyb0=
+AUTH_SECRET_1 = 42abNAV0tF3avRixrBGiSB6eCQKYX5eeE7HVoqfVyb0=
+
+# FOR GOOGLE OAUTH CONFIGURATION
+# For google auth configuration use borabolawrence@gmail.com account to change or update the configuration
+AUTH_GOOGLE_ID = 792556536179-esikr5vb0d8a8egl30pak89bjn66ajcs.apps.googleusercontent.com
+AUTH_GOOGLE_SECRET = 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
+
+RESEND_API_KEY=re_WmRyqZDD_RHjw25WCVguqYEAq2r5pqTVNA
+
+PUBLIC_APP_URL = https://localhost:3000
+
+
+SMTP_PASSWORD = wcjo ichp siih lbub
+SMTP_EMAIL = borabolm.656.stud@cdd.edu.ph
+
+# API KEY FOR TRANSLATION --PLEASE DO NOT SHARE TO ANYONE
+TRANSLATION_API_KEY = 0eb149fbc2773726c65e6e8e57b04ae0a3f5136d
+TRANSLATION_API_MODEL = nllb-200-3-3b
+
+# API KEY FOR MAPBOX MAPS
+NEXT_PUBLIC_MAPBOX_TOKEN_KEY = pk.eyJ1IjoibGF3cmVuY2VtYiIsImEiOiJjbHdrcXY1M2sxMTc4Mml1ZmVzM2J3cmliIn0.9Rd8wuc24B9IEOopD3qADA

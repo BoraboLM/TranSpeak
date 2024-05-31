@@ -10,6 +10,7 @@ import { AdminDataTable } from "./table/AdminDataTable";
 import { AdminColumns } from "./table/AdminColumns";
 
 import { AdminData, DisabledData, UsersData } from "@/data/users-table-data";
+import PrintTableData from "../../Users/Print";
 
 export default async function Users() {
     const users = await UsersData();
@@ -45,6 +46,8 @@ export default async function Users() {
                             <TabsTrigger value="admin">
                                 <span className="text-lg text-gray-600 font-[600] tracking-widest">Admin</span>
                             </TabsTrigger>
+
+                            <PrintTableData data={users}/>
                         </TabsList>
 
                         {/* Tabs(USERS - DISABLED ACCOUNTS - ADMIN) */}
@@ -72,6 +75,8 @@ export default async function Users() {
                             />
                         </TabsContent>
                     </Tabs>
+
+                    
                 </div>
             </div>
         </div>
