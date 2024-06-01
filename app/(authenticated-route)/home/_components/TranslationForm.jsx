@@ -150,14 +150,14 @@ export default function TranslationForm() {
                                             <Button
                                                 className="flex justify-start py-4 mt-2"
                                                 type="button"
-                                                disabled={response.target !== "English" && response.target !== "Filipino"}
+                                                disabled={response.translation.target !== "English" && response.translation.target !== "Filipino"}
                                                 variant="ghost"
-                                                onClick={() => { Speak({ translation: response.translation, lang: response.target }) }}>
+                                                onClick={() => { Speak({ translation: response.translation.translation_text, lang: response.translation.target }) }}>
                                                 <Volume2 className="h-6 w-6 mr-2 text-blue-500" /> Play Translation
                                             </Button>
                                             <Button
                                                 className="flex justify-start py-4 mt-2"
-                                                disabled={!response.translation}
+                                                disabled={!response.translation.translation_text}
                                                 variant="ghost"
                                                 type="button"
                                                 onClick={() => {

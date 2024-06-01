@@ -93,6 +93,7 @@ export const Translate = async (data, textInput) => {
             // translatedText
             user_input: input,
             translation_text: translatedText,
+            target: target
         }
     }
 }
