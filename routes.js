@@ -42,6 +42,7 @@ export const authenticatedRoutes = [
     "/home",
     "/places",
     "/learn",
+    "/dictionary",
     "/phrasebook",
     "/ilocano",
     "/pangasinan",
