@@ -40,7 +40,7 @@ export default function AnimatedText({ response, form, name, input }) {
                 <FormControl>
                     <Textarea
                         placeholder="Translated text will appear here..."
-                        className="resize-none shadow-md"
+                        className="resize-none shadow-md bg-[#f5f5f5]"
                         {...field}
                         height="300px"
                         disabled
