@@ -53,7 +53,8 @@ export const authenticatedRoutes = [
     "/dashboard/learn/phrasebook",
     "/dashboard/learn/pangasinan",
     "/dashboard/learn/ilocano",
-    "/dashboard/places",
+    "/dashboard/places",,
+    "/dashboard/dictionary",
     "/dashboard/system-log",
 ]
 

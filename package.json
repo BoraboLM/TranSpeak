@@ -39,6 +39,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^1.0.0",
+    "firebase": "^10.12.2",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.364.0",
     "mapbox-gl": "^3.4.0",
