@@ -148,10 +148,6 @@ const AudioUpload = () => {
                 description: 'All files have been uploaded successfully.'
             });
 
-            // Reset form after successful upload
-            setFiles({ fil: null, pang: null, ilo: null, eng: null });
-            setWords({ fil: "", pang: "", ilo: "", eng: "" });
-            setBaseFilename("");
         } catch (error) {
             setError('Error uploading files.');
         }

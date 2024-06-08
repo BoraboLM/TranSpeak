@@ -1,6 +1,7 @@
 'use server';
 
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 export const SaveAudio = async ({ data }) => {
     try {
@@ -60,6 +61,7 @@ export const SaveAudio = async ({ data }) => {
             }
         }
 
+        revalidatePath('/dictionary' && '/dashboard/dictionary');
         return {
             data: [
                 {

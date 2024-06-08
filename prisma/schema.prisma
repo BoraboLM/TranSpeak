@@ -171,6 +171,7 @@ model Dictionary {
   basePang        String
   baseFilename    String
   userId          String
+  status          Status @default(DISABLED)
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
