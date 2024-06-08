@@ -97,10 +97,10 @@ const AudioUpload = () => {
             baseEng: `${baseFilename.toLowerCase()}Eng`,
             baseIlo: `${baseFilename.toLowerCase()}Ilo`,
             basePang: `${baseFilename.toLowerCase()}Pang`,
-            wordFil: words.fil,
-            wordEng: words.eng,
-            wordIlo: words.ilo,
-            wordPang: words.pang,
+            wordFil: words.fil.charAt(0).toUpperCase() + words.fil.slice(1),
+            wordEng: words.eng.charAt(0).toUpperCase() + words.eng.slice(1),
+            wordIlo: words.ilo.charAt(0).toUpperCase() + words.ilo.slice(1),
+            wordPang: words.pang.charAt(0).toUpperCase() + words.pang.slice(1),
             category_letter: baseFilename.charAt(0).toUpperCase()
         };
 
@@ -141,23 +141,17 @@ const AudioUpload = () => {
         });
 
         try {
-            const downloadResults = await Promise.all(uploadTasks);
-            const updatedMetadata = {
-                ...metadata,
-                downloadURLs: downloadResults.reduce((acc, { lang, downloadURL }) => {
-                    acc[lang] = downloadURL;
-                    return acc;
-                }, {})
-            };
+            await Promise.all(uploadTasks);
+            toast({
+                variant: '',
+                title: 'Upload complete!',
+                description: 'All files have been uploaded successfully.'
+            });
 
-            const saveMetadataResponse = await saveMetadata(updatedMetadata);
-
-            // Reset form if metadata inputs was saved successfully
-            if (saveMetadataResponse && saveMetadataResponse.status === 200) {
-                setFiles({ fil: null, pang: null, ilo: null, eng: null });
-                setWords({ fil: "", pang: "", ilo: "", eng: "" });
-                setBaseFilename("");
-            }
+            // Reset form after successful upload
+            setFiles({ fil: null, pang: null, ilo: null, eng: null });
+            setWords({ fil: "", pang: "", ilo: "", eng: "" });
+            setBaseFilename("");
         } catch (error) {
             setError('Error uploading files.');
         }
