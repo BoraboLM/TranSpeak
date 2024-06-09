@@ -111,9 +111,12 @@ const StreamPage = ({ data }) => {
                                         Your browser does not support the audio element.
                                     </audio>
                                     <button
+                                        type='button'
                                         className="mt-2 bg-blue-500 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-blue-400 ease-in-out duration-200 m-2"
                                         onClick={() => handlePlayClick(item, lang)}
                                         disabled={loading === `${item.id}-${lang}`}
+                                        aria-label={`Play ${item[`word${lang.charAt(0).toUpperCase() + lang.slice(1)}`]} in ${lang}`}
+                                        role='button'
                                     >
                                         {loading === `${item.id}-${lang}` ? <LoadingIcon /> : (currentPlaying === `${item.id}-${lang}` ? <PlayingIcon /> : <PlayIcon />)}
                                     </button>
