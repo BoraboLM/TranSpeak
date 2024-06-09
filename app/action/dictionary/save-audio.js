@@ -5,8 +5,8 @@ import { revalidatePath } from "next/cache";
 
 export const SaveAudio = async ({ data }) => {
     try {
-        const { userId, baseFilename, wordFil, wordEng, wordIlo, wordPang, category_letter, baseFil, baseEng, baseIlo, basePang } = data;
-        if (!userId || !baseFilename || !wordFil || !wordEng || !wordIlo || !wordPang || !category_letter || !baseFil || !baseEng || !baseIlo || !basePang) {
+        const { userId, baseFilename, wordFil, wordEng, wordIlo, wordPang, category_letter, baseFil, baseEng, baseIlo, basePang, pronFil, pronEng, pronIlo, pronPang } = data;
+        if (!userId || !baseFilename || !wordFil || !wordEng || !wordIlo || !wordPang || !category_letter || !baseFil || !baseEng || !baseIlo || !basePang || !pronFil || !pronEng || !pronIlo || !pronPang) {
             return {
                 data: [
                     {
@@ -46,7 +46,11 @@ export const SaveAudio = async ({ data }) => {
                 baseFil: baseFil,
                 baseEng: baseEng,
                 baseIlo: baseIlo,
-                basePang: basePang
+                basePang: basePang,
+                pronFil: pronFil,
+                pronEng: pronEng,
+                pronIlo: pronIlo,
+                pronPang: pronPang
             }
         })
         

@@ -8,10 +8,12 @@ import FileInput from "./FileInput";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
+import ProgressBar from "./ProgressBar";
 
 const AudioUpload = () => {
     const [files, setFiles] = useState({ fil: null, pang: null, ilo: null, eng: null });
     const [words, setWords] = useState({ fil: "", pang: "", ilo: "", eng: "" });
+    const [pronunciations, setPronunciations] = useState({ fil: "", pang: "", ilo: "", eng: "" });
     const [uploadProgress, setUploadProgress] = useState({ fil: 0, pang: 0, ilo: 0, eng: 0 });
     const [error, setError] = useState("");
     const [baseFilename, setBaseFilename] = useState("");
@@ -34,6 +36,14 @@ const AudioUpload = () => {
         }));
     };
 
+    const handlePronunciationChange = (e) => {
+        const { name, value } = e.target;
+        setPronunciations((prevPronunciations) => ({
+            ...prevPronunciations,
+            [name]: value
+        }));
+    };
+
     const validateInputs = () => {
         if (!baseFilename) {
             setError("Please enter a base filename.");
@@ -47,6 +57,10 @@ const AudioUpload = () => {
             }
             if (!words[lang]) {
                 setError(`Please enter a word for ${lang.toUpperCase()}.`);
+                return false;
+            }
+            if (!pronunciations[lang]) {
+                setError(`Please enter a pronunciation for ${lang.toUpperCase()}.`);
                 return false;
             }
         }
@@ -101,6 +115,10 @@ const AudioUpload = () => {
             wordEng: words.eng.charAt(0).toUpperCase() + words.eng.slice(1),
             wordIlo: words.ilo.charAt(0).toUpperCase() + words.ilo.slice(1),
             wordPang: words.pang.charAt(0).toUpperCase() + words.pang.slice(1),
+            pronFil: pronunciations.fil,
+            pronEng: pronunciations.eng,
+            pronIlo: pronunciations.ilo,
+            pronPang: pronunciations.pang,
             category_letter: baseFilename.charAt(0).toUpperCase()
         };
 
@@ -184,21 +202,12 @@ const AudioUpload = () => {
 
     return (
         <div className="flex flex-col w-full gap-4 px-6 py-4 bg-white shadow-lg shadow-slate-400 rounded-lg">
-            {shouldShowProgress && averageProgress > 0 && (
-                <>
-                    <div className="w-full bg-gray-200 rounded-full h-6 mt-6">
-                        <div
-                            className="bg-blue-600 h-6 rounded-full flex items-center justify-center text-white font-[600] tracking-widest"
-                            style={{ width: `${averageProgress}%`, height: '30px' }}
-                        >
-                            {averageProgress === 100 ? 'Upload complete!' : `${averageProgress.toFixed(2)}%`}
-                        </div>
-                    </div>
-                </>
-            )}
+            {/* ProgressBar Component */}
+            <ProgressBar shouldShowProgress={shouldShowProgress} averageProgress={averageProgress} />
+
             <h2 className="text-2xl font-bold text-gray-800">Upload Dictionary & Audio Files</h2>
             <div className="flex flex-col gap-4 p-4">
-                <div className="grid grid-cols-1 w-full">
+                <div className="grid grid-cols-1 w-full p-4 border-b-2 border-indigo-400">
                     <label className="block text-xl font-medium text-gray-600">Base Filename</label>
                     <input
                         type="text"
@@ -208,22 +217,33 @@ const AudioUpload = () => {
                         placeholder="Enter base filename"
                     />
                 </div>
-                <div className="w-full">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4">
+                <div className="w-full flex items-center">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4 w-full">
                         {['fil', 'pang', 'ilo', 'eng'].map((lang) => (
-                            <div key={lang} className="w-[80%]">
-                                <Label htmlFor={lang}>Word ({lang.charAt(0).toUpperCase() + lang.slice(1)})</Label>
+                            <div key={lang} className="w-[80%] gap-2 flex flex-col border-b-2 border-indigo-400 m-auto">
+                                <Label htmlFor={`${lang}-word`} className='mt-2'>Word ({lang.charAt(0).toUpperCase() + lang.slice(1)})</Label>
                                 <Input
                                     type="text"
-                                    id={lang}
+                                    id={`${lang}-word`}
                                     name={lang}
                                     value={words[lang]}
                                     onChange={handleWordChange}
                                     placeholder={`Enter word in ${lang.charAt(0).toUpperCase() + lang.slice(1)}`}
                                 />
+
+                                <Label htmlFor={`${lang}-pron`} className='mt-2'>Pronunciation ({lang.charAt(0).toUpperCase() + lang.slice(1)})</Label>
+                                <Input
+                                    type="text"
+                                    id={`${lang}-pron`}
+                                    name={lang}
+                                    value={pronunciations[lang]}
+                                    onChange={handlePronunciationChange}
+                                    placeholder={`Enter pronunciation in ${lang.charAt(0).toUpperCase() + lang.slice(1)}`}
+                                />
                                 <FileInput
                                     name={lang}
                                     handleFileChange={handleFileChange}
+                                    className="mt-2"
                                 />
                             </div>
                         ))}

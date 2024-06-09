@@ -2,9 +2,9 @@ import { SaveAudio } from "@/app/action/dictionary/save-audio";
 
 export async function POST(req){
     try {
-        const { userId, baseFilename, wordFil, wordEng, wordIlo, wordPang, category_letter, baseFil, baseEng, baseIlo, basePang, downloadURLs } = await req.json();
+        const { userId, baseFilename, wordFil, wordEng, wordIlo, wordPang, category_letter, baseFil, baseEng, baseIlo, basePang, pronFil, pronEng, pronIlo, pronPang } = await req.json();
 
-        const saveData = await SaveAudio({ data: { userId, baseFilename, wordFil, wordEng, wordIlo, wordPang, category_letter, baseFil, baseEng, baseIlo, basePang } });
+        const saveData = await SaveAudio({ data: { userId, baseFilename, wordFil, wordEng, wordIlo, wordPang, category_letter, baseFil, baseEng, baseIlo, basePang, pronFil, pronEng, pronIlo, pronPang } });
 
         if (saveData.data[0].status !== 200) {
             console.log("Error: ", saveData.data[0].message)
