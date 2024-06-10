@@ -1,10 +1,15 @@
 import { getWordsData } from "@/data/dictionary-words";
 import StreamPage from "./components/StreamAudio";
 
+export const metadata = {
+    title: "Dictionary",
+    description: 'Dictionary for Filipino, English, Pangasinan, and Ilocano words.'
+}
+
 export default async function Dictionary() {
     const data = await getWordsData();
     return (
-        <section className="flex justify-center items-start mt-0 lg:mt-4 xl:mt-4 2xl:mt-4 px-2 sm:px-2 md:px-4 lg:px-4 w-full md:w-[90%] lg:w-[90%] mx-auto min-h-[90vh] md:h-3/4 lg:h-3/4">
+        <section className="flex justify-center items-center h-full px-2 sm:px-2 md:px-4 lg:px-4 w-full md:w-[90%] lg:w-[90%] mx-auto">
             {data.length > 0 ? (
                 <StreamPage data={data} />
             ) : (

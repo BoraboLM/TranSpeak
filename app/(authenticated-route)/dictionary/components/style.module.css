@@ -1,0 +1,52 @@
+.container {
+    width: 100%;
+    display: none;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease-in-out;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+}
+
+@media (min-width: 640px) {
+    .container {
+        display: grid;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.sticky {
+    background-color: rgba(165, 180, 252, 0.7);
+    position: sticky;
+    top: 0;
+    animation: stickyAnimation 0.4s forwards;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+
+@keyframes stickyAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(-20%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.text {
+    margin-left: 15px;
+    text-align: start;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
