@@ -16,7 +16,6 @@ export default async function Places() {
         <section className="px-2 sm:px-4 md:px-6 lg:px-8 w-full md:w-[90%] lg:w-[90%] mx-auto min-h-[90vh] md:h-1/2 lg:h-3/4">
             <div className="w-full h-full flex flex-col items-center justify-center gap-4">
 
-                {/* Mapbox */}
                 <div className="w-full flex justify-center items-center px-4 py-2">
                     <TranSpeakMap />
                 </div>

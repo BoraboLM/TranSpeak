@@ -2,7 +2,6 @@
  * For fetching the coordinates of the locations, use the following link:
  * {@link https://docs.mapbox.com/playground/directions/}
  */
-
 'use client';
 
 import { useContext, useEffect, useState } from "react";
