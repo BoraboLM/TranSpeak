@@ -1,18 +1,18 @@
 import { db } from "@/lib/db";
 
-export const UsersData = async () => {
+export const UsersData = async (email) => {
     try {
         const UsersData = await db.user.findMany({
             where:{
                 role: "USER",
-                status: "ACTIVE"
+                status: "ACTIVE",
+                ...(email && { email: { not: email } })
             },
             select: {
                 id: true,
                 firstName: true,
                 lastName: true,
                 name: true,
-                email: true,
                 nationality: true,
                 role: true,
                 status: true,
@@ -31,19 +31,19 @@ export const UsersData = async () => {
     }
 }
 
-export const AdminData = async () => {
+export const AdminData = async (email) => {
     try {
         const UsersData = await db.user.findMany({
             where:{
                 status: "ACTIVE",
-                role: "ADMIN"
+                role: "ADMIN",
+                ...(email && { email: { not: email } })
             },
             select: {
                 id: true,
                 firstName: true,
                 lastName: true,
                 name: true,
-                email: true,
                 nationality: true,
                 role: true,
                 emailVerified: true,
@@ -62,18 +62,18 @@ export const AdminData = async () => {
     }
 }
 
-export const DisabledData = async () => {
+export const DisabledData = async (email) => {
     try {
         const UsersData = await db.user.findMany({
             where:{
-                status: "DISABLED"
+                status: "DISABLED",
+                ...(email && { email: { not: email } })
             },
             select: {
                 id: true,
                 firstName: true,
                 lastName: true,
                 name: true,
-                email: true,
                 nationality: true,
                 role: true,
                 status: true,
@@ -92,18 +92,18 @@ export const DisabledData = async () => {
     }
 }
 
-export const ActiveAccounts = async () => {
+export const ActiveAccounts = async (email) => {
     try {
         const UsersData = await db.user.findMany({
             where:{
-                status: "ACTIVE"
+                status: "ACTIVE",
+                ...(email && { email: { not: email } })
             },
             select: {
                 id: true,
                 firstName: true,
                 lastName: true,
                 name: true,
-                email: true,
                 nationality: true,
                 role: true,
                 status: true,

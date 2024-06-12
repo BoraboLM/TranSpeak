@@ -1,14 +1,17 @@
 
+import { AnalyticWordsCount } from "@/data/analytics/analytics";
 import { ActiveAccounts, TotalAccounts, TotalTranslationCount } from "@/data/users-table-data";
 
 export default async function Dashboard() {
     const activeUser = await ActiveAccounts();
     const totalNumberAccounts = await TotalAccounts();
     const totalTranslation = await TotalTranslationCount();
+    const wordAnalytics = await AnalyticWordsCount();
 
     const totalAccount = totalNumberAccounts.length;
     const TotalActiveAccounts = activeUser.length;
     const totalTranslations = totalTranslation.length;
+    // wordAnalytics[0]._count.word to get the total count of the word on index 0
     return (
         <div className="w-full rounded-l-[30px] p-2">
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 w-full gap-6 px-4 py-4">

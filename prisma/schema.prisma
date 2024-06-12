@@ -34,24 +34,25 @@ enum Language {
 }
 
 model User {
-  id              String            @id @default(cuid())
-  firstName       String?
-  lastName        String?
-  name            String?
-  email           String?           @unique
-  emailVerified   DateTime?
-  image           String?
-  password        String?
-  role            userRole          @default(USER)
-  status          Status            @default(ACTIVE)
-  nationality     String?
-  accounts        Account[]
-  location        Location[]
-  activityLogs    ActivityLogs[]
-  Translation     Translation[]
-  Phrasebook      Phrasebook[]
-  SavedPhrasebook SavedPhrasebook[]
-  Dictionary      Dictionary[]
+  id                  String                @id @default(cuid())
+  firstName           String?
+  lastName            String?
+  name                String?
+  email               String?               @unique
+  emailVerified       DateTime?
+  image               String?
+  password            String?
+  role                userRole              @default(USER)
+  status              Status                @default(ACTIVE)
+  nationality         String?
+  accounts            Account[]
+  location            Location[]
+  activityLogs        ActivityLogs[]
+  Translation         Translation[]
+  Phrasebook          Phrasebook[]
+  SavedPhrasebook     SavedPhrasebook[]
+  Dictionary          Dictionary[]
+  DictionaryAnalytics DictionaryAnalytics[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -159,25 +160,38 @@ model SavedPhrasebook {
 }
 
 model Dictionary {
-  id              String @id @default(cuid())
-  wordFil         String
-  wordEng         String
-  wordIlo         String
-  wordPang        String
-  pronFil         String
-  pronEng         String
-  pronIlo         String
-  pronPang        String
-  category_letter String
-  baseFil         String
-  baseEng         String
-  baseIlo         String
-  basePang        String
-  baseFilename    String
-  userId          String
-  status          Status @default(DISABLED)
+  id                  String                @id @default(cuid())
+  wordFil             String
+  wordEng             String
+  wordIlo             String
+  wordPang            String
+  pronFil             String
+  pronEng             String
+  pronIlo             String
+  pronPang            String
+  category_letter     String
+  baseFil             String
+  baseEng             String
+  baseIlo             String
+  basePang            String
+  baseFilename        String
+  userId              String
+  status              Status                @default(DISABLED)
+  DictionaryAnalytics DictionaryAnalytics[]
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model DictionaryAnalytics {
+  id        String   @id @default(cuid())
+  userId    String
+  wordId    String
+  word      String
+  language  String
+  createdAt DateTime @default(now())
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dictionary Dictionary @relation(fields: [wordId], references: [id], onDelete: Cascade)
 }
