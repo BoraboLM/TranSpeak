@@ -30,6 +30,11 @@ const StreamPage = ({ data }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
 
+    const logPlayEvent = (item, lang) => {
+        // console.log(`Played: ${item[`word${lang.charAt(0).toUpperCase() + lang.slice(1)}`]} in ${lang} and ${item.id}`);
+        // Extend this function to save to your database for analytics
+    };
+
     const handlePlayClick = async (item, lang) => {
         const itemLangKey = `${item.id}-${lang}`;
 
@@ -72,6 +77,7 @@ const StreamPage = ({ data }) => {
             audio.currentTime = 0;
             audio.play();
             setCurrentPlaying(itemLangKey);
+            logPlayEvent(item, lang);
         }
 
         audio.onended = () => {

@@ -10,11 +10,14 @@ import { AdminDataTable } from "./table/AdminDataTable";
 import { AdminColumns } from "./table/AdminColumns";
 
 import { AdminData, DisabledData, UsersData } from "@/data/users-table-data";
+import currentUser from "@/lib/currentUser";
 
 export default async function Users() {
-    const users = await UsersData();
-    const admin = await AdminData();
-    const disabled = await DisabledData()
+    const session = await currentUser();
+    const email = session.email;
+    const users = await UsersData(email);
+    const admin = await AdminData(email);
+    const disabled = await DisabledData(email)
     const user_chart_data = await UserAccountChart();
     return (
         <div className="w-full grid grid-cols-1 gap-2 px-4 ">

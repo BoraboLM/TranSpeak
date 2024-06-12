@@ -106,7 +106,7 @@ const AudioUpload = () => {
 
         const metadata = {
             userId: session.id,
-            baseFilename: baseFilename,
+            baseFilename: baseFilename.toLocaleLowerCase(),
             baseFil: `${baseFilename.toLowerCase()}Fil`,
             baseEng: `${baseFilename.toLowerCase()}Eng`,
             baseIlo: `${baseFilename.toLowerCase()}Ilo`,
@@ -130,7 +130,7 @@ const AudioUpload = () => {
 
         const uploadTasks = Object.keys(files).map((lang) => {
             const file = files[lang];
-            const filename = `${baseFilename}${lang.charAt(0).toUpperCase() + lang.slice(1)}`;
+            const filename = `${baseFilename.toLocaleLowerCase()}${lang.charAt(0).toUpperCase() + lang.slice(1)}`;
             const storageRef = ref(storage, `audios/${lang}/${filename}`);
             const uploadTask = uploadBytesResumable(storageRef, file, {
                 customMetadata: { uploadedBy: session.name, language: lang, word: words[lang] }

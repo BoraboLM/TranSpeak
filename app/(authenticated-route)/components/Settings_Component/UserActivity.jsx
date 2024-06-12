@@ -1,8 +1,22 @@
-"use client"
+"use client";
 
 import { Loading } from "@/app/Loading";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, } from "@/components/ui/pagination";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination";
 import { Suspense, useEffect, useState } from "react";
 
 export default function UserActivity({ user_data }) {
@@ -16,66 +30,119 @@ export default function UserActivity({ user_data }) {
     useEffect(() => {
         setCurrentPage(1);
     }, [user_data]);
+
+    const generatePageNumbers = () => {
+        const pages = [];
+        const maxPagesToShow = 5; // Number of pages to show around current page
+
+        if (totalPage <= maxPagesToShow + 4) {
+            for (let i = 1; i <= totalPage; i++) {
+                pages.push(i);
+            }
+        } else {
+            pages.push(1);
+            if (currentPage > 3) {
+                pages.push("...");
+            }
+            const startPage = Math.max(2, currentPage - 1);
+            const endPage = Math.min(totalPage - 1, currentPage + 1);
+
+            for (let i = startPage; i <= endPage; i++) {
+                pages.push(i);
+            }
+            if (currentPage < totalPage - 2) {
+                pages.push("...");
+            }
+            pages.push(totalPage);
+        }
+        return pages;
+    };
+
     return (
         <>
             <Table>
                 <TableHeader>
                     <TableRow className="">
-                        <TableHead className="text-center font-[700] text-black tracking-wide">No.</TableHead>
-                        <TableHead className="font-[700] text-black tracking-wide">Action</TableHead>
-                        <TableHead className="font-[700] text-black tracking-wide">Information</TableHead>
-                        <TableHead className="text-left font-[700] text-black tracking-wide">Type</TableHead>
-                        <TableHead className="text-left font-[700] text-black tracking-wide">Date - Time</TableHead>
+                        <TableHead className="text-center font-[700] text-black tracking-wide">
+                            No.
+                        </TableHead>
+                        <TableHead className="font-[700] text-black tracking-wide">
+                            Action
+                        </TableHead>
+                        <TableHead className="font-[700] text-black tracking-wide">
+                            Information
+                        </TableHead>
+                        <TableHead className="text-left font-[700] text-black tracking-wide">
+                            Type
+                        </TableHead>
+                        <TableHead className="text-left font-[700] text-black tracking-wide">
+                            Date - Time
+                        </TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     <Suspense fallback={<Loading />}>
                         {user_data.slice(startIndex, endIndex).map((item, index) => {
                             const actualIndex = startIndex + index + 1;
-                            return <>
-                                <TableRow key={index} className="hover:bg-indigo-200 ease-in-out duration-300 cursor-default">
-                                    <TableCell className="font-medium text-center">{actualIndex}</TableCell>
+                            return (
+                                <TableRow
+                                    key={index}
+                                    className="hover:bg-indigo-200 ease-in-out duration-300 cursor-default"
+                                >
+                                    <TableCell className="font-medium text-center">
+                                        {actualIndex}
+                                    </TableCell>
                                     <TableCell className="text-left">{item.action}</TableCell>
                                     <TableCell className="text-left">{item.information}</TableCell>
                                     <TableCell className="text-left">{item.action}</TableCell>
-                                    <TableCell className="text-left">{item.createdAt.toLocaleString()}</TableCell>
+                                    <TableCell className="text-left">
+                                        {item.createdAt.toLocaleString()}
+                                    </TableCell>
                                 </TableRow>
-                            </>
+                            );
                         })}
                     </Suspense>
                 </TableBody>
             </Table>
 
-
-            <Pagination className={'mt-2 p-4'}>
-                <div className="w-full min-h-full flex flex-1 justify-start items-center px-6 font-semibold">Total Items: {user_data.length}</div>
+            <Pagination className={"mt-2 p-4"}>
+                <div className="w-full min-h-full flex flex-1 justify-start items-center px-6 font-semibold">
+                    Total Items: {user_data.length}
+                </div>
                 <PaginationContent className="flex justify-center">
                     <PaginationItem>
                         <PaginationPrevious
-                            className={`cursor-pointer ${currentPage === 1 ? 'pointer-events-none' : undefined}`}
+                            className={`cursor-pointer ${currentPage === 1 ? "pointer-events-none" : undefined
+                                }`}
                             onClick={() => setCurrentPage(currentPage - 1)}
                         />
                     </PaginationItem>
 
-                    {Array.from({ length: totalPage }, (_, index) => (
+                    {generatePageNumbers().map((page, index) => (
                         <PaginationItem key={index}>
-                            <PaginationLink
-                                className={`cursor-pointer ${currentPage === index + 1 ? 'active' : undefined}`}
-                                onClick={() => setCurrentPage(index + 1)}
-                            >
-                                {index + 1}
-                            </PaginationLink>
+                            {page === "..." ? (
+                                <span className="mx-2">...</span>
+                            ) : (
+                                <PaginationLink
+                                    className={`cursor-pointer ${currentPage === page ? "active" : undefined
+                                        }`}
+                                    onClick={() => setCurrentPage(page)}
+                                >
+                                    {page}
+                                </PaginationLink>
+                            )}
                         </PaginationItem>
                     ))}
 
                     <PaginationItem>
                         <PaginationNext
-                            className={`cursor-pointer ${currentPage === totalPage ? 'pointer-events-none' : undefined}`}
+                            className={`cursor-pointer ${currentPage === totalPage ? "pointer-events-none" : undefined
+                                }`}
                             onClick={() => setCurrentPage(currentPage + 1)}
                         />
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
         </>
-    )
+    );
 }
