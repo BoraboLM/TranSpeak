@@ -125,7 +125,7 @@ const StreamPage = ({ data }) => {
     };
 
     return (
-        <div className="w-full h-full flex flex-col justify-start items-start p-10 bg-gray-200 shadow-md rounded-lg space-y-2">
+        <div className="w-full min-h-screen h-full flex flex-col justify-start items-start p-10 bg-gray-200 shadow-md rounded-lg space-y-2">
             <div className='flex flex-col justify-center items-start w-full gap-2 mb-4'>
                 <h2 className="text-3xl font-bold text-gray-800">Read and Play the Dictionary Audio</h2>
                 <div className="flex flex-col sm:flex-row gap-2 items-center w-full">
