@@ -56,7 +56,7 @@ export default function MapHeader() {
     const toggleSidebar = () => {
         setIsSidebarVisible(!isSidebarVisible);
     };
-    console.log('option data: ', options)
+
     return (
         <>
             <div className="flex flex-col sm:flex-row gap-4 px-4 sm:px-10 py-2 bg-slate-200 shadow-md rounded-lg">
