@@ -51,6 +51,7 @@ model User {
   Translation     Translation[]
   Phrasebook      Phrasebook[]
   SavedPhrasebook SavedPhrasebook[]
+  Dictionary      Dictionary[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -155,4 +156,28 @@ model SavedPhrasebook {
   user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   phrasebook Phrasebook @relation(fields: [phrasebookId], references: [id], onDelete: Cascade)
   createdAt  DateTime   @default(now())
+}
+
+model Dictionary {
+  id              String @id @default(cuid())
+  wordFil         String
+  wordEng         String
+  wordIlo         String
+  wordPang        String
+  pronFil         String
+  pronEng         String
+  pronIlo         String
+  pronPang        String
+  category_letter String
+  baseFil         String
+  baseEng         String
+  baseIlo         String
+  basePang        String
+  baseFilename    String
+  userId          String
+  status          Status @default(DISABLED)
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

@@ -11,4 +11,8 @@ export const dataLinks = [
         name: "Learn",
         path: "/learn",
     },
+    {
+        name: "Dictionary",
+        path: "/dictionary",
+    },
 ]

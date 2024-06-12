@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { siteConfig } from "./config/site";
-import db from "@/lib/db";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 // Font
 const inter = Inter({ subsets: ["latin"] });
@@ -60,6 +60,7 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className={`${inter.className}`}>
                 {children}
+                <SpeedInsights />
                 <Toaster />
             </body>
         </html>
