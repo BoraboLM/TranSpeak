@@ -42,6 +42,7 @@ export const authenticatedRoutes = [
     "/home",
     "/places",
     "/learn",
+    "/dictionary",
     "/phrasebook",
     "/ilocano",
     "/pangasinan",
@@ -52,7 +53,8 @@ export const authenticatedRoutes = [
     "/dashboard/learn/phrasebook",
     "/dashboard/learn/pangasinan",
     "/dashboard/learn/ilocano",
-    "/dashboard/places",
+    "/dashboard/places",,
+    "/dashboard/dictionary",
     "/dashboard/system-log",
 ]
 

@@ -9,11 +9,12 @@ import { LocationProvider } from "./components/context/LocationProvide";
 import LocationModal from "./components/LocationModal";
 import { Suspense } from "react";
 import ScrollToTop from "@/components/Reusable/ScrollToTop";
+import PageLoading from "@/components/Reusable/PageLoading";
 
 export default async function AuthenticatedLayout({ children }) {
     const session = await auth();
     return (
-        <Suspense fallback={"Loading..."}>
+        <Suspense fallback={<PageLoading />}>
             <SessionProvider session={session}>
                     <main className={`${poppins.className}`}>
                         <LocationProvider>

@@ -8,7 +8,7 @@ export function MapDataProvider({ children }) {
     const [location, setLocation] = useState([]);
     const [steps, setSteps] = useState([]);
     const [end, setEnd] = useState([0, 0]);
-    const [mode, setMode] = useState('');
+    const [mode, setMode] = useState('driving');
     const [kilometers, setKilometers] = useState(0);
     const [estimatedTime, setEstimatedTime] = useState(0);
     const [currentCity, setCurrentCity] = useState('');

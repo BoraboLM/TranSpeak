@@ -30,7 +30,7 @@ export default function LanguageSelect({ name, control, source_value, setSourceV
                                 <FormControl  >
                                     <span className="text-[16px]">
                                         {source_value
-                                            ? lang.find((language) => language.value === source_value)?.label
+                                            ? languages.find((language) => language.value === source_value)?.label
                                             : "Select source Language..."}
                                     </span>
 
@@ -45,7 +45,7 @@ export default function LanguageSelect({ name, control, source_value, setSourceV
                                 <CommandList>
                                     <CommandEmpty>No Language found.</CommandEmpty>
                                     <CommandGroup>
-                                        {lang.map((language, key) => (
+                                        {languages.map((language, key) => (
                                             <CommandItem
                                                 key={key}
                                                 source_value={language.value}

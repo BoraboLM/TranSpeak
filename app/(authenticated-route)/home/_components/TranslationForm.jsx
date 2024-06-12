@@ -29,6 +29,7 @@ import AnimatedText from "./AnimatedResponse";
 export default function TranslationForm() {
     const [isCopied, setIsCopied] = useState(false);
     const [textInput, setTextInput] = useState('');
+    const [timeoutId, setTimeoutId] = useState(null); // Add state for timeout
     const { isListening, transcript, startListening, stopListening } = useSpeechToText({ continuous: true, lang: 'en-US' });
 
     const startStopListening = () => {
@@ -69,6 +70,30 @@ export default function TranslationForm() {
         useTextToSpeech(translation, lang);
     }
 
+    const handleInputChange = (e) => {
+        const value = e.target.value;
+        setTextInput(value);
+
+        // if the textarea is empty it will do nothing
+        if (value === '') return
+
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+
+        const newTimeoutId = setTimeout(() => {
+            form.handleSubmit(onSubmit)();
+        }, 1500);
+
+        setTimeoutId(newTimeoutId);
+    }
+
+    useEffect(() => {
+        if (!isListening && transcript) {
+            form.handleSubmit(onSubmit)();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isListening, transcript]);
     return (
         <>
             <div className="w-full px-8">
@@ -103,7 +128,7 @@ export default function TranslationForm() {
                                                             disabled={isListening}
                                                             height="300px"
                                                             spellCheck="false"
-                                                            onChange={(e) => { setTextInput(e.target.value) }}
+                                                            onChange={handleInputChange}
                                                             value={isListening ? textInput + (transcript.length ? (textInput.length ? ' ' : '') + transcript : '') : textInput}
                                                         />
                                                     </FormControl>
@@ -175,13 +200,11 @@ export default function TranslationForm() {
                             </div>
                         </div>
 
-                        <div className="flex gap-4 mt-6 w-full px-10  justify-center">
+                        {/* <div className="flex gap-4 mt-6 w-full px-10  justify-center">
                             <Button type="submit" className=" w-[40vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw] xl:w-[30vw] 2xl:w-[30vw] border-b-[8px] border-transparent hover:border-indigo-500 duration-300 ease-in-out" disabled={isListening || isTranslating}>
                                 {isTranslating ? "Translating..." : "Translate"}
                             </Button>
-                            {/* disabled={isListening || isTranslating}>
-                                {isTranslating ? "Translating..." : "Translate"} */}
-                        </div>
+                        </div> */}
                     </form>
                 </Form>
             </div >
