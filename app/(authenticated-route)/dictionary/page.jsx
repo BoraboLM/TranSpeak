@@ -13,7 +13,7 @@ export default async function Dictionary() {
             {data.length > 0 ? (
                 <StreamPage data={data} />
             ) : (
-                <div className="flex justify-center items-center h-full w-full">
+                <div className="flex justify-center items-center min-h-screen h-full w-full">
                     <h1 className="text-2xl font-bold text-gray-600 tracking-wider">No data available</h1>
                 </div>
             )}
