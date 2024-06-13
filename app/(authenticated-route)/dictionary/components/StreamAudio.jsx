@@ -5,6 +5,8 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from '@/app/firebase';
 import PlaySvg from '@/app/assets/svg/play-svg';
 import StreamHeader from './StreamHeader';
+import { saveAnalytics } from '@/app/action/dictionary/save-analytics';
+import { useCurrentUser } from '@/app/hooks/use-current-user';
 
 const PlayIcon = () => (
     <PlaySvg />
@@ -29,10 +31,21 @@ const StreamPage = ({ data }) => {
     const [loading, setLoading] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
+    const userId = useCurrentUser()?.id;
 
-    const logPlayEvent = (item, lang) => {
-        // console.log(`Played: ${item[`word${lang.charAt(0).toUpperCase() + lang.slice(1)}`]} in ${lang} and ${item.id}`);
-        // Extend this function to save to your database for analytics
+    const logPlayEvent = async (item, lang) => {
+        try {
+            data = {
+                word: item[`word${lang.charAt(0).toUpperCase() + lang.slice(1)}`],
+                lang: lang,
+                wordId: item.id,
+                userId: userId,
+            }
+
+            await saveAnalytics(data);
+        } catch (error) {
+            console.error('Failed to log play event:', error);
+        }
     };
 
     const handlePlayClick = async (item, lang) => {
@@ -159,7 +172,7 @@ const StreamPage = ({ data }) => {
 
             <StreamHeader />
             {Object.keys(groupedData).map((letter, index) => (
-                <div key={letter} className={`w-full p-4 rounded-lg ${getCategoryColor(index)}`}>
+                <div key={letter} className={`w-full p-4 rounded-lg ${getCategoryColor(index)} gap-4`}>
                     <h3 className="text-2xl font-semibold text-white mb-4">{letter}</h3>
                     <div className='grid grid-cols-1 w-full gap-4'>
                         {groupedData[letter].map((item) => (
