@@ -8,6 +8,7 @@
     transition: all 0.3s ease-in-out;
     z-index: 10;
     backdrop-filter: blur(5px);
+    border-radius: 10px;
 }
 
 @media (min-width: 640px) {
@@ -23,13 +24,16 @@
 }
 
 .sticky {
-    background-color: rgba(165, 180, 252, 0.7);
+    background-color: rgba(165, 180, 252, 0.85);
     position: sticky;
-    top: 0;
+    top: 8px;
     animation: stickyAnimation 0.4s forwards;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(165, 180, 252, 0.5);
+    padding: 1.5rem;
 }
 
 @keyframes stickyAnimation {
@@ -49,4 +53,16 @@
     text-align: start;
     font-weight: bold;
     font-size: 1.25rem;
+    color: #1a202c;
+}
+
+.container-item {
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.container-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
