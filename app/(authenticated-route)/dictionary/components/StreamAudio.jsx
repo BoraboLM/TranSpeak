@@ -144,19 +144,19 @@ const StreamPage = ({ data }) => {
     };
 
     return (
-        <div className="w-full min-h-screen h-full flex flex-col justify-start items-start p-10 bg-gray-200 shadow-md rounded-lg space-y-2">
-            <div className='flex flex-col justify-center items-start w-full gap-2 mb-4'>
-                <h2 className="text-3xl font-bold text-gray-800">Read and Play the Dictionary Audio</h2>
-                <div className="flex flex-col sm:flex-row gap-2 items-center w-full">
+        <div className="w-full min-h-screen h-full flex flex-col justify-start items-start p-10 bg-gradient-to-r from-pink-100 via-indigo-300 to-sky-200 shadow-lg rounded-lg space-y-4">
+            <div className='flex flex-col justify-center items-start w-full gap-4 mb-6'>
+                <h2 className="text-4xl font-bold text-gray-800">Read and Play the Dictionary Audio</h2>
+                <div className="flex flex-col sm:flex-row gap-4 items-center w-full">
                     <input
                         type="text"
-                        className='w-full sm:w-[300px] rounded-lg p-2'
+                        className='w-full sm:w-[300px] rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500'
                         placeholder='Search'
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                     <select
-                        className='w-full sm:w-[150px] rounded-lg p-2'
+                        className='w-full sm:w-[150px] rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500'
                         value={selectedCategory}
                         onChange={(e) => setSelectedCategory(e.target.value)}
                     >
@@ -172,20 +172,20 @@ const StreamPage = ({ data }) => {
 
             <StreamHeader />
             {Object.keys(groupedData).map((letter, index) => (
-                <div key={letter} className={`w-full p-4 rounded-lg ${getCategoryColor(index)} gap-4`}>
+                <div key={letter} className={`w-full p-6 rounded-lg shadow-lg ${getCategoryColor(index)} gap-4`}>
                     <h3 className="text-2xl font-semibold text-white mb-4">{letter}</h3>
-                    <div className='grid grid-cols-1 w-full gap-4'>
+                    <div className='grid grid-cols-1 gap-6'>
                         {groupedData[letter].map((item) => (
-                            <div key={item.id} className="p-4 rounded-lg w-full bg-white">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
+                            <div key={item.id} className="p-6 rounded-lg w-full bg-white shadow-lg transition-transform transform hover:-translate-y-1">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
                                     {['fil', 'eng', 'pang', 'ilo'].map((lang) => (
-                                        <div key={lang} className="flex flex-row gap-2 items-center">
+                                        <div key={lang} className="flex flex-row gap-4 items-center">
                                             <audio id={`audio-${item.id}-${lang}`} src={audioUrls[`${item.id}-${lang}`]} className="hidden">
                                                 Your browser does not support the audio element.
                                             </audio>
                                             <button
                                                 type='button'
-                                                className="mt-2 bg-blue-500 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-blue-400 ease-in-out duration-200 m-2"
+                                                className="mt-2 bg-gradient-to-r from-blue-500 to-blue-400 text-white w-12 h-12 rounded-full flex items-center justify-center hover:from-blue-400 hover:to-blue-300 transition duration-200 m-2 shadow-lg"
                                                 onClick={() => handlePlayClick(item, lang)}
                                                 disabled={loading === `${item.id}-${lang}`}
                                                 aria-label={`Play ${item[`word${lang.charAt(0).toUpperCase() + lang.slice(1)}`]} in ${lang}`}
@@ -194,14 +194,15 @@ const StreamPage = ({ data }) => {
                                                 {loading === `${item.id}-${lang}` ? <LoadingIcon /> : (currentPlaying === `${item.id}-${lang}` ? <PlayingIcon /> : <PlayIcon />)}
                                             </button>
                                             <div className='flex flex-col'>
-                                                <p className="font-semibold text-gray-950 text-[16px]">{item[`word${lang.charAt(0).toUpperCase() + lang.slice(1)}`]}</p>
-                                                <p className="font-semibold text-gray-600 text-sm italic">{item[`pron${lang.charAt(0).toUpperCase() + lang.slice(1)}`]}</p>
+                                                <p className="font-semibold text-gray-900 text-lg">{item[`word${lang.charAt(0).toUpperCase() + lang.slice(1)}`]}</p>
+                                                <p className="font-medium text-gray-600 text-sm italic">{item[`pron${lang.charAt(0).toUpperCase() + lang.slice(1)}`]}</p>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
                         ))}
+
                     </div>
                 </div>
             ))}

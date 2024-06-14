@@ -9,7 +9,7 @@ export const metadata = {
 export default async function Dictionary() {
     const data = await getWordsData();
     return (
-        <section className="flex justify-center items-center h-full px-2 sm:px-2 md:px-4 lg:px-4 w-full md:w-[90%] lg:w-[90%] mx-auto">
+        <section className="flex justify-center items-center h-full px-2 sm:px-2 md:px-4 lg:px-4 w-full md:w-[90%] lg:w-[90%] mx-auto ">
             {data.length > 0 ? (
                 <StreamPage data={data} />
             ) : (
