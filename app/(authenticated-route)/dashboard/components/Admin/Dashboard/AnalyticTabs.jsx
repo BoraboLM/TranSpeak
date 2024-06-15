@@ -6,25 +6,21 @@ import { TranslationCounts } from "@/data/analytics/translation-analytics";
 
 export default async function Analytics() {
     const tabs = ["Translation Content", "Dictionary Plays"];
-    const wordAnalytics = await AnalyticWordsCount();
+    const wordAnalytics = await AnalyticWordsCount(new Date().getMonth() + 1, new Date().getFullYear());
     const translationAnalytics = await TranslationCounts();
-
-    const analytics = wordAnalytics.slice(0, 10);
-
-    const translation = [];
 
     return (
         <div className="w-full flex flex-col items-center bg-gray-100 rounded-xl p-8 shadow-md h-full">
             <Tabs tabs={tabs} defaultTab="Translation Content">
                 {{
                     "Translation Content": (
-                        <TranslationAnalytics translation={translation} translationData={translationAnalytics} />
+                        <TranslationAnalytics translationData={translationAnalytics} />
                     ),
                     "Dictionary Plays": (
-                        <DictionaryPlays analytics={analytics} />
+                        <DictionaryPlays analytics={wordAnalytics} />
                     ),
                 }}
             </Tabs>
         </div>
     );
-};
+}
