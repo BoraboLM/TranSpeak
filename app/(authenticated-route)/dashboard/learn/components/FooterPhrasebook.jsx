@@ -13,7 +13,7 @@ export default function FooterPhrasebook({ data, footerData }) {
                         <div
                             onClick={() => footerData(item)}
                             key={index}
-                            className="rounded-lg shadow relative p-4 bg-white cursor-pointer hover:shadow-2xl hover:bg-indigo-50 transition duration-300 ease-in-out"
+                            className="rounded-lg shadow relative p-4 bg-white cursor-pointer hover:shadow-2xl hover:bg-gradient-to-b from-indigo-50 to-indigo-100 transition duration-300 ease-in-out"
                         >
                             <div className="flex justify-between items-center border-b-2">
                                 <span className="text-md font-[600] text-gray-500">

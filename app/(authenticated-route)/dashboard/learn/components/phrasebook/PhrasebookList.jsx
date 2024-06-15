@@ -92,7 +92,7 @@ export default function PhrasebookList({ data }) {
                             <div
                                 onClick={() => isOpenModal(item)}
                                 key={index}
-                                className="rounded-lg shadow relative p-4 bg-white cursor-pointer hover:shadow-2xl hover:bg-indigo-50 transition duration-300 ease-in-out m-4"
+                                className="rounded-lg shadow relative p-4 bg-white cursor-pointer hover:shadow-2xl hover:bg-gradient-to-b from-indigo-50 to-indigo-100 transition duration-300 ease-in-out m-4"
                             >
                                 <div className="flex justify-between items-center border-b-2">
                                     <span className="text-md font-[600] text-gray-500">
