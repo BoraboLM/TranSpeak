@@ -8,7 +8,7 @@ export default function StreamHeader() {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 250) {
+            if (window.scrollY > 300) {
                 setIsSticky(true);
             } else {
                 setIsSticky(false);
