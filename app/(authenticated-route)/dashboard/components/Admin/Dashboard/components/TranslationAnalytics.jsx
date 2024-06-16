@@ -42,6 +42,8 @@ export default function TranslationAnalytics({ translationData }) {
         }
     }, [selectedTab, selectedMonth, selectedYear, fetched.weekly]);
 
+    // console log what country and date is being fetched
+    console.log(new Date().toLocaleString());
     const renderAnalytics = (title, data) => (
         <div className="w-full space-y-6 transition-opacity duration-500 ease-in-out opacity-100">
             <h2 className="text-2xl font-bold text-gray-700 mb-4">{title}</h2>

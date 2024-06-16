@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
-import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, isValid, parseISO } from 'date-fns';
+import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, isValid } from 'date-fns';
+import { revalidatePath } from "next/cache";
 
 export const AnalyticWordsCount = async (selectedMonth, selectedYear) => {
     try {
@@ -84,6 +85,7 @@ export const AnalyticWordsCount = async (selectedMonth, selectedYear) => {
             },
         });
 
+        revalidatePath('/dashboard');
         return {
             overallData,
             weeklyData,

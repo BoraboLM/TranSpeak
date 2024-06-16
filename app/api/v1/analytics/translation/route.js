@@ -8,6 +8,7 @@ export async function GET(req,res){
         const year = params.get('year');
         const week = params.get('week');
         const overall = params.get('overall');
+        console.log('only receiving: ', month, year, week, overall)
         const data = await TranslationCounts(Number(month), Number(year), week === 'true', overall === 'true');
 
     return Response.json({

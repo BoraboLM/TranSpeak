@@ -34,6 +34,8 @@ export default function DictionaryPlays({ analytics }) {
         }
     }, [selectedMonth, selectedYear, selectedTab]);
 
+    // console.log current time and date
+    console.log(new Date().toLocaleString());
     const renderAnalytics = (title, data) => (
         <div className="w-full space-y-6 transition-opacity duration-500 ease-in-out opacity-100">
             <h2 className="text-2xl font-bold text-gray-700 mb-4">{title}</h2>
