@@ -8,34 +8,38 @@ export default function DictionaryPlays({ analytics }) {
     const [selectedTab, setSelectedTab] = useState('Overall');
     const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-    const [monthlyAnalytics, setMonthlyAnalytics] = useState([]);
+    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchMonthlyData = async () => {
-            if (!selectedMonth || !selectedYear) return;
+        const fetchData = async () => {
             setLoading(true);
             try {
-                const res = await axios.get(`/api/v1/analytics`, { params: { month: selectedMonth, year: selectedYear } });
-                setMonthlyAnalytics(res.data.data.monthlyData);
+                const params = {
+                    type: selectedTab.toLowerCase(),
+                };
+
+                if (selectedTab === 'Monthly') {
+                    params.month = selectedMonth;
+                    params.year = selectedYear;
+                }
+
+                const res = await axios.get(`/api/v1/analytics`, { params });
+                setData(res.data.data);
                 setError(null);
             } catch (error) {
-                console.error('Error fetching monthly data:', error);
-                setError('Error fetching monthly data. Please try again later.');
-                setMonthlyAnalytics([]);
+                console.error('Error fetching data:', error);
+                setError('Error fetching data. Please try again later.');
+                setData([]);
             } finally {
                 setLoading(false);
-            };
+            }
         };
 
-        if (selectedTab === 'Monthly') {
-            fetchMonthlyData();
-        }
+        fetchData();
     }, [selectedMonth, selectedYear, selectedTab]);
 
-    // console.log current time and date
-    console.log(new Date().toLocaleString());
     const renderAnalytics = (title, data) => (
         <div className="w-full space-y-6 transition-opacity duration-500 ease-in-out opacity-100">
             <h2 className="text-2xl font-bold text-gray-700 mb-4">{title}</h2>
@@ -106,9 +110,9 @@ export default function DictionaryPlays({ analytics }) {
                 </div>
             ) : (
                 <>
-                    {selectedTab === 'Overall' && renderAnalytics('Overall Analytics', analytics.overallData)}
-                    {selectedTab === 'Weekly' && renderAnalytics('Weekly Analytics', analytics.weeklyData)}
-                    {selectedTab === 'Monthly' && !error && renderAnalytics('Monthly Analytics', monthlyAnalytics)}
+                    {selectedTab === 'Overall' && renderAnalytics('Overall Analytics', data)}
+                    {selectedTab === 'Weekly' && renderAnalytics('Weekly Analytics', data)}
+                    {selectedTab === 'Monthly' && !error && renderAnalytics('Monthly Analytics', data)}
                 </>
             )}
         </div>

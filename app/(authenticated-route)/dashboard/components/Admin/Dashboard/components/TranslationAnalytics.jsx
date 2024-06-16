@@ -8,42 +8,37 @@ export default function TranslationAnalytics({ translationData }) {
     const [selectedTab, setSelectedTab] = useState('Overall');
     const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-    const [monthlyAnalytics, setMonthlyAnalytics] = useState([]);
-    const [weeklyAnalytics, setWeeklyAnalytics] = useState([]);
-    const [overallAnalytics, setOverallAnalytics] = useState(translationData || []);
+    const [analyticsData, setAnalyticsData] = useState(translationData || []);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [fetched, setFetched] = useState({
-        weekly: false,
-        monthly: false,
-    });
 
     useEffect(() => {
-        const fetchData = async (params, setData, fetchedKey) => {
+        const fetchData = async () => {
             setLoading(true);
             try {
+                const params = { overall: selectedTab === 'Overall' };
+                if (selectedTab === 'Monthly') {
+                    params.month = selectedMonth;
+                    params.year = selectedYear;
+                } else if (selectedTab === 'Weekly') {
+                    params.week = true;
+                }
+
                 const res = await axios.get(`/api/v1/analytics/translation`, { params });
-                setData(res.data.data);
-                setFetched(prev => ({ ...prev, [fetchedKey]: true }));
+                setAnalyticsData(res.data.data);
                 setError(null);
             } catch (error) {
                 console.error('Error fetching data:', error);
                 setError('Error fetching data. Please try again later.');
-                setData([]);
+                setAnalyticsData([]);
             } finally {
                 setLoading(false);
             }
         };
 
-        if (selectedTab === 'Weekly' && !fetched.weekly) {
-            fetchData({ week: true }, setWeeklyAnalytics, 'weekly');
-        } else if (selectedTab === 'Monthly') {
-            fetchData({ month: selectedMonth, year: selectedYear }, setMonthlyAnalytics, 'monthly');
-        }
-    }, [selectedTab, selectedMonth, selectedYear, fetched.weekly]);
+        fetchData();
+    }, [selectedTab, selectedMonth, selectedYear]);
 
-    // console log what country and date is being fetched
-    console.log(new Date().toLocaleString());
     const renderAnalytics = (title, data) => (
         <div className="w-full space-y-6 transition-opacity duration-500 ease-in-out opacity-100">
             <h2 className="text-2xl font-bold text-gray-700 mb-4">{title}</h2>
@@ -64,7 +59,7 @@ export default function TranslationAnalytics({ translationData }) {
             ) : (
                 <div className="flex flex-col gap-4 justify-center items-center h-full min-h-[400px]">
                     <NoDataFound />
-                    <span className='font-semibold text-gray-600 text-xl tracking-wider '>Looks like the system doesn&apos;t have the data for that Month and Year</span>
+                    <span className='font-semibold text-gray-600 text-xl tracking-wider '>Looks like the system doesn&apos;t have the data for that period</span>
                 </div>
             )}
         </div>
@@ -111,9 +106,9 @@ export default function TranslationAnalytics({ translationData }) {
                 </div>
             ) : (
                 <>
-                    {selectedTab === 'Overall' && renderAnalytics('Overall Analytics', overallAnalytics)}
-                    {selectedTab === 'Weekly' && renderAnalytics('Weekly Analytics', weeklyAnalytics)}
-                    {selectedTab === 'Monthly' && renderAnalytics('Monthly Analytics', monthlyAnalytics)}
+                    {selectedTab === 'Overall' && renderAnalytics('Overall Analytics', analyticsData)}
+                    {selectedTab === 'Weekly' && renderAnalytics('Weekly Analytics', analyticsData)}
+                    {selectedTab === 'Monthly' && renderAnalytics('Monthly Analytics', analyticsData)}
                 </>
             )}
         </div>

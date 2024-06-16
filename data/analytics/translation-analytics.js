@@ -1,6 +1,5 @@
 import { db } from "@/lib/db";
 import { startOfWeek, endOfWeek, startOfMonth, endOfMonth } from 'date-fns';
-import { revalidatePath } from "next/cache";
 
 export const TranslationCounts = async (month, year, week, overall) => {
     try {
@@ -45,7 +44,6 @@ export const TranslationCounts = async (month, year, week, overall) => {
             }
         });
 
-        revalidatePath('/dashboard');
         return data;
     } catch (error) {
         console.error(error);
