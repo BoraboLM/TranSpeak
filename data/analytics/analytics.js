@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, isValid } from 'date-fns';
+import { revalidatePath } from "next/cache";
 
 export const AnalyticWordsCount = async (selectedMonth, selectedYear) => {
     try {
@@ -36,6 +37,8 @@ export const AnalyticWordsCount = async (selectedMonth, selectedYear) => {
             },
         });
 
+        revalidatePath('/dashboard')
+
         return monthlyData;
     } catch (error) {
         console.error(error);
@@ -56,6 +59,8 @@ export const OverallAnalytics = async () => {
                 }
             },
         });
+
+        revalidatePath('/dashboard')
 
         return overallData;
     } catch (error) {
@@ -94,6 +99,8 @@ export const WeeklyAnalytics = async () => {
                 }
             },
         });
+
+        revalidatePath('/dashboard')
 
         return weeklyData;
     } catch (error) {
