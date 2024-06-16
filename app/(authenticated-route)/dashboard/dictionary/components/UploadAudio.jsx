@@ -201,7 +201,7 @@ const AudioUpload = () => {
     }, [error, averageProgress])
 
     return (
-        <div className="flex flex-col w-full gap-4 px-6 py-4 bg-white shadow-lg shadow-slate-400 rounded-lg">
+        <div className="flex flex-col w-full gap-4 px-6 py-4 bg-white shadow-md shadow-slate-400 rounded-lg">
             {/* ProgressBar Component */}
             <ProgressBar shouldShowProgress={shouldShowProgress} averageProgress={averageProgress} />
 
