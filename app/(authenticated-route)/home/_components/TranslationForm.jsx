@@ -70,23 +70,49 @@ export default function TranslationForm() {
         useTextToSpeech(translation, lang);
     }
 
+    // const handleInputChange = (e) => {
+    //     const value = e.target.value;
+    //     setTextInput(value);
+
+    //     // if the textarea is empty it will do nothing
+    //     if (value === '') return
+
+    //     if (timeoutId) {
+    //         clearTimeout(timeoutId);
+    //     }
+
+    //     const newTimeoutId = setTimeout(() => {
+    //         form.handleSubmit(onSubmit)();
+    //     }, 1500);
+
+    //     setTimeoutId(newTimeoutId);
+    // }
+
     const handleInputChange = (e) => {
         const value = e.target.value;
         setTextInput(value);
 
-        // if the textarea is empty it will do nothing
-        if (value === '') return
-
         if (timeoutId) {
             clearTimeout(timeoutId);
         }
+    };
+
+    useEffect(() => {
+        if (textInput === '') return;
 
         const newTimeoutId = setTimeout(() => {
             form.handleSubmit(onSubmit)();
         }, 1500);
 
         setTimeoutId(newTimeoutId);
-    }
+
+        return () => {
+            if (newTimeoutId) {
+                clearTimeout(newTimeoutId);
+            }
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [textInput]);
 
     useEffect(() => {
         if (!isListening && transcript) {
