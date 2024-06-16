@@ -59,7 +59,7 @@ export const SaveAudio = async ({ data }) => {
                 data: [
                     {
                         status: 500,
-                        message: 'Error saving metadata. Please try again! 🚫bobo'
+                        message: 'Error saving metadata. Please try again!'
                     }
                 ]
             }
