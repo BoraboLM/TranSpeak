@@ -25,9 +25,9 @@
 
 .sticky {
     background-color: rgba(255, 255, 255, 0.45);
+    /* background-color: rgba(153, 100, 255, 0.45); */
     z-index: 50;
     position: sticky;
-    /* top: 4.8rem; */
     top: 8.5vh;
     animation: stickyAnimation 0.4s forwards;
     border-top-right-radius: none;
