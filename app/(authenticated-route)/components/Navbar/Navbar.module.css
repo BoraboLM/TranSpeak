@@ -1,0 +1,44 @@
+@keyframes enterSticky {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes exitSticky {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    z-index: 50;
+    animation: enterSticky 0.5s forwards;
+}
+
+.sticky-exit {
+    animation: exitSticky 0.5s forwards;
+}
+
+@media (min-width: 640px) {
+    .sticky {
+        padding: 1rem 6%;
+    }
+}

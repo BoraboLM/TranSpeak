@@ -21,7 +21,6 @@ export default function useTextToSpeech  (translation, lang) {
     }
 
     const availableVoice = voice.filter(({ lang }) => lang === language);
-    console.log(availableVoice)
     const activeVoice = availableVoice?.find(({ name }) => name.includes('Google')) || availableVoice?.find(({ name }) => name.includes('David')) || availableVoice?.find(({ name }) => name.includes('Angelo'))
 
     let utterance = new SpeechSynthesisUtterance(translation);

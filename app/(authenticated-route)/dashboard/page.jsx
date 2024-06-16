@@ -7,7 +7,6 @@ export default async function Dashboard() {
     const activeUser = await ActiveAccounts();
     const totalNumberAccounts = await TotalAccounts();
     const totalTranslation = await TotalTranslationCount();
-    const wordAnalytics = await AnalyticWordsCount();
 
     const totalAccount = totalNumberAccounts.length;
     const TotalActiveAccounts = activeUser.length;
@@ -29,7 +28,7 @@ export default async function Dashboard() {
                 </div>
             </div>
             <div className="w-full p-4">
-                <Analytics data={wordAnalytics} />
+                <Analytics />
             </div>
         </div>
     )

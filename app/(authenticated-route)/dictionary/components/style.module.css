@@ -25,16 +25,19 @@
 
 .sticky {
     background-color: rgba(255, 255, 255, 0.45);
+    /* background-color: rgba(153, 100, 255, 0.45); */
+    z-index: 50;
     position: sticky;
-    top: 8px;
+    top: 8.5vh;
     animation: stickyAnimation 0.4s forwards;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-top-right-radius: none;
+    border-top-left-radius: none;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(165, 180, 252, 0.5);
+    /* border: 1px solid rgba(165, 180, 252, 0.5); */
     padding: 1.5rem;
-    border-radius: 50px;
 }
 
 @keyframes stickyAnimation {
