@@ -171,41 +171,47 @@ const StreamPage = ({ data }) => {
             {error && <p className="mt-4 text-red-600 text-center">{error}</p>}
 
             <StreamHeader />
-            {Object.keys(groupedData).map((letter, index) => (
-                <div key={letter} className={`w-full p-6 rounded-lg shadow-lg ${getCategoryColor(index)} gap-4`}>
-                    <h3 className="text-2xl font-semibold text-white mb-4">{letter}</h3>
-                    <div className='grid grid-cols-1 gap-6'>
-                        {groupedData[letter].map((item) => (
-                            <div key={item.id} className="p-6 rounded-lg w-full bg-white shadow-lg transition-transform transform hover:-translate-y-1">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
-                                    {['fil', 'eng', 'pang', 'ilo'].map((lang) => (
-                                        <div key={lang} className="flex flex-row gap-4 items-center">
-                                            <audio id={`audio-${item.id}-${lang}`} src={audioUrls[`${item.id}-${lang}`]} className="hidden">
-                                                Your browser does not support the audio element.
-                                            </audio>
-                                            <button
-                                                type='button'
-                                                className="mt-2 bg-gradient-to-r from-blue-500 to-blue-400 text-white w-12 h-12 rounded-full flex items-center justify-center hover:from-blue-400 hover:to-blue-300 transition duration-200 m-2 shadow-lg"
-                                                onClick={() => handlePlayClick(item, lang)}
-                                                disabled={loading === `${item.id}-${lang}`}
-                                                aria-label={`Play ${item[`word${lang.charAt(0).toUpperCase() + lang.slice(1)}`]} in ${lang}`}
-                                                role='button'
-                                            >
-                                                {loading === `${item.id}-${lang}` ? <LoadingIcon /> : (currentPlaying === `${item.id}-${lang}` ? <PlayingIcon /> : <PlayIcon />)}
-                                            </button>
-                                            <div className='flex flex-col'>
-                                                <p className="font-semibold text-gray-900 text-lg">{item[`word${lang.charAt(0).toUpperCase() + lang.slice(1)}`]}</p>
-                                                <p className="font-medium text-gray-600 text-sm italic">{item[`pron${lang.charAt(0).toUpperCase() + lang.slice(1)}`]}</p>
+            {Object.keys(groupedData).length > 0 ? (
+                Object.keys(groupedData).map((letter, index) => (
+                    <div key={letter} className={`w-full p-6 rounded-lg shadow-lg ${getCategoryColor(index)} gap-4`}>
+                        <h3 className="text-2xl font-semibold text-white mb-4">{letter}</h3>
+                        <div className='grid grid-cols-1 gap-6'>
+                            {groupedData[letter].map((item) => (
+                                <div key={item.id} className="p-6 rounded-lg w-full bg-white shadow-lg transition-transform transform hover:-translate-y-1">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
+                                        {['fil', 'eng', 'pang', 'ilo'].map((lang) => (
+                                            <div key={lang} className="flex flex-row gap-4 items-center">
+                                                <audio id={`audio-${item.id}-${lang}`} src={audioUrls[`${item.id}-${lang}`]} className="hidden">
+                                                    Your browser does not support the audio element.
+                                                </audio>
+                                                <button
+                                                    type='button'
+                                                    className="mt-2 bg-gradient-to-r from-blue-500 to-blue-400 text-white w-12 h-12 rounded-full flex items-center justify-center hover:from-blue-400 hover:to-blue-300 transition duration-200 m-2 shadow-lg"
+                                                    onClick={() => handlePlayClick(item, lang)}
+                                                    disabled={loading === `${item.id}-${lang}`}
+                                                    aria-label={`Play ${item[`word${lang.charAt(0).toUpperCase() + lang.slice(1)}`]} in ${lang}`}
+                                                    role='button'
+                                                >
+                                                    {loading === `${item.id}-${lang}` ? <LoadingIcon /> : (currentPlaying === `${item.id}-${lang}` ? <PlayingIcon /> : <PlayIcon />)}
+                                                </button>
+                                                <div className='flex flex-col'>
+                                                    <p className="font-semibold text-gray-900 text-lg">{item[`word${lang.charAt(0).toUpperCase() + lang.slice(1)}`]}</p>
+                                                    <p className="font-medium text-gray-600 text-sm italic">{item[`pron${lang.charAt(0).toUpperCase() + lang.slice(1)}`]}</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-
+                            ))}
+                        </div>
                     </div>
+                ))
+            ) : (
+                <div className="flex flex-col justify-center items-center min-h-[40vh] w-full text-center gap-10">
+                    <h1 className="text-2xl font-bold">No Dictionary Data found</h1>
+                    <p className="text-6xl font-[600] text-gray-800">￣\_(ツ)_/￣</p>
                 </div>
-            ))}
+            )}
         </div>
     );
 };
