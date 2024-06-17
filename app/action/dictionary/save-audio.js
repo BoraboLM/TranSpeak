@@ -65,7 +65,7 @@ export const SaveAudio = async ({ data }) => {
             }
         }
 
-        revalidatePath('/dictionary' && '/dashboard/dictionary');
+        revalidatePath('/dashoard/dictionary');
         return {
             data: [
                 {
