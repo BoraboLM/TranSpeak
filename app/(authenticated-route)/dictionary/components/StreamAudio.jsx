@@ -7,6 +7,7 @@ import PlaySvg from '@/app/assets/svg/play-svg';
 import StreamHeader from './StreamHeader';
 import { saveAnalytics } from '@/app/action/dictionary/save-analytics';
 import { useCurrentUser } from '@/app/hooks/use-current-user';
+import NoDataFound from '@/app/assets/svg/no-data';
 
 const PlayIcon = () => (
     <PlaySvg />
@@ -207,9 +208,9 @@ const StreamPage = ({ data }) => {
                     </div>
                 ))
             ) : (
-                <div className="flex flex-col justify-center items-center min-h-[40vh] w-full text-center gap-10">
+                <div className="flex flex-col justify-center items-center min-h-[40vh] w-full text-center gap-6">
                     <h1 className="text-2xl font-bold">No Dictionary Data found</h1>
-                    <p className="text-6xl font-[600] text-gray-800">￣\_(ツ)_/￣</p>
+                    <NoDataFound />
                 </div>
             )}
         </div>

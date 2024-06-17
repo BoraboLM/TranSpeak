@@ -10,6 +10,7 @@ import { useCurrentUser } from '@/app/hooks/use-current-user';
 import StatusSwitch from './Status';
 import { Switch } from '@/components/ui/switch';
 import { UpdateDictionaryStatus } from '@/app/action/dictionary/update-status';
+import NoDataFound from '@/app/assets/svg/no-data';
 
 const PlayIcon = () => <PlaySvg />;
 const PlayingIcon = () => (
@@ -37,7 +38,6 @@ export default function FooterDictionary({ data }) {
     const [statusFilter, setStatusFilter] = useState('ALL');
 
     useEffect(() => {
-        // Sort data alphabetically by baseFilename initially
         const sortedData = [...data].sort((a, b) => a.baseFilename.localeCompare(b.baseFilename));
         setDictionaryData(sortedData);
 
@@ -150,9 +150,7 @@ export default function FooterDictionary({ data }) {
             status: dataStatus
         };
 
-        const res = await UpdateDictionaryStatus({ newData });
-
-        console.log(res);
+        await UpdateDictionaryStatus({ newData });
         handleCloseModal();
 
         const updatedData = dictionaryData.map(item =>
@@ -210,7 +208,7 @@ export default function FooterDictionary({ data }) {
                 ) : (
                     <div className="flex flex-col justify-center items-center w-full text-center gap-2 min-h-[40vh]">
                         <h1 className="text-2xl font-bold">No data found</h1>
-                        <p className="text-6xl">😢</p>
+                        <NoDataFound />
                     </div>
                 )}
             </div>
