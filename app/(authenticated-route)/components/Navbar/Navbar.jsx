@@ -80,7 +80,12 @@ export function Navbar() {
                     )}
                 </div>
             </div>
-            <div>
+            <div className='flex flex-row gap-4 justify-center items-center'>
+                <div className={`${isSticky ? '' : 'hidden'} font-[600] text-gray-800`}>
+                    {session.role === 'ADMIN' && (<>
+                        {session.name}
+                    </>)}
+                </div>
                 <AvatarProfile />
             </div>
         </nav>
