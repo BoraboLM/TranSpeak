@@ -71,7 +71,8 @@ export const OverallAnalytics = async () => {
 
 export const WeeklyAnalytics = async () => {
     try {
-        const currentDate = new Date();
+        let currentDate = new Date();
+        currentDate = new Date(currentDate.toLocaleString("en-US", {timeZone: "Asia/Manila"}));
         if (isNaN(currentDate.getTime())) {
             throw new Error("Invalid current date");
         }
