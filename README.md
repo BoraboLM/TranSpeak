@@ -20,8 +20,8 @@
     - Open the project with your preferred text editor or IDE.
 
 3. **Create a `.env` File**
-    - Create a `.env`(https://drive.google.com/file/d/1LBNqoyGXjAwh7RPDwi5k199GF09tMx7V/view?usp=drive_link) file at the root of the project.
-    - Access the link provided for the `.env` contents. **Please Do Not Share**.
+    - Create a `.env` file at the root of the project.
+    - Access the link provided for the `.env` [click here](https://drive.google.com/file/d/1LBNqoyGXjAwh7RPDwi5k199GF09tMx7V/view?usp=drive_link) contents. **Please Do Not Share**.
 
 4. **Install Dependencies**
     ```sh
