@@ -1,48 +1,79 @@
-<!-- Cloning and Installing the Project -->
 # TranSpeak: Voice and Text Conversion for Tourists
 
-## Note:
-This is a Capstone Project
+**Note: This is a Capstone Project**
 
-## REQUIREMENTS
-### Strong Internet Connection.
-### [Node.JS](https://nodejs.org/en)
-### [Text Editor or IDE](https://code.visualstudio.com/download)
-### [Git](https://git-scm.com/)
+## Requirements
+- Strong Internet Connection
+- Node.js
+- Text Editor or IDE
+- Git
 
-** Steps to Install .
-* 1. enter command [git clone https://github.com/BoraboLM/TranSpeak.git].
-  2. open where the path you installed it and open it with your [Text Editor or IDE].
-  3. Create a [.env] file on the root of the project.
-  4. Access this link for the [.env](https://drive.google.com/file/d/1LBNqoyGXjAwh7RPDwi5k199GF09tMx7V/view?usp=sharing) contents. Please Do Not Share
-  5. Once completed, open terminal and enter command [npm install]
- 
-* To test optimized production build
-  1. enter [npm run build]
-  2. after successful build, enter [npm run start]
-  3. and enjoy exploring the #TranSpeak!
+## Installation Steps
 
-<!-- Account Linking -->
-You might be asking why account with same email address dont linked automatically. --> https://authjs.dev/concepts
+1. **Clone the Repository**
+    ```sh
+    git clone https://github.com/BoraboLM/TranSpeak.git
+    ```
 
-# DATABASE - NEON
-- DATABASE URL: [NEON](https://console.neon.tech/app/projects)
-- Email: borabolm.656.stud@cdd.edu.ph
+2. **Open the Project**
+    - Navigate to the directory where you cloned the repository.
+    - Open the project with your preferred text editor or IDE.
 
-# Prisma commands
-- npx prisma generate: for generating the models
+3. **Create a `.env` File**
+    - Create a `.env` file at the root of the project.
+    - Access the link provided for the `.env` contents. **Please Do Not Share**.
 
-- npx prisma migrate reset: resetting the data in database
+4. **Install Dependencies**
+    ```sh
+    npm install
+    ```
 
-- npx prisma db push: saving database models in the development 
+5. **Test Optimized Production Build**
+    ```sh
+    npm run build
+    npm run start
+    ```
 
-# FOR ENV AND API KEYS CONTENT MESSAGE: LAWRENCE BORABO
+## Database Setup - Neon
 
-# To Run this, Follow the steps.
-1. use this command 'git clone [and the url of this repo]'
-2. Install the dependencies in terminal using: 'npm install'
-3. run the development server: 'npm run dev'
+### Database Information
+- **Database URL**: NEON
+- **Email**: borabolm.656.stud@cdd.edu.ph
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### Prisma Commands
+- Generate models:
+    ```sh
+    npx prisma generate
+    ```
+- Reset the data in the database:
+    ```sh
+    npx prisma migrate reset
+    ```
+- Save database models in development:
+    ```sh
+    npx prisma db push
+    ```
 
+## Development Server
 
+1. **Clone the Repository**
+    ```sh
+    git clone https://github.com/BoraboLM/TranSpeak.git
+    ```
+
+2. **Install Dependencies**
+    ```sh
+    npm install
+    ```
+
+3. **Run the Development Server**
+    ```sh
+    npm run dev
+    ```
+
+This is a Next.js project bootstrapped with Create Next App.
+
+## Additional Information
+- For issues regarding accounts with the same email address not linking automatically, refer to: [Auth.js Concepts](https://authjs.dev/concepts).
+
+For the `.env` and API keys content, please message: Lawrence Borabo.
