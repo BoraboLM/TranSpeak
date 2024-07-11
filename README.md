@@ -23,7 +23,9 @@
     - Create a `.env` file at the root of the project.
     - Access the link provided for the `.env` [click here](https://drive.google.com/file/d/1LBNqoyGXjAwh7RPDwi5k199GF09tMx7V/view?usp=drive_link) contents. **Please Do Not Share**.
 4. **Navigate to `develop` branch
-    - `git switch develop`
+    ```sh
+    git switch develop
+    ```
 
 5. **Install Dependencies**
     ```sh
