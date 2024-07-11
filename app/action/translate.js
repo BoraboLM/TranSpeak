@@ -67,7 +67,8 @@ export const Translate = async (data, textInput) => {
             translation: {
                 user_input: input,
                 translation_text: match.output,
-                target: target
+                target: target,
+                status: 200
             }
         };
     }
@@ -78,6 +79,7 @@ export const Translate = async (data, textInput) => {
     const client = new NLPCloudClient({ model: apiModel, token: apiKey });
 
     let translatedText = '';
+    let status = '';
     await client.translation({
         text: input,
         source: sourceLang,
@@ -87,6 +89,7 @@ export const Translate = async (data, textInput) => {
     })
     .catch(function (err) {
         console.error(err.response.status);
+        status = err.response.status;
     });
 
     await db.translation.create({
@@ -115,7 +118,8 @@ export const Translate = async (data, textInput) => {
         translation: {
             user_input: input,
             translation_text: translatedText,
-            target: target
+            target: target,
+            status: status
         }
     };
 };

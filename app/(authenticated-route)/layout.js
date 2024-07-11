@@ -10,9 +10,11 @@ import LocationModal from "./components/LocationModal";
 import { Suspense } from "react";
 import ScrollToTop from "@/components/Reusable/ScrollToTop";
 import PageLoading from "@/components/Reusable/PageLoading";
+import { SessionRole } from "@/lib/Error-message/admin-route";
 
 export default async function AuthenticatedLayout({ children }) {
     const session = await auth();
+    if (!session) throw new SessionRole();
     return (
         <Suspense fallback={<PageLoading />}>
             <SessionProvider session={session}>

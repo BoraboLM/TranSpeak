@@ -12,7 +12,6 @@ import styles from './Navbar.module.css';
 export function Navbar() {
     const [isSticky, setIsSticky] = useState(false);
     const session = useCurrentUser();
-
     if (!session) throw new SessionRole();
 
     useEffect(() => {
