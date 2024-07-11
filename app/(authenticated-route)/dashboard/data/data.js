@@ -1,4 +1,4 @@
-import { BookA, FolderClock, LayoutDashboard, Users, MapPin, BookAudio  } from 'lucide-react';
+import { BookA, FolderClock, LayoutDashboard, Users, MapPin, BookAudio, Construction    } from 'lucide-react';
 export const data = [
     {   name: 'Dashboard',
         path: '/dashboard',
@@ -14,16 +14,21 @@ export const data = [
         path: '/dashboard/learn',
         icon: <BookA  size={32} className="mr-2"/>,
     },
-    { 
-        name: 'Places',
-        path: '/dashboard/places',
-        icon: <MapPin   size={32} className="mr-2"/>,
-    },
+    // { 
+    //     name: 'Places',
+    //     path: '/dashboard/places',
+    //     icon: <MapPin   size={32} className="mr-2"/>,
+    // },
     {
         name: 'Dictionary',
         path: '/dashboard/dictionary',
         icon: <BookAudio  size={32} className="mr-2"/>,
     },
+    // {
+    //     name: 'Maintenance',
+    //     path: '/dashboard/maintenance',
+    //     icon: <Construction size={32} className="mr-2"/>,
+    // },
     { 
         name: 'System Logs',
         path: '/dashboard/system-log',

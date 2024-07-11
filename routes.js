@@ -73,4 +73,6 @@ export const AdminRoutes = [
     "/dashboard/learn",
     "/dashboard/places",
     "/dashboard/system-log",
+    "/dashboard/dictionary",
+    "/dashboard/maintenance",
 ]

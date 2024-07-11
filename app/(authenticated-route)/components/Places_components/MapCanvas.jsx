@@ -140,7 +140,7 @@ const MapCanvas = () => {
                             ref={GeolocateControlRef}
                         />
                         <ScaleControl maxWidth={200} />
-                        <AttributionControl customAttribution="This map is from Mapbox and will be used for Capstone Project only" />
+                        <AttributionControl customAttribution="This map is from Mapbox and used for Capstone Project only" />
                     </ReactMapGl>
                 </div>
             ) : (
