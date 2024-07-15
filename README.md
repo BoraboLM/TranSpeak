@@ -4,7 +4,7 @@
 
 ## Requirements
 - Strong Internet Connection
-- Node.js
+- Node.js version 18.12.0 or higher.
 - Text Editor or IDE
 - Git
 
@@ -47,7 +47,7 @@
 
 ##
 
-#IGNORE IF YOU ARE NOT THE DEVELOPER
+# IGNORE IF YOU ARE NOT THE DEVELOPER
 
 ### Prisma Commands
 - Generate models:
