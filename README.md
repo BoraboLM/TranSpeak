@@ -39,11 +39,15 @@
     ```
 ##
 
-## Database Setup - Neon
+## IF YOU DON'T WANT PRODUCTION BUILD
+ 1. **USE THIS COMMAND ON THE TERMINAL
+    ```SH
+    npm run dev
+    ```
 
-### Database Information
-- **Database URL**: NEON
-- **Email**: borabolm.656.stud@cdd.edu.ph
+##
+
+#IGNORE IF YOU ARE NOT THE DEVELOPER
 
 ### Prisma Commands
 - Generate models:
@@ -57,23 +61,6 @@
 - Save database models in development:
     ```sh
     npx prisma db push
-    ```
-
-## Development Server
-
-1. **Clone the Repository**
-    ```sh
-    git clone https://github.com/BoraboLM/TranSpeak.git
-    ```
-
-2. **Install Dependencies**
-    ```sh
-    npm install
-    ```
-
-3. **Run the Development Server**
-    ```sh
-    npm run dev
     ```
 
 This is a Next.js project bootstrapped with Create Next App.
