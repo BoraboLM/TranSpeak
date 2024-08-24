@@ -10,6 +10,10 @@ import { SessionRole } from "@/lib/Error-message/admin-route";
 import styles from './Navbar.module.css';
 
 export function Navbar() {
+    console.log("%cNote:", "font-size: 50px; color: blue; font-weight: bold;");
+    console.log("%cThis is a Capstone Project developed by Lawrence", "font-size: 16px; color: gray;");
+    console.log("%cSee https://www.facebook.com/borabo.lawrence for more information.", "font-size: 16px; color: blue; text-decoration: underline;");
+
     const [isSticky, setIsSticky] = useState(false);
     const session = useCurrentUser();
     if (!session) throw new SessionRole();
