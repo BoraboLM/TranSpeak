@@ -9,6 +9,7 @@ import { Analytics } from '@vercel/analytics/react';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
+    manifest: '/manifest.json',
     title: {
         default: siteConfig.name,
         template: `%s - ${siteConfig.name}`,
