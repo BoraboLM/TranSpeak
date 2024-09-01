@@ -1,57 +1,71 @@
-<!-- Account Linking -->
-You might be asking why account with same email address dont linked automatically. --> https://authjs.dev/concepts
+# TranSpeak: Voice and Text Conversion for Tourists
 
-# DATABASE - NEON
-- DATABASE URL: [NEON](https://console.neon.tech/app/projects)
-- Email: borabolm.656.stud@cdd.edu.ph
+**Note: This is a Capstone Project**
 
-# Prisma commands
-- npx prisma generate: for generating the models
+## Requirements
+- Strong Internet Connection
+- Node.js version 18.12.0 or higher.
+- Text Editor or IDE
+- Git
 
-- npx prisma migrate reset: resetting the data in database
+## Installation Steps
 
-- npx prisma db push: saving database models in the development 
+1. **Clone the Repository**
+    ```sh
+    git clone https://github.com/BoraboLM/TranSpeak.git
+    ```
 
-# FOR ENV AND API KEYS CONTENT MESSAGE: LAWRENCE BORABO
+2. **Open the Project**
+    - Navigate to the directory where you cloned the repository.
+    - Open the project with your preferred text editor or IDE.
 
-# To Run this, Follow the steps.
-1. use this command 'git clone [and the url of this repo]'
-2. Install the dependencies in terminal using: 'npm install'
-3. run the development server: 'npm run dev'
+3. **Create a `.env` File**
+    - Create a `.env` file at the root of the project.
+    - Access the link provided for the `.env` [click here](https://drive.google.com/file/d/1IOSyTdZwYQteAd1CYGiM11gijtJDVKX1/view?usp=sharing) contents. **Please Do Not Share**.
+4. **Navigate to `develop` branch**
+    ```sh
+    git switch develop
+    ```
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+5. **Install Dependencies**
+    ```sh
+    npm install
+    ```
 
-## Getting Started
+6. **Test Optimized Production Build**
+    ```sh
+    npm run build
+    npm run start
+    ```
+##
 
-First, run the development server:
+## IF YOU DON'T WANT PRODUCTION BUILD
+ 1. **USE THIS COMMAND ON THE TERMINAL**
+    ```SH
+    npm run dev
+    ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+##
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# IGNORE IF YOU ARE NOT THE DEVELOPER
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Prisma Commands
+- Generate models:
+    ```sh
+    npx prisma generate
+    ```
+- Reset the data in the database:
+    ```sh
+    npx prisma migrate reset
+    ```
+- Save database models in development:
+    ```sh
+    npx prisma db push
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This is a Next.js project bootstrapped with Create Next App.
 
-## Learn More
+## Additional Information
+- For issues regarding accounts with the same email address not linking automatically, refer to: [Auth.js Concepts](https://authjs.dev/concepts).
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+For the `.env` and API keys content, please message: Lawrence Borabo.
